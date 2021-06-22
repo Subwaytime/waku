@@ -26,6 +26,10 @@ instance.use(VueMountable);
 ```
 ## Getting Started
 
+Vue Mountable is a tiny DOM Library for Vue 3.
+It utilises internal Vue 3 features, such as `inject/provide` and `teleport` to mount Vue Components to the Dom.
+`Slotting`, `Teleport`, `Props`, `Events` and multiple `children Components` are supported.
+
 ```html
 // main.vue
 
@@ -89,6 +93,10 @@ export default {
 ```
 
 ## Examples
+Tiny List of what you can do with Mountable:
+
+- [Notifications](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/utils/useNotify.js)
+- [Modal](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/utils/useModal.js)
 
 ## Configuration
 
@@ -140,6 +148,7 @@ destroy(
 ## Limitations
 
 At the Moment the `useComponent` Function is only available in the `setup` Lifecycle. This is due to the usage of `inject/provide` from Vue 3.
+Also there is no Devtools Support, but its in the works! That means added Components wont be visible in Devtools for now..
 
 ## Roadmap
 - Devtools Support
