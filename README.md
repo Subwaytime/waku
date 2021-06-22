@@ -26,12 +26,13 @@ instance.use(VueMountable);
 ```
 ## Getting Started
 
-```js
+```html
 // main.vue
+
+<script>
 import { useComponent } from 'vue-mountable';
 import test from 'components/test.vue';
 
-<script>
 export default {
 	setup() {
 		const { mount, destroy } = useComponent();
@@ -51,7 +52,7 @@ export default {
 }
 </script>
 ```
-```js
+```html
 // test.vue
 <template>
 	<div ref="test">
