@@ -3,6 +3,8 @@
 		<h1>
 			{{ message }}
 		</h1>
+		<slot name="body"></slot>
+		<slot name="footer"></slot>
 		<button @click.prevent="close">
 			<svg
 				width="32"

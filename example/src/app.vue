@@ -25,6 +25,8 @@
 import { useNotify } from '@utils/useNotify';
 import snackbar from '@components/snackbar.vue';
 import modal from '@components/modal.vue';
+import modalBody from '@components/modalBody.vue';
+import modalFooter from '@components/modalFooter.vue';
 import { useComponent } from '../../src';
 
 export default {
@@ -45,7 +47,22 @@ export default {
 		}
 
 		function addModal() {
-			mount(modal, { props: {message: 'Hello World!'}});
+			mount(modal, {
+				children: [
+					{
+						component: modalBody,
+						slot: 'body'
+					},
+					{
+						component: modalFooter,
+						slot: 'footer'
+					}
+				],
+				props: {
+					message: 'Hello World!'
+					}
+				}
+			);
 		}
 
 		return {
