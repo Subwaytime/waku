@@ -1,0 +1,28 @@
+{
+	"name": "@vue-mountable/example",
+	"description": "Example: Alias auto generation for Vite",
+	"version": "0.1.0",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"private": true,
+	"license": "MIT",
+	"author": "Subwaytime <leon.l@nophase.de>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/subwaytime/vue-mountable"
+	},
+	"homepage": "https://github.com/subwaytime/vue-mountable#readme",
+	"bugs": "https://github.com/subwaytime/vue-mountable/issues",
+	"scripts": {
+		"update:packages": "npm update --save-dev && npm update --save",
+		"dev": "vite",
+		"build": "vite build"
+	},
+	"dependencies": {
+		"@vitejs/plugin-vue": "^1.1.4",
+		"@vue/compiler-sfc": "^3.0.5",
+		"vite": "^2.3.8",
+		"vue": "^3.0.5"
+	}
+}
