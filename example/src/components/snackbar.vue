@@ -1,12 +1,14 @@
 <template>
 	<div ref="snackbar" class="snackbar">
+		<span>
+			{{ message }} {{ counted }}
+		</span>
 		<button
-			class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 			@click.prevent="close"
 		>
-			<span class="sr-only">Close</span>
 			<svg
-				class="h-5 w-5"
+				width="20"
+				height="20"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 20 20"
 				fill="currentColor"
@@ -33,6 +35,7 @@ export default {
 			type: String,
 			required: true,
 		},
+		counted: Number,
 		position: {
 			type: String,
 			default: 'top-right',
@@ -59,11 +62,35 @@ export default {
 
 <style lang="css">
 .snackbar {
+	display: inline-flex;
 	align-items: center;
+	justify-content: space-around;
+	animation-duration: .15s;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	border-radius: 4px;
+	pointer-events: auto;
+	background: #363636;
+	color: #fff;
+	max-width: 350px;
+	margin-left: auto;
+	width: 100%;
+}
+
+.snackbar > span {
+	flex: 1 0 auto;
+	padding: 1rem;
+	text-align: left;
+}
+
+.snackbar > button {
+	appearance: none;
+	align-items: center;
+	background: transparent;
+	border: 0 none;
+	cursor: pointer;
+	color: #FAFAFA;
 	display: flex;
-	justify-content: space-between;
-	position: absolute;
-	top: 40px;
-	right: 40px;
+	margin-left: auto;
+	padding: 1rem;
 }
 </style>

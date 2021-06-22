@@ -1,31 +1,56 @@
 <template>
 	<div class="wrapper">
-		<button @click.prevent="addSnackbar('This is fun!')">
-			Add Snackbar
-		</button>
+		<div>
+			<p>
+				The Snackbar Button will add a tiny Snackbar on the top right!
+				<br />
+				It will also teleport the Snackbar directly into <code style="background: #ff6b6b; padding: 0.25rem;">.notifications</code>
+			</p>
+			<button @click.prevent="addSnackbar('This is fun!')">
+				Add Snackbar
+			</button>
+		</div>
+		<div>
+			<p>
+				The Modal Button on the other hand will mount a Modal without teleporting it.
+			</p>
+			<button @click.prevent="addModal">
+				Add Modal
+			</button>
+		</div>
 	</div>
 </template>
 
 <script>
 import { useNotify } from '@utils/useNotify';
 import snackbar from '@components/snackbar.vue';
+import modal from '@components/modal.vue';
+import { useComponent } from '../../src';
 
 export default {
 	name: 'app',
 	setup() {
+		const { mount } = useComponent();
 		const { addNotification } = useNotify();
+		let counter = 0;
 
 		function addSnackbar(message) {
 			addNotification({
-					component: snackbar,
-					props: {
-						message: message,
-					},
+				component: snackbar,
+				props: {
+					counted: counter++,
+					message: message,
+				},
 			});
 		}
 
+		function addModal() {
+			mount(modal, { props: {message: 'Hello World!'}});
+		}
+
 		return {
-			addSnackbar
+			addSnackbar,
+			addModal
 		}
 	}
 }
@@ -48,7 +73,9 @@ export default {
 	}
 
 	p {
-		margin: 0.5rem 0;
+		margin: 0;
+		padding: 0 1em 1em;
+		text-align: justify;
 	}
 
 	.wrapper {
@@ -59,17 +86,28 @@ export default {
 		display: flex;
 		flex-flow: column wrap;
 		height: 24rem;
-		justify-content: center;
+		justify-content: space-between;
 		margin: 0 auto;
 		padding: 1.5rem;
 		width: 24rem;
 	}
 
-	.colored {
-		color: #151515;
-		border-radius: 1rem;
-		padding: 0.75em;
-		margin-top: 0.5rem;
-		text-align: center;
+	.wrapper > div {
+		align-items: center;
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: center;
+		padding: 1rem;
+		flex: 1 1 auto;
+	}
+
+	.wrapper button {
+		appearance: none;
+		background: #151515;
+		border-radius: 0.25rem;
+		padding: 1rem 1.5rem;
+		color: #FAFAFA;
+		cursor: pointer;
+		border: 0 none;
 	}
 </style>
