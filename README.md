@@ -152,6 +152,7 @@ Also there is no Devtools Support, but its in the works! That means added Compon
 
 ## Roadmap
 - Devtools Support
+- Remove Teleported Vue 3 Message from DOM (can get messy after multiple usage)
 
 Let me know if there are other Features that would work well with this Library!
 
