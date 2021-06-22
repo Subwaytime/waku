@@ -23,6 +23,7 @@
 		"@vitejs/plugin-vue": "^1.1.4",
 		"@vue/compiler-sfc": "^3.0.5",
 		"vite": "^2.3.8",
+		"vite-aliases": "^0.8.2",
 		"vue": "^3.0.5"
 	}
 }
