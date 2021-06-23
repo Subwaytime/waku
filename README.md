@@ -22,7 +22,7 @@ Add it to `main.js`
 import { VueMountable } from 'vue-mountable'
 
 // created vue instance
-instance.use(VueMountable);
+app.use(VueMountable);
 ```
 ## Getting Started
 
@@ -111,28 +111,28 @@ mount(
 	component,
 	{
 		/**
-		 * Vue Props
+		 * Native Vue Props
 		 */
 
-		props: {
-			/**
-			 * Teleportation Target
-			 * Can be defined in the loaded component or here
-			 * Note: As a component prop it will override the option here
-			 */
-			target : ''
-		},
+		props: {},
 
 		/**
 		 * Vue Children Components
-		 * can be defined the same as another mount call would
+		 * Array with Vue Components or Object array with Mount Options: component, children, props, target, slot
+		 * @props {}
+		 * @children []
+		 * @target string
+		 * @slot string
 		 */
 		children: [],
 
 		/**
-		 * Vue Slot Mechanic
+		 * Teleportation Target
+		 * Can be defined in the loaded component or here
+		 * Note: If the component has a target prop, it will override this option
+		 * String referencing an DOM Target
 		 */
-		slot: 'default'
+		target : ''
 	}
 );
 
@@ -152,7 +152,8 @@ Also there is no Devtools Support, but its in the works! That means added Compon
 
 ## Roadmap
 - Devtools Support
-- Remove Teleported Vue 3 Message from DOM (can get messy after multiple usage)
+- Allow usage of `resolveComponent` and `resolveDynamicComponent` as well as `defineComponent` and `defineAsyncComponent`
+- Remove teleported DOM Message after destroying an Element (it just gets messy after multiple mounting usages)
 
 Let me know if there are other Features that would work well with this Library!
 
