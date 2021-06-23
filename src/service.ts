@@ -11,7 +11,8 @@ let MountableServiceSymbol: Symbol = Symbol(),
 	instance: any;
 
 /**
- *
+ * Will inject Mount and Destroy into `setup`
+ * const { mount, destroy } = useComponent()
  * @returns
  */
 
@@ -40,7 +41,7 @@ function mount(component: Component, { props, children, target }: MountOptions) 
 	container = document.createDocumentFragment();
 
 	if (component.props && component.props.target) {
-		target = component.props.target.default;
+		target = (component.props.target instanceof String ? component.props.target : component.props.target.default);
 	}
 
 	const defaultProps = {
