@@ -96,7 +96,7 @@ export default {
 Tiny List of what you can do with Mountable:
 
 - [Notifications](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/utils/useNotify.js)
-- [Modal](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/utils/useModal.js)
+- [Modal](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/app.vue)
 
 ## Configuration
 
