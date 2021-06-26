@@ -27,6 +27,7 @@ import snackbar from '@components/snackbar.vue';
 import modal from '@components/modal.vue';
 import modalBody from '@components/modalBody.vue';
 import modalFooter from '@components/modalFooter.vue';
+import modalTest from '@components/modalTest.vue';
 import { useComponent } from '../../src';
 
 export default {
@@ -49,14 +50,9 @@ export default {
 		function addModal() {
 			mount(modal, {
 				children: [
-					{
-						component: modalBody,
-						slot: 'body'
-					},
-					{
-						component: modalFooter,
-						slot: 'footer'
-					}
+					modalTest,
+					{component: modalBody, slot: 'body'},
+					{component: modalFooter, slot: 'footer'}
 				],
 				props: {
 					message: 'Hello World!'

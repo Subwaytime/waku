@@ -5,6 +5,7 @@
 		</h1>
 		<slot name="body"></slot>
 		<slot name="footer"></slot>
+		<slot></slot>
 		<button @click.prevent="close">
 			<svg
 				width="32"
