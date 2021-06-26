@@ -14,4 +14,13 @@ export interface ChildComponent {
 	slot?: string;
 }
 
+/* Imported from vue runtime-core */
+
+export type RawSlots = {
+	[name: string]: unknown;
+	$stable?: boolean;
+	/* Excluded from this release type: _ctx */
+	/* Excluded from this release type: _ */
+};
+
 export type Component = ReturnType<typeof defineComponent>;
