@@ -150,13 +150,6 @@ destroy(
 At the Moment the `useComponent` Function is only available in the `setup` Lifecycle. This is due to the usage of `inject/provide` from Vue 3.
 Also there is no Devtools Support, but its in the works! That means added Components wont be visible in Devtools for now..
 
-## Roadmap
-- Devtools Support
-- Allow usage of `resolveComponent` and `resolveDynamicComponent` as well as `defineComponent` and `defineAsyncComponent`
-- Remove teleported DOM Message after destroying an Element (it just gets messy after multiple mounting usages)
-
-Let me know if there are other Features that would work well with this Library!
-
 ## License
 
 MIT License © 2020-2021 [Leon Langer](https://github.com/subwaytime)
