@@ -1,9 +1,9 @@
 import { h, inject, mergeProps, render, Teleport } from 'vue';
-import { isPlainObject, toArray } from './utils';
+import { empty, isVueComponent, toArray } from './utils';
 import { MODULE_NAME } from './constant';
 
 import type { App, RendererElement, VNode } from 'vue';
-import type { Component, MountOptions, } from './types';
+import type { Component, RawSlots, MountOptions } from './types';
 
 let MountableServiceSymbol: Symbol = Symbol(),
 	container: RendererElement,
@@ -33,7 +33,7 @@ export function useComponent() {
  * @param param1
  */
 
-function mount(component: Component, { props, children, target }: MountOptions) {
+function mount(component: Component, { props, children, target = '' }: MountOptions) {
 	if (!component.name) {
 		throw new Error('Component Name is not defined.');
 	}
@@ -48,38 +48,47 @@ function mount(component: Component, { props, children, target }: MountOptions) 
 		programmatic: {
 			type: Boolean,
 			default: true,
-		},
-		teleported: {
-			target,
-			state: !!target,
-		},
+		}
 	};
 
-	let vnode = null;
+	let vnode: VNode;
 	const data = mergeProps(defaultProps, props);
 	component.inheritAttrs = false;
 
-	const childComponents = toArray(children).reduce((a: any, b: any) => {
-		if (isPlainObject(b)) {
-			if(!b.slot) {
-				b.slot = 'default';
+	const childComponents: RawSlots = toArray(children).reduce((result:any, child:any) => {
+		if(isVueComponent(child)) {
+			child.component = {};
+			for (const key of Object.keys(child)) {
+				child.component[key] = child[key];
+				if(key != 'component') {
+					delete child[key];
+				}
 			}
+		}
 
+		if(!child.slot) {
+			child.slot = 'default';
+		}
+
+		if(result[child.slot]) {
 			return {
-				...a,
-				[b['slot']]: () => h(b.component, b.props),
-			};
+				...result,
+				[child['slot']]: () => [result[child.slot](), h(child.component, child.props)]
+			}
 		} else {
 			return {
-				...a,
-				default: () => {
-					return h(b);
-				},
+				...result,
+				[child['slot']]: () => h(child.component, child.props)
 			};
 		}
+
 	}, {});
 
-	vnode = h(component, data, childComponents);
+	if(!empty(childComponents)) {
+		vnode = h(component, data, childComponents);
+	} else {
+		vnode = h(component, data);
+	}
 
 	// set current instance
 	vnode.appContext = instance._context;
@@ -87,7 +96,7 @@ function mount(component: Component, { props, children, target }: MountOptions) 
 	// save the vnode before teleportation
 	node = vnode;
 
-	if (target != null) {
+	if (!empty(target)) {
 		const teleporter = h(Teleport as any, { to: target });
 		vnode = h(teleporter, vnode);
 	}
