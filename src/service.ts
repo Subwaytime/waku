@@ -6,8 +6,6 @@ import type { App, RendererElement, VNode } from 'vue';
 import type { Component, RawSlots, MountOptions } from './types';
 
 let MountableServiceSymbol: Symbol = Symbol(),
-	container: RendererElement,
-	node: VNode,
 	instance: any;
 
 /**
@@ -38,7 +36,7 @@ function mount(component: Component, { props, children, target = '' }: MountOpti
 		throw new Error('Component Name is not defined.');
 	}
 
-	container = document.createDocumentFragment();
+	const container: RendererElement = document.createDocumentFragment();
 
 	if (component.props && component.props.target) {
 		target = (component.props.target instanceof String ? component.props.target : component.props.target.default);
@@ -94,7 +92,7 @@ function mount(component: Component, { props, children, target = '' }: MountOpti
 	vnode.appContext = instance._context;
 
 	// save the vnode before teleportation
-	node = vnode;
+	const node: VNode = vnode;
 
 	if (!empty(target)) {
 		const teleporter = h(Teleport as any, { to: target });
@@ -117,6 +115,7 @@ function destroy(element: HTMLElement) {
 	} else {
 		element.parentNode && element.parentNode.removeChild(element);
 	}
+
 	render(null, element);
 }
 
