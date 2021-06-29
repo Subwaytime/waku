@@ -1,7 +1,7 @@
 import type { Component } from './types';
 
 /**
- *
+ * Check if Value is a Plain Object
  * @param {*} v
  */
 
@@ -10,7 +10,7 @@ export function isPlainObject(v: any) {
 }
 
 /**
- *
+ * Check if Value is a Vue Component
  * @param v
  */
 
@@ -19,9 +19,11 @@ export function isVueComponent(v: Component) {
 }
 
 /**
- *
+ * Check if Value is Empty
+ * supports: Array, Object, String
  * @param value
  */
+
 
 export function empty(value: any) {
 	if (value === null || value === undefined || value === '{}' || value === '') {
