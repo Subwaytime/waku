@@ -1,131 +1,132 @@
-import { h, inject, mergeProps, render, Teleport } from 'vue';
+import { h, inject, mergeProps, render, Teleport, } from 'vue';
 import { empty, isVueComponent, toArray } from './utils';
-import { MODULE_NAME } from './constant';
+import { MODULE_NAME } from './constants';
 
 import type { App, RendererElement, VNode } from 'vue';
 import type { Component, RawSlots, MountOptions } from './types';
 
-let MountableServiceSymbol: Symbol = Symbol(),
-	instance: any;
+let MountableServiceSymbol: Symbol = Symbol();
 
 /**
- * Will inject Mount and Destroy into `setup`
- * const { mount, destroy } = useComponent()
- * @returns
+ *	Will inject Mount and Destroy into `setup`
+ * @returns Symbol
  */
 
 export function useComponent() {
 	const service = inject(MountableServiceSymbol);
 
-	if(!service) {
+	if (!service) {
 		throw new Error(`[${MODULE_NAME}]: No Mountable Service provided!`);
 	}
 
 	return service;
 }
 
-/**
- * Mount a Component to the current Vue or Component Instance
- * Can hold Props, Children Components and a teleportation Target
- * @param component
- * @param param1
- */
+export function VueMountable() {
+	let instance: App;
 
-function mount(component: Component, { props, children, target = '' }: MountOptions) {
-	if (!component.name) {
-		throw new Error('Component Name is not defined.');
-	}
+	/**
+	 * Mount a Component to the current Vue or Component Instance
+	 * Can hold Props, Children Components and a teleportation Target
+	 * @param component
+	 * @param props
+	 * @param children
+	 * @param target
+	 */
 
-	const container: RendererElement = document.createDocumentFragment();
-
-	if (component.props && component.props.target) {
-		target = (component.props.target instanceof String ? component.props.target : component.props.target.default);
-	}
-
-	const defaultProps = {
-		programmatic: {
-			type: Boolean,
-			default: true,
+	function mount(component: Component, { props, children, target = '' }: MountOptions) {
+		if (!component.name) {
+			throw new Error('Component Name is not defined.');
 		}
-	};
 
-	let vnode: VNode;
-	const data = mergeProps(defaultProps, props);
-	component.inheritAttrs = false;
+		const container: RendererElement = document.createDocumentFragment();
 
-	const childComponents: RawSlots = toArray(children).reduce((result:any, child:any) => {
-		if(isVueComponent(child)) {
-			child.component = {};
-			for (const key of Object.keys(child)) {
-				child.component[key] = child[key];
-				if(key != 'component') {
-					delete child[key];
+		if (component.props && component.props.target) {
+			target = component.props.target instanceof String ? component.props.target : component.props.target.default;
+		}
+
+		const defaultProps = {
+			programmatic: {
+				type: Boolean,
+				default: true,
+			},
+		};
+
+		let vnode: VNode;
+		const data = mergeProps(defaultProps, props);
+		component.inheritAttrs = false;
+
+		const childComponents: RawSlots = toArray(children).reduce((result: any, child: any) => {
+			if (isVueComponent(child)) {
+				child.component = {};
+				for (const key of Object.keys(child)) {
+					child.component[key] = child[key];
+					if (key != 'component') {
+						delete child[key];
+					}
 				}
 			}
-		}
 
-		if(!child.slot) {
-			child.slot = 'default';
-		}
-
-		if(result[child.slot]) {
-			return {
-				...result,
-				[child['slot']]: () => [result[child.slot](), h(child.component, child.props)]
+			if (!child.slot) {
+				child.slot = 'default';
 			}
+
+			if (result[child.slot]) {
+				return {
+					...result,
+					[child['slot']]: () => [result[child.slot](), h(child.component, child.props)],
+				};
+			} else {
+				return {
+					...result,
+					[child['slot']]: () => h(child.component, child.props),
+				};
+			}
+		}, {});
+
+		if (!empty(childComponents)) {
+			vnode = h(component, data, childComponents);
 		} else {
-			return {
-				...result,
-				[child['slot']]: () => h(child.component, child.props)
-			};
+			vnode = h(component, data);
 		}
 
-	}, {});
+		// set current instance
+		vnode.appContext = instance._context;
 
-	if(!empty(childComponents)) {
-		vnode = h(component, data, childComponents);
-	} else {
-		vnode = h(component, data);
+		// save the vnode before teleportation
+		const node: VNode = vnode;
+
+		if (!empty(target)) {
+			const teleporter = h(Teleport as any, { to: target });
+			vnode = h(teleporter, vnode);
+		}
+
+		render(vnode, container as Element);
+		instance._container.appendChild(container);
+		return node;
 	}
 
-	// set current instance
-	vnode.appContext = instance._context;
+	/**
+	 * Remove an Element from DOM
+	 * @param element
+	 */
 
-	// save the vnode before teleportation
-	const node: VNode = vnode;
+	function destroy(element: HTMLElement) {
+		if (typeof element.remove !== 'undefined') {
+			element.remove();
+		} else {
+			element.parentNode && element.parentNode.removeChild(element);
+		}
 
-	if (!empty(target)) {
-		const teleporter = h(Teleport as any, { to: target });
-		vnode = h(teleporter, vnode);
+		render(null, element);
 	}
 
-	render(vnode, container as Element);
-	instance._container.appendChild(container);
-	return node;
+	return {
+		install(app: App) {
+			instance = app;
+			const mountable = { mount, destroy, id: app._uid };
+			app.config.globalProperties.$useComponent = mountable;
+			app.provide(MountableServiceSymbol, mountable);
+		},
+	};
 }
-
-/**
- * Remove an Element from DOM
- * @param element
- */
-
-function destroy(element: HTMLElement) {
-	if (typeof element.remove !== 'undefined') {
-		element.remove();
-	} else {
-		element.parentNode && element.parentNode.removeChild(element);
-	}
-
-	render(null, element);
-}
-
-export const VueMountable = {
-	mount,
-	destroy,
-	install(app: App) {
-		instance = app;
-		const mountable = this;
-		app.config.globalProperties.$useComponent = mountable;
-		app.provide(MountableServiceSymbol, mountable);
-	}
-};
