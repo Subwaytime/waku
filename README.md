@@ -29,6 +29,7 @@ app.use(VueMountable());
 Vue Mountable is a tiny DOM Library for Vue 3.
 It utilises internal Vue 3 features, such as `inject/provide` and `teleport` to mount Vue Components to the Dom.
 `Slotting`, `Teleport`, `Props`, `Events` and multiple `children Components` are supported. HMR on `vite` is also working fine!
+Multiple Vue Instances are now also supported!
 
 ```html
 // main.vue
@@ -103,6 +104,12 @@ Tiny List of what you can do with Mountable:
 Current available Function Parameters:
 
 ```ts
+const {
+	mount, // mount function
+	destroy, // destroy function
+	id // current app instance id
+} = useComponent();
+
 mount(
 	/**
 	 * Vue Component File
