@@ -22,7 +22,7 @@ Add it to `main.js`
 import { VueMountable } from 'vue-mountable'
 
 // created vue instance
-app.use(VueMountable);
+app.use(VueMountable());
 ```
 ## Getting Started
 
