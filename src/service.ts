@@ -1,5 +1,5 @@
 import { h, inject, mergeProps, render, Teleport, } from 'vue';
-import { empty, isVueComponent, toArray } from './utils';
+import { empty, removeComments, isVueComponent, toArray } from './utils';
 import { MODULE_NAME } from './constants';
 
 import type { App, RendererElement, VNode } from 'vue';
@@ -117,6 +117,9 @@ export function VueMountable() {
 		} else {
 			element.parentNode && element.parentNode.removeChild(element);
 		}
+
+		// TODO: Check for performance Impact
+		removeComments(instance._container);
 
 		render(null, element);
 	}

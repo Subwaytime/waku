@@ -19,6 +19,40 @@ export function isVueComponent(v: Component) {
 }
 
 /**
+ * Check if Value is a DOM Comment
+ * @param v
+ * @returns
+ */
+
+export function isComment(v: HTMLElement) {
+	return (
+		v.nodeType === Node.COMMENT_NODE ||
+		v.nodeName === '#comment' ||
+		v.nodeValue === 'teleport start' ||
+		v.nodeValue === 'teleport end'
+	);
+}
+
+/**
+ * Remove Teleportation DOM Comments
+ * @param value
+ * @returns
+ */
+
+export function removeComments(element: HTMLElement) {
+	if(!element.hasChildNodes()) { return; }
+
+	const children = [].slice.call(element.childNodes).filter(el => isComment(el));
+
+	children.forEach((el: any, index: number) => {
+		if(index <= 1 && el.nodeType === Node.COMMENT_NODE) {
+			delete children[el];
+			element.removeChild(el);
+		}
+	});
+}
+
+/**
  * Check if Value is Empty
  * supports: Array, Object, String
  * @param value
