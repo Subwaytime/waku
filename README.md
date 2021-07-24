@@ -1,12 +1,32 @@
 <h2 align="left">Vue Mountable</h2>
 
-<p align="left">Vue 3 Component DOM Mounting</p>
+<p align="left">
+Vue Mountable is a tiny DOM Library for Vue 3.
+</p>
 
 <p align="left">
 <a href="https://www.npmjs.com/package/vue-mountable">
 <img src="https://img.shields.io/npm/v/vue-mountable?color=222&style=flat-square">
 </a>
 </p>
+
+## Features
+
+• Native Vue 3 Teleport
+<br />
+• Slotting, Events & Props
+<br />
+• use `inject` and `provide`
+<br />
+• Mount multiple Children Components
+<br />
+• Mount HTML Tag's
+<br />
+• Support for `defineComponent` and `defineAsyncComponent`
+<br />
+• Support for multiple Vue Instances
+<br />
+• Hot-Module Reloading for `vite`
 
 ## Usage
 
@@ -25,11 +45,6 @@ import { VueMountable } from 'vue-mountable'
 app.use(VueMountable());
 ```
 ## Getting Started
-
-Vue Mountable is a tiny DOM Library for Vue 3.
-It utilises internal Vue 3 features, such as `inject/provide` and `teleport` to mount Vue Components to the Dom.
-`Slotting`, `Teleport`, `Props`, `Events` and multiple `children Components` are supported. HMR on `vite` is also working fine!
-Multiple Vue Instances are now also supported!
 
 ```html
 // main.vue
