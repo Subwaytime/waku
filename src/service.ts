@@ -43,7 +43,7 @@ export function VueMountable() {
 			component = defineComponent({
 				name: `mounted-${element}`,
 				render() {
-					return h(element, this.$slots.default());
+					return h(element, null, this.$slots.default?.());
 				}
 			});
 		}
