@@ -12,6 +12,14 @@
 		</div>
 		<div>
 			<p>
+				The Tag Button will just add a HTML Tag to the DOM.
+			</p>
+			<button @click.prevent="addTag('h3')">
+				Add Tag
+			</button>
+		</div>
+		<div>
+			<p>
 				The Modal Button on the other hand will mount a Modal without teleporting it.
 			</p>
 			<button @click.prevent="addModal">
@@ -26,6 +34,7 @@ import { useNotify } from '@utils/useNotify';
 import snackbar from '@components/snackbar.vue';
 import modal from '@components/modal.vue';
 import modalBody from '@components/modalBody.vue';
+import tagBody from '@components/tagBody.vue';
 import modalFooter from '@components/modalFooter.vue';
 import modalTest from '@components/modalTest.vue';
 import { useComponent } from '../../src';
@@ -47,6 +56,12 @@ export default {
 			});
 		}
 
+		function addTag(tag) {
+			mount(tag, {
+				children: tagBody
+			});
+		}
+
 		function addModal() {
 			mount(modal, {
 				children: [
@@ -56,14 +71,14 @@ export default {
 				],
 				props: {
 					message: 'Hello World!'
-					}
 				}
-			);
+			});
 		}
 
 		return {
+			addModal,
 			addSnackbar,
-			addModal
+			addTag
 		}
 	}
 }
@@ -98,7 +113,6 @@ export default {
 		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 		display: flex;
 		flex-flow: column wrap;
-		height: 24rem;
 		justify-content: space-between;
 		margin: 0 auto;
 		padding: 1.5rem;
@@ -122,5 +136,12 @@ export default {
 		color: #FAFAFA;
 		cursor: pointer;
 		border: 0 none;
+	}
+
+	h3 {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
 	}
 </style>
