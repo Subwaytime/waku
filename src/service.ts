@@ -1,9 +1,9 @@
-import { h, inject, mergeProps, render, Teleport, } from 'vue';
-import { empty, removeComments, isVueComponent, toArray } from './utils';
-import { MODULE_NAME } from './constants';
+import { App, RendererElement, VNode, defineComponent } from 'vue';
+import type { Component, MountOptions, RawSlots } from './types';
+import { Teleport, h, inject, mergeProps, render, } from 'vue';
+import { empty, isVueComponent, removeComments, toArray } from './utils';
 
-import type { App, RendererElement, VNode } from 'vue';
-import type { Component, RawSlots, MountOptions } from './types';
+import { MODULE_NAME } from './constants';
 
 let MountableServiceSymbol: Symbol = Symbol();
 
@@ -34,7 +34,23 @@ export function VueMountable() {
 	 * @param target
 	 */
 
-	function mount(component: Component, { props, children, target = '' }: MountOptions) {
+	function mount(element: Component | String, options: MountOptions = { props: {}, children: [], target: '' }) {
+		let { props, children, target } = options;
+
+		let component: Component;
+
+		if(typeof element === 'string') {
+			component = defineComponent({
+				name: `mounted-${element}`,
+				render() {
+					return h(element, this.$slots.default());
+				}
+			});
+		}
+		else {
+			component = element as Component;
+		}
+
 		if (!component.name) {
 			throw new Error('Component Name is not defined.');
 		}
@@ -57,6 +73,10 @@ export function VueMountable() {
 		component.inheritAttrs = false;
 
 		const childComponents: RawSlots = toArray(children).reduce((result: any, child: any) => {
+			if(typeof child === 'string') {
+				throw new Error(`String Elements are not supported as properties.`);
+			}
+
 			if (isVueComponent(child)) {
 				child.component = {};
 				for (const key of Object.keys(child)) {
