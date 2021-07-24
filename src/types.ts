@@ -1,10 +1,9 @@
-import { defineComponent, VNodeProps } from 'vue';
+import { VNodeProps, defineComponent } from 'vue';
 
 export interface MountOptions {
-	component: Component;
-	children?: ChildComponent[]
+	children: ChildComponent[];
 	props: VNodeProps;
-	target?: string;
+	target: string;
 };
 
 export interface ChildComponent {
