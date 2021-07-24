@@ -58,7 +58,6 @@ export function removeComments(element: HTMLElement) {
  * @param value
  */
 
-
 export function empty(value: any) {
 	if (value === null || value === undefined || value === '{}' || value === '') {
 		return true;
