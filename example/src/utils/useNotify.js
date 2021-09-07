@@ -1,8 +1,7 @@
 import notification from '@components/notification.vue';
-import { ref } from 'vue';
 import { useComponent } from '../../../src/index';
 
-const notifications = ref([]);
+let notifications = [];
 
 export function useNotify() {
 	const { mount, destroy } = useComponent();
@@ -10,16 +9,14 @@ export function useNotify() {
 		const note = mount(notification, {
 			children: components,
 		});
-		notifications.value.push(note);
+		notifications.push(note);
 	}
 
 	function removeNotification(element = null) {
-		if (notifications.value.length > 0) {
+		if (notifications.length > 0) {
 			if (element) {
+				notifications = notifications.filter((note) => note != element);
 				destroy(element);
-			} else {
-				const last = notifications.value.pop();
-				destroy(last.el.nextSibling || last);
 			}
 		}
 	}
