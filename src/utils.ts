@@ -1,4 +1,5 @@
 import type { Component } from './types';
+import type { VNode } from 'vue';
 
 /**
  * Check if Value is a Plain Object
@@ -19,9 +20,26 @@ export function isVueComponent(v: Component) {
 }
 
 /**
+ * Returns DOM Element from VNode
+ * @param v
+ */
+
+export function getElement(v: VNode): any {
+	if(v.el) {
+		if (v.el.nodeName === '#text') {
+			return v.el.nextSibling;
+		} else if(v.el.nodeName === '#comment' && Array.isArray(v.children) && v.children.length === 1) {
+			return getElement(v.children[0] as VNode);
+		}
+		else {
+			return v.el;
+		}
+	}
+}
+
+/**
  * Check if Value is a DOM Comment
  * @param v
- * @returns
  */
 
 export function isComment(v: HTMLElement) {
@@ -35,8 +53,8 @@ export function isComment(v: HTMLElement) {
 
 /**
  * Remove Teleportation DOM Comments
+ * TODO: Check for performance Impact
  * @param value
- * @returns
  */
 
 export function removeComments(element: HTMLElement) {
