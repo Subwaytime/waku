@@ -1,7 +1,6 @@
-import { App, RendererElement, VNode, defineComponent } from 'vue';
+import { App, Ref, RendererElement, Teleport, VNode, defineComponent, h, inject, mergeProps, ref, render } from 'vue';
 import type { Component, MountOptions, RawSlots } from './types';
-import { Teleport, h, inject, mergeProps, render, } from 'vue';
-import { empty, isVueComponent, removeComments, toArray } from './utils';
+import { empty, getElement, isVueComponent, removeComments, toArray } from './utils';
 
 import { MODULE_NAME } from './constants';
 
@@ -24,6 +23,7 @@ export function useComponent() {
 
 export function VueMountable() {
 	let instance: App;
+	let elements: Ref<RendererElement[]> = ref([]);
 
 	/**
 	 * Mount a Component to the current Vue or Component Instance
@@ -39,15 +39,14 @@ export function VueMountable() {
 
 		let component: Component;
 
-		if(typeof element === 'string') {
+		if (typeof element === 'string') {
 			component = defineComponent({
 				name: `mounted-${element}`,
 				render() {
 					return h(element, null, this.$slots.default?.());
-				}
+				},
 			});
-		}
-		else {
+		} else {
 			component = element as Component;
 		}
 
@@ -73,7 +72,7 @@ export function VueMountable() {
 		component.inheritAttrs = false;
 
 		const childComponents: RawSlots = toArray(children).reduce((result: any, child: any) => {
-			if(typeof child === 'string') {
+			if (typeof child === 'string') {
 				throw new Error(`String Elements are not supported as properties.`);
 			}
 
@@ -113,9 +112,6 @@ export function VueMountable() {
 		// set current instance
 		vnode.appContext = instance._context;
 
-		// save the vnode before teleportation
-		const node: VNode = vnode;
-
 		if (!empty(target)) {
 			const teleporter = h(Teleport as any, { to: target });
 			vnode = h(teleporter, vnode);
@@ -123,7 +119,12 @@ export function VueMountable() {
 
 		render(vnode, container as Element);
 		instance._container.appendChild(container);
-		return node;
+
+		// cache node element for destroy process
+		const nodeElement = getElement(vnode);
+		elements.value.push(nodeElement);
+
+		return nodeElement;
 	}
 
 	/**
@@ -138,16 +139,37 @@ export function VueMountable() {
 			element.parentNode && element.parentNode.removeChild(element);
 		}
 
-		// TODO: Check for performance Impact
-		removeComments(instance._container);
+		if(elements.value.includes(element)) {
+			elements.value = elements.value.filter((el) => el != element);
+		}
 
+		removeComments(instance._container);
 		render(null, element);
+	}
+
+	/**
+	 * Remove all added Elements from DOM
+	 */
+
+	function destroyAll() {
+		elements.value.forEach((element: any) => {
+			if (typeof element.remove !== 'undefined') {
+				element.remove();
+			} else {
+				element.parentNode && element.parentNode.removeChild(element);
+			}
+
+			removeComments(instance._container);
+			render(null, element);
+		});
+
+		elements.value.length = 0;
 	}
 
 	return {
 		install(app: App) {
 			instance = app;
-			const mountable = { mount, destroy, id: app._uid };
+			const mountable = { mount, destroy, destroyAll, id: app._uid };
 			app.config.globalProperties.$useComponent = mountable;
 			app.provide(MountableServiceSymbol, mountable);
 		},
