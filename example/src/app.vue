@@ -26,6 +26,14 @@
 				Add Modal
 			</button>
 		</div>
+		<div>
+			<p>
+				Remove all created Elements
+			</p>
+			<button @click.prevent="destroyAll">
+				Destroy
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -37,12 +45,13 @@ import modalBody from '@components/modalBody.vue';
 import tagBody from '@components/tagBody.vue';
 import modalFooter from '@components/modalFooter.vue';
 import modalTest from '@components/modalTest.vue';
+import notification from '@components/notification.vue';
 import { useComponent } from '../../src';
 
 export default {
 	name: 'app',
 	setup() {
-		const { mount } = useComponent();
+		const { mount, destroyAll } = useComponent();
 		const { addNotification } = useNotify();
 		let counter = 0;
 
@@ -78,7 +87,8 @@ export default {
 		return {
 			addModal,
 			addSnackbar,
-			addTag
+			addTag,
+			destroyAll
 		}
 	}
 }
