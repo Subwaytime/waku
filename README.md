@@ -122,6 +122,7 @@ Current available Function Parameters:
 const {
 	mount, // mount function
 	destroy, // destroy function
+	destroyAll, // destroy all mounted elements
 	id // current app instance id
 } = useComponent();
 
