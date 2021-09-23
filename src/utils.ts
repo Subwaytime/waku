@@ -105,8 +105,6 @@ export function toArray<T>(value: T | T[]): T[] {
 
 /**
  * Simple Info/Warn/Error Consola Instance
- * @param string
- * @param color
  */
 
 export const logger = consola.create({});
