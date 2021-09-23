@@ -1,6 +1,6 @@
 import { App, Ref, RendererElement, Teleport, VNode, defineComponent, h, inject, mergeProps, ref, render } from 'vue';
 import type { Component, MountOptions, RawSlots } from './types';
-import { empty, getElement, isVueComponent, removeComments, toArray } from './utils';
+import { empty, getElement, isVueComponent, logger, removeComments, toArray } from './utils';
 
 import { MODULE_NAME } from './constants';
 
@@ -15,7 +15,7 @@ export function useComponent() {
 	const service = inject(MountableServiceSymbol);
 
 	if (!service) {
-		throw new Error(`[${MODULE_NAME}]: No Mountable Service provided!`);
+		throw logger.error(new Error(`[${MODULE_NAME}]: No Mountable Service provided!`));
 	}
 
 	return service;
@@ -51,7 +51,7 @@ export function VueMountable() {
 		}
 
 		if (!component.name) {
-			throw new Error('Component Name is not defined.');
+			throw logger.error(new Error('Component Name is not defined.'));
 		}
 
 		const container: RendererElement = document.createDocumentFragment();
@@ -73,7 +73,7 @@ export function VueMountable() {
 
 		const childComponents: RawSlots = toArray(children).reduce((result: any, child: any) => {
 			if (typeof child === 'string') {
-				throw new Error(`String Elements are not supported as properties.`);
+				throw logger.error(new Error('String Elements are not supported as properties.'));
 			}
 
 			if (isVueComponent(child)) {

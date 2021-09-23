@@ -1,5 +1,6 @@
 import type { Component } from './types';
 import type { VNode } from 'vue';
+import consola from 'consola';
 
 /**
  * Check if Value is a Plain Object
@@ -101,3 +102,11 @@ export function toArray<T>(value: T | T[]): T[] {
 		return [value];
 	}
 }
+
+/**
+ * Simple Info/Warn/Error Consola Instance
+ * @param string
+ * @param color
+ */
+
+export const logger = consola.create({});
