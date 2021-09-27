@@ -33,7 +33,7 @@ Vue Mountable is a tiny DOM Library for Vue 3.
 Install
 
 ```bash
-npm i vue-mountable -D
+npm i vue-mountable
 ```
 
 Add it to `main.js`
