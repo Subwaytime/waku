@@ -171,6 +171,7 @@ destroy(
 ## Limitations
 
 At the Moment the `useComponent` Function is only available in the `setup` Lifecycle. This is due to the usage of `inject/provide` from Vue 3.
+If you want to use `async setup` make sure to use `mount` before any `await`.
 Also there is no Devtools Support, but its in the works! That means added Components wont be visible in Devtools for now..
 
 ## License
