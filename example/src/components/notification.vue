@@ -4,9 +4,10 @@
 
 <script setup>
 	const props = defineProps({
-	target: {
-		type: String,
-		default: '.notifications',
+		target: {
+			type: String,
+			default: '.notifications',
+		}
 	});
 </script>
 
