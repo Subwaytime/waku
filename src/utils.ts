@@ -1,6 +1,15 @@
-import type { Component } from './types';
-import type { VNode } from 'vue';
 import consola from 'consola';
+import type { VNode } from 'vue';
+import type { Component } from './types';
+
+/**
+ * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
+ * @param string
+ */
+
+export function slash(string: string): string {
+	return string.replace(/\\/g, '/');
+}
 
 /**
  * Check if Value is a Plain Object
@@ -108,3 +117,12 @@ export function toArray<T>(value: T | T[]): T[] {
  */
 
 export const logger = consola.create({});
+
+
+/**
+ *
+ */
+
+export function basename(string: string){
+	return slash(string).substring(string.lastIndexOf('/') + 1).split('.')[0];
+};

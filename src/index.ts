@@ -1,7 +1,7 @@
 import { App, defineComponent, h, inject, mergeProps, Ref, ref, render, RendererElement, Teleport, VNode } from 'vue';
 import { MODULE_NAME } from './constants';
 import type { Component, MountOptions, RawSlots } from './types';
-import { empty, getElement, isVueComponent, logger, removeComments, toArray } from './utils';
+import { basename, empty, getElement, isVueComponent, logger, removeComments, toArray } from './utils';
 
 let MountableServiceSymbol: Symbol = Symbol();
 
@@ -50,7 +50,11 @@ export function VueMountable() {
 		}
 
 		if (!component.name) {
-			throw logger.error(new Error('Component Name is not defined.'));
+			const name = basename(component.__file);
+
+			if(!name) {
+				throw logger.error(new Error('Component Name is not defined.'));
+			}
 		}
 
 		const container: RendererElement = document.createDocumentFragment();
