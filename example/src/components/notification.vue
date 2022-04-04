@@ -2,16 +2,12 @@
 	<slot></slot>
 </template>
 
-<script>
-export default {
-	name: 'notifications',
-	props: {
-		target: {
-			type: String,
-			default: '.notifications',
-		},
-	},
-};
+<script setup>
+	const props = defineProps({
+	target: {
+		type: String,
+		default: '.notifications',
+	});
 </script>
 
 <style lang="css">

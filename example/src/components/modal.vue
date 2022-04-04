@@ -25,30 +25,20 @@
 	</div>
 </template>
 
-<script>
-import { ref } from 'vue';
-import { useComponent } from '../../../src';
+<script setup>
+import { useComponent } from '../../../dist/index.mjs';
 
-export default {
-	name: 'modal',
-	props: {
-		message: {
-			type: String
-		}
-	},
-	setup() {
-		const modal = ref(null);
-		const { destroy } = useComponent();
-
-		function close() {
-			destroy(modal.value);
-		}
-
-		return {
-			close,
-			modal
-		}
+const props = defineProps({
+	message: {
+		type: String
 	}
+});
+
+const modal = ref(null);
+const { destroy } = useComponent();
+
+function close() {
+	destroy(modal.value);
 }
 </script>
 

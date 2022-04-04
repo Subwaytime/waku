@@ -1,20 +1,22 @@
+import Vue from '@vitejs/plugin-vue';
+import AutoImport from 'unplugin-auto-import/vite';
+import { defineConfig } from 'vite';
 import { ViteAliases } from 'vite-aliases';
-import vue from '@vitejs/plugin-vue';
 
-const config = {
-	plugins: [
-		vue(),
-		ViteAliases({
-			useConfig: true,
-			useTypescript: true,
-			allowLogging: true,
-			adjustDuplicates: true
-		}),
-	],
+export default defineConfig({
 	server: {
 		port: 8080,
 	},
-	logLevel: 'silent',
-};
-
-export default config;
+	plugins: [
+		Vue({
+			include: [/\.vue$/, /\.md$/],
+		}),
+		AutoImport({
+			include: [/\.vue$/],
+			imports: ['vue'],
+		}),
+		ViteAliases({
+			useConfig: true,
+		}),
+	],
+});

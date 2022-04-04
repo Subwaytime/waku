@@ -24,40 +24,30 @@
 	</div>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
 import { useNotify } from '@utils/useNotify';
 
-export default {
-	name: 'snackbar',
-	props: {
-		message: {
-			type: String,
-			required: true,
-		},
-		counted: Number,
-		position: {
-			type: String,
-			default: 'top-right',
-			validator(value) {
-				return ['bottom', 'bottom-left', 'bottom-right', 'top', 'top-left', 'top-right'].indexOf(value) > -1;
-			},
+const props = defineProps({
+	message: {
+		type: String,
+		required: true,
+	},
+	counted: Number,
+	position: {
+		type: String,
+		default: 'top-right',
+		validator(value) {
+			return ['bottom', 'bottom-left', 'bottom-right', 'top', 'top-left', 'top-right'].indexOf(value) > -1;
 		},
 	},
-	setup() {
-		const snackbar = ref(null);
-		const { removeNotification } = useNotify();
+});
 
-		function close() {
-			removeNotification(snackbar.value);
-		}
+const snackbar = ref(null);
+const { removeNotification } = useNotify();
 
-		return {
-			close,
-			snackbar,
-		};
-	},
-};
+function close() {
+	removeNotification(snackbar.value);
+}
 </script>
 
 <style lang="css">

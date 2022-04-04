@@ -1,7 +1,7 @@
-import App from './app.vue';
 import { createApp } from 'vue';
+import { VueMountable } from '../../dist/index';
+import App from './app.vue';
 
-import { VueMountable } from '../../src/index';
 
 const instance = createApp(App);
 instance.use(VueMountable());

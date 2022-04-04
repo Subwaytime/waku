@@ -1,5 +1,5 @@
 import notification from '@components/notification.vue';
-import { useComponent } from '../../../src/index';
+import { useComponent } from '../../../dist/index.mjs';
 
 let notifications = [];
 

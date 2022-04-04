@@ -37,7 +37,7 @@
 	</div>
 </template>
 
-<script>
+<script setup>
 import { useNotify } from '@utils/useNotify';
 import snackbar from '@components/snackbar.vue';
 import modal from '@components/modal.vue';
@@ -46,51 +46,39 @@ import tagBody from '@components/tagBody.vue';
 import modalFooter from '@components/modalFooter.vue';
 import modalTest from '@components/modalTest.vue';
 import notification from '@components/notification.vue';
-import { useComponent } from '../../src';
+import { useComponent } from '../../dist/index.mjs';
 
-export default {
-	name: 'app',
-	setup() {
-		const { mount, destroyAll } = useComponent();
-		const { addNotification } = useNotify();
-		let counter = 0;
+const { mount, destroyAll } = useComponent();
+const { addNotification } = useNotify();
+let counter = 0;
 
-		function addSnackbar(message) {
-			addNotification({
-				component: snackbar,
-				props: {
-					counted: counter++,
-					message: message,
-				},
-			});
+function addSnackbar(message) {
+	addNotification({
+		component: snackbar,
+		props: {
+			counted: counter++,
+			message: message,
+		},
+	});
+}
+
+function addTag(tag) {
+	mount(tag, {
+		children: tagBody
+	});
+}
+
+function addModal() {
+	mount(modal, {
+		children: [
+			modalTest,
+			{component: modalBody, slot: 'body'},
+			{component: modalFooter, slot: 'footer'}
+		],
+		props: {
+			message: 'Hello World!'
 		}
-
-		function addTag(tag) {
-			mount(tag, {
-				children: tagBody
-			});
-		}
-
-		function addModal() {
-			mount(modal, {
-				children: [
-					modalTest,
-					{component: modalBody, slot: 'body'},
-					{component: modalFooter, slot: 'footer'}
-				],
-				props: {
-					message: 'Hello World!'
-				}
-			});
-		}
-
-		return {
-			addModal,
-			addSnackbar,
-			addTag,
-			destroyAll
-		}
-	}
+	});
 }
 </script>
 
