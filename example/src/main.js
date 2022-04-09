@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { VueMountable } from '../../dist/index';
+import { VueMountable } from '../../dist/index.mjs';
 import App from './app.vue';
 
 

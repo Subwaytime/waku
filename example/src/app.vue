@@ -28,6 +28,14 @@
 		</div>
 		<div>
 			<p>
+				Adds a Toast with random Messages via Props!
+			</p>
+			<button @click.prevent="addOptions">
+				Add Toast
+			</button>
+		</div>
+		<div>
+			<p>
 				Remove all created Elements
 			</p>
 			<button @click.prevent="destroyAll">
@@ -38,14 +46,14 @@
 </template>
 
 <script setup>
-import { useNotify } from '@utils/useNotify';
-import snackbar from '@components/snackbar.vue';
 import modal from '@components/modal.vue';
 import modalBody from '@components/modalBody.vue';
-import tagBody from '@components/tagBody.vue';
 import modalFooter from '@components/modalFooter.vue';
 import modalTest from '@components/modalTest.vue';
-import notification from '@components/notification.vue';
+import snackbar from '@components/snackbar.vue';
+import tagBody from '@components/tagBody.vue';
+import toast from '@components/toast.vue';
+import { useNotify } from '@utils/useNotify';
 import { useComponent } from '../../dist/index.mjs';
 
 const { mount, destroyAll } = useComponent();
@@ -77,6 +85,22 @@ function addModal() {
 		],
 		props: {
 			message: 'Hello World!'
+		}
+	});
+}
+
+function addOptions() {
+	const messages = [
+		'crazy',
+		'mega',
+		'super',
+		'ultra',
+		'nice'
+	];
+
+	mount(toast, {
+		props: {
+			message: messages[Math.floor(Math.random() * messages.length)]
 		}
 	});
 }
