@@ -74,39 +74,39 @@ export function VueMountable() {
 		const data = mergeProps(defaultProps, props);
 		component.inheritAttrs = false;
 
-		const childComponents: RawSlots = toArray(children).reduce((result: any, child: any) => {
-			if (typeof child === 'string') {
-				throw logger.error(new Error('String Elements are not supported as properties.'));
-			}
+		if (!empty(children)) {
+			const childComponents: RawSlots = toArray(children).reduce((result: any, child: any) => {
+				if (typeof child === 'string') {
+					throw logger.error(new Error('String Elements are not supported as properties.'));
+				}
 
-			if (isVueComponent(child)) {
-				child.component = {};
-				for (const key of Object.keys(child)) {
-					child.component[key] = child[key];
-					if (key != 'component') {
-						delete child[key];
+				if (isVueComponent(child)) {
+					child.component = {};
+					for (const key of Object.keys(child)) {
+						child.component[key] = child[key];
+						if (key != 'component') {
+							delete child[key];
+						}
 					}
 				}
-			}
 
-			if (!child.slot) {
-				child.slot = 'default';
-			}
+				if (!child.slot) {
+					child.slot = 'default';
+				}
 
-			if (result[child.slot]) {
-				return {
-					...result,
-					[child['slot']]: () => [result[child.slot](), h(child.component, child.props)],
-				};
-			} else {
-				return {
-					...result,
-					[child['slot']]: () => h(child.component, child.props),
-				};
-			}
-		}, {});
+				if (result[child.slot]) {
+					return {
+						...result,
+						[child['slot']]: () => [result[child.slot](), h(child.component, child.props)],
+					};
+				} else {
+					return {
+						...result,
+						[child['slot']]: () => h(child.component, child.props),
+					};
+				}
+			}, {});
 
-		if (!empty(childComponents)) {
 			vnode = h(component, data, childComponents);
 		} else {
 			vnode = h(component, data);
