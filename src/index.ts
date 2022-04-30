@@ -2,7 +2,7 @@ import { App } from 'vue';
 import { MountableServiceSymbol } from './constants';
 import { Service, setActiveService } from './service';
 
-export { destroy } from './destroy';
+export { destroy, destroyAll } from './destroy';
 export { mount } from './mount';
 export { useMountable } from './service';
 

@@ -54,7 +54,7 @@ import snackbar from '@components/snackbar.vue';
 import tagBody from '@components/tagBody.vue';
 import toast from '@components/toast.vue';
 import { useNotify } from '@utils/useNotify';
-import { mount } from '../../dist/index.mjs';
+import { destroyAll, mount } from '../../dist/index.mjs';
 
 const { addNotification } = useNotify();
 let counter = 0;
