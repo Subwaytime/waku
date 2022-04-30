@@ -1,10 +1,9 @@
 import notification from '@components/notification.vue';
-import { useComponent } from '../../../dist/index.mjs';
+import { destroy, mount } from '../../../dist/index.mjs';
 
 let notifications = [];
 
 export function useNotify() {
-	const { mount, destroy } = useComponent();
 	function addNotification(components = []) {
 		const note = mount(notification, {
 			children: components,

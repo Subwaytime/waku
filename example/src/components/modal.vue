@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { useComponent } from '../../../dist/index.mjs';
+import { destroy } from '../../../dist/index.mjs';
 
 const props = defineProps({
 	message: {
@@ -35,7 +35,6 @@ const props = defineProps({
 });
 
 const modal = ref(null);
-const { destroy } = useComponent();
 
 function close() {
 	destroy(modal.value);

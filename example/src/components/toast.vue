@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { useComponent } from '../../../dist/index.mjs';
+import { destroy } from '../../../dist/index.mjs';
 
 const props = defineProps({
 	message: {
@@ -41,7 +41,6 @@ const props = defineProps({
 	}
 });
 
-const { destroy } = useComponent();
 const toast = ref(null);
 
 function close() {
