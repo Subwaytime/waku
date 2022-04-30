@@ -48,6 +48,19 @@ export function getElement(v: VNode): any {
 }
 
 /**
+ * Removes HTML Element from DOM
+ * @param element
+ */
+
+export function removeElement(element: HTMLElement) {
+    if (typeof element.remove !== 'undefined') {
+        element.remove();
+    } else {
+        element.parentNode && element.parentNode.removeChild(element);
+    }
+}
+
+/**
  * Check if Value is a DOM Comment
  * @param v
  */
@@ -63,7 +76,6 @@ export function isComment(v: HTMLElement) {
 
 /**
  * Remove Teleportation DOM Comments
- * TODO: Check for performance Impact
  * @param value
  */
 
@@ -118,9 +130,9 @@ export function toArray<T>(value: T | T[]): T[] {
 
 export const logger = consola.create({});
 
-
 /**
- *
+ * Returns basename from component file
+ * @param string
  */
 
 export function basename(string: string){
