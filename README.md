@@ -178,4 +178,4 @@ Devtool support is currently in testing! That means added Components wont be vis
 
 ## License
 
-MIT License © 2020-2022 [Leon Langer](https://github.com/subwaytime)
+MIT License © 2020-PRESENT [Leon Langer](https://github.com/subwaytime)
