@@ -45,15 +45,15 @@
 	</div>
 </template>
 
-<script setup>
-import modal from '@components/modal.vue';
-import modalBody from '@components/modalBody.vue';
-import modalFooter from '@components/modalFooter.vue';
-import modalTest from '@components/modalTest.vue';
-import snackbar from '@components/snackbar.vue';
-import tagBody from '@components/tagBody.vue';
-import toast from '@components/toast.vue';
-import { useNotify } from '@utils/useNotify';
+<script setup lang="ts">
+import modal from '~components/modal.vue';
+import modalBody from '~components/modalBody.vue';
+import modalFooter from '~components/modalFooter.vue';
+import modalTest from '~components/modalTest.vue';
+import snackbar from '~components/snackbar.vue';
+import tagBody from '~components/tagBody.vue';
+import toast from '~components/toast.vue';
+import { useNotify } from '~utils/useNotify';
 import { destroyAll, mount } from '../../dist/index.mjs';
 
 const { addNotification } = useNotify();
@@ -71,21 +71,16 @@ function addSnackbar(message) {
 
 function addTag(tag) {
 	mount(tag, {
-		children: tagBody
+		slots: tagBody
 	});
 }
 
 function addModal() {
 	mount(modal, {
-		children: [
-			modalTest,
-			{component: modalBody, slot: 'body'},
-			{component: modalFooter, slot: 'footer'}
-		],
-		props: {
-			message: 'Hello World!'
-		}
-	});
+    props: {
+      message: 'test'
+    }
+  });
 }
 
 function addOptions() {

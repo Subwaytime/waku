@@ -25,14 +25,12 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { destroy } from '../../../dist/index.mjs';
 
-const props = defineProps({
-	message: {
-		type: String
-	}
-});
+defineProps<{
+  message: string
+}>();
 
 const modal = ref(null);
 

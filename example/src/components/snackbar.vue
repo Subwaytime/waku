@@ -24,9 +24,8 @@
 	</div>
 </template>
 
-<script setup>
-import { useNotify } from '@utils/useNotify';
-
+<script setup lang="ts">
+import { useNotify } from '~utils/useNotify';
 const props = defineProps({
 	message: {
 		type: String,
@@ -48,6 +47,7 @@ const { removeNotification } = useNotify();
 function close() {
 	removeNotification(snackbar.value);
 }
+
 </script>
 
 <style lang="css">

@@ -1,14 +1,21 @@
 <template>
-	<slot></slot>
+  <slot />
 </template>
 
-<script setup>
-	const props = defineProps({
-		target: {
-			type: String,
-			default: '.notifications',
-		}
-	});
+<script setup lang="ts">
+defineProps({
+  target: {
+    type: String,
+    default: '.notifications',
+  }
+});
+
+const emits = defineEmits(['submit']);
+
+function submit() {
+  console.log('click');
+  emits('submit');
+}
 </script>
 
 <style lang="css">
@@ -25,5 +32,9 @@
 	z-index: 1000;
 	pointer-events: none;
 	gap: 1em;
+}
+
+.sub {
+  pointer-events: all;
 }
 </style>

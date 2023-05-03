@@ -8,7 +8,7 @@
 	"private": true,
 	"license": "MIT",
 	"author": "Subwaytime <leon.l@nophase.de>",
-    "type": "module",
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/subwaytime/vue-mountable"
@@ -21,11 +21,12 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@vitejs/plugin-vue": "^4.0.0",
-		"@vue/compiler-sfc": "^3.2.45",
-		"unplugin-auto-import": "^0.12.1",
-		"vite": "^4.0.4",
-		"vite-aliases": "^0.10.0",
-		"vue": "^3.2.45"
+		"@vitejs/plugin-vue": "^4.2.0",
+		"@vue/compiler-sfc": "^3.2.47",
+		"typescript": "^5.0.4",
+		"unplugin-auto-import": "^0.15.3",
+		"vite": "^4.3.2",
+		"vite-aliases": "^0.11.0",
+		"vue": "^3.2.47"
 	}
 }

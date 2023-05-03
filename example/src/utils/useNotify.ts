@@ -1,14 +1,19 @@
-import notification from '@components/notification.vue';
+import notification from '~components/notification.vue';
 import { destroy, mount } from '../../../dist/index.mjs';
 
 let notifications = [];
 
 export function useNotify() {
-	function addNotification(components = []) {
-		const note = mount(notification, {
-			children: components,
+	function addNotification(components: any | any[] = []) {
+		const { element } = mount(notification, {
+			slots: components,
+      emits: {
+        onSubmit() {
+          console.log('FUCK HELL YA');
+        }
+      }
 		});
-		notifications.push(note);
+		notifications.push(element);
 	}
 
 	function removeNotification(element = null) {

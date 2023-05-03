@@ -17,6 +17,7 @@ export default defineConfig({
 		}),
 		ViteAliases({
 			useConfig: true,
+      prefix: '~'
 		}),
 	],
 });
