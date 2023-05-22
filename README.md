@@ -52,25 +52,17 @@ app.use(VueMountable());
 ```html
 // main.vue
 
-<script>
+<script setup>
 	import { mount, destroy } from 'vue-mountable';
 	import test from 'components/test.vue';
 
-	export default {
-		setup() {
-			function addTest() {
-				mount(test, {
-					props: {
-						message: 'This is a Test Component',
-					},
-				});
+	function addTest() {
+		mount(test, {
+			props: {
+				message: 'This is a Test Component!'	
 			}
-
-			return {
-				addTest,
-			};
-		},
-	};
+		});
+	}
 </script>
 ```
 
@@ -84,26 +76,20 @@ app.use(VueMountable());
 	</div>
 </template>
 
-<script>
+<script setup>
 	import { destroy } from 'vue-mountable';
 
-	export default {
-		name: 'test', // this needs to be defined
-		props: {
-			message: String,
-		},
-		setup() {
-			const test = ref(null); // template ref
-
-			function close() {
-				destroy(test.value);
-			}
-
-			return {
-				close,
-			};
-		},
-	};
+	defineProps({
+		message: {
+			type: String
+		}
+	});
+	
+	const test = ref(null);
+	
+	function close() {
+		destroy(test.value);
+	}
 </script>
 ```
 
@@ -127,13 +113,13 @@ import {
 	mount, // mount function
 	destroy, // destroy function
 	destroyAll, // destroy all mounted elements
-  useMountable // contains vue instance and elements
+	useMountable // contains vue instance and elements
 } from 'vue-mountable';
 
 mount(
 	/**
-	 * Vue Component File
-	 */
+	* Vue Component File
+	*/
 	component,
 	{
 		/**
