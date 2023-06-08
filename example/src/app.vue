@@ -3,7 +3,7 @@
 		<div>
 			<p>
 				The Snackbar Button will add a tiny Snackbar on the top right!
-				<br />
+				<br>
 				It will also teleport the Snackbar directly into <code style="background: #ff6b6b; padding: 0.25rem;">.notifications</code>
 			</p>
 			<button @click.prevent="addSnackbar('This is fun!')">
@@ -15,7 +15,7 @@
 				The Tag Button will just add a HTML Tag to the DOM.
 			</p>
 			<button @click.prevent="addTag('h3')">
-				Add Tag
+				Add H3 Tag
 			</button>
 		</div>
 		<div>
@@ -38,49 +38,66 @@
 			<p>
 				Remove all created Elements
 			</p>
-			<button @click.prevent="destroyAll">
-				Destroy
+			<button @click.prevent="dismountAll">
+				Dismount All
 			</button>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import modal from '~components/modal.vue';
-import modalBody from '~components/modalBody.vue';
-import modalFooter from '~components/modalFooter.vue';
-import modalTest from '~components/modalTest.vue';
+import { dismountAll, mount } from '../../dist/index';
+import modal from '~components/modal/index.vue';
+import modalTest from '~components/modal/test.vue';
+import modalBody from '~components/modal/body.vue';
+import modalFooter from '~components/modal/footer.vue';
 import snackbar from '~components/snackbar.vue';
 import tagBody from '~components/tagBody.vue';
 import toast from '~components/toast.vue';
-import { useNotify } from '~utils/useNotify';
-import { destroyAll, mount } from '../../dist/index.mjs';
+import notification from '~components/notification.vue';
 
-const { addNotification } = useNotify();
 let counter = 0;
 
 function addSnackbar(message) {
-	addNotification({
-		component: snackbar,
-		props: {
-			counted: counter++,
-			message: message,
-		},
+	mount(notification, {
+		children: [
+			{
+				component: snackbar,
+				props: {
+					counted: counter++,
+					message
+				}
+			}
+		]
 	});
 }
 
-function addTag(tag) {
+function addTag(tag: string) {
 	mount(tag, {
-		slots: tagBody
+		children: tagBody
 	});
 }
 
 function addModal() {
-	mount(modal, {
-    props: {
-      message: 'test'
-    }
-  });
+	const { hide } = mount(modal, {
+		children: [
+			modalTest,
+			{
+				component: modalBody,
+				slot: 'body',
+				props: {
+					ok: 'hmm'
+				}
+			},
+			{
+				component: modalFooter,
+				slot: 'footer'
+			}
+		],
+		props: {
+			message: 'test'
+		}
+	});
 }
 
 function addOptions() {
@@ -91,6 +108,8 @@ function addOptions() {
 		'ultra',
 		'nice'
 	];
+
+	h(toast);
 
 	mount(toast, {
 		props: {

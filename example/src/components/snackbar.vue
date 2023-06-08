@@ -1,5 +1,8 @@
 <template>
-	<div ref="snackbar" class="snackbar">
+	<div class="snackbar">
+		<span>
+			{{ mountedId }}
+		</span>
 		<span>
 			{{ message }} {{ counted }}
 		</span>
@@ -25,29 +28,23 @@
 </template>
 
 <script setup lang="ts">
-import { useNotify } from '~utils/useNotify';
 const props = defineProps({
+	id: String,
 	message: {
 		type: String,
-		required: true,
+		required: true
 	},
 	counted: Number,
 	position: {
 		type: String,
 		default: 'top-right',
 		validator(value) {
-			return ['bottom', 'bottom-left', 'bottom-right', 'top', 'top-left', 'top-right'].indexOf(value) > -1;
-		},
-	},
+			return ['bottom', 'bottom-left', 'bottom-right', 'top', 'top-left', 'top-right'].includes(value);
+		}
+	}
 });
 
-const snackbar = ref(null);
-const { removeNotification } = useNotify();
-
-function close() {
-	removeNotification(snackbar.value);
-}
-
+function close() {}
 </script>
 
 <style lang="css">

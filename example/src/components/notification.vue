@@ -1,21 +1,15 @@
 <template>
-  <slot />
+	<slot />
 </template>
 
 <script setup lang="ts">
-defineProps({
-  target: {
-    type: String,
-    default: '.notifications',
-  }
+const props = defineProps({
+	mountedId: String,
+	target: {
+		type: String,
+		default: '.notifications'
+	}
 });
-
-const emits = defineEmits(['submit']);
-
-function submit() {
-  console.log('click');
-  emits('submit');
-}
 </script>
 
 <style lang="css">

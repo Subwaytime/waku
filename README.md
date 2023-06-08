@@ -28,7 +28,7 @@ Vue Mountable is a tiny DOM Library for Vue 3.
 <br />
 • Hot-Module Reloading for `vite`
 <br />
-• can be used outside of `setup` lifecycle
+• can be used outside of `setup` lifecycl
 
 ## Usage
 
@@ -49,7 +49,8 @@ app.use(VueMountable());
 
 ## Getting Started
 
-```html
+<pre>
+```js
 // main.vue
 
 <script setup>
@@ -65,8 +66,9 @@ app.use(VueMountable());
 	}
 </script>
 ```
+</pre>
 
-```html
+```vue
 // test.vue
 <template>
 	<div ref="test">
@@ -126,7 +128,7 @@ mount(
 		 * Native Vue Props
 		 */
 
-		props: {},
+    props: {},
 
 		/**
 		 * Vue Children Components
@@ -136,7 +138,7 @@ mount(
 		 * @target string
 		 * @slot string
 		 */
-		children: [],
+		slots: [],
 
 		/**
 		 * Teleportation Target

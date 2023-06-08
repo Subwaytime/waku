@@ -1,5 +1,5 @@
 <template>
-	<div ref="toast" class="toast">
+	<div class="toast">
 		<span>
 			i am a random message prop
 			<span style="color: #CC0000;">
@@ -27,24 +27,16 @@
 	</div>
 </template>
 
-<script setup>
-import { destroy } from '../../../dist/index.mjs';
+<script setup lang="ts">
+const { target = '.notifications' } = defineProps<{
+	message: string
+	target: string
+}>();
 
-const props = defineProps({
-	message: {
-		type: String,
-		required: true
-	},
-	target: {
-		type: String,
-		default: '.notifications'
-	}
-});
-
-const toast = ref(null);
+const emit = defineEmits(['dismount']);
 
 function close() {
-	destroy(toast.value);
+	emit('dismount');
 }
 </script>
 

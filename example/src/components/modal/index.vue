@@ -1,11 +1,11 @@
 <template>
-	<div class="modal" ref="modal">
+	<div ref="modal" class="modal">
 		<h1>
 			{{ message }}
 		</h1>
-		<slot name="body"></slot>
-		<slot name="footer"></slot>
-		<slot></slot>
+		<slot name="body" />
+		<slot name="footer" />
+		<slot />
 		<button @click.prevent="close">
 			<svg
 				width="32"
@@ -26,16 +26,15 @@
 </template>
 
 <script setup lang="ts">
-import { destroy } from '../../../dist/index.mjs';
-
-defineProps<{
-  message: string
+const { mountedId } = defineProps<{
+	mountedId: string
+	message: string
 }>();
 
-const modal = ref(null);
+const emit = defineEmits(['dismount']);
 
 function close() {
-	destroy(modal.value);
+	emit('dismount');
 }
 </script>
 

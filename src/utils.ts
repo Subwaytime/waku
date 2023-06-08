@@ -1,6 +1,8 @@
 import consola from 'consola';
-import type { VNode } from 'vue';
-import type { Component } from './types';
+import type { VNode, VNodeProps } from 'vue';
+import { h, mergeProps } from 'vue';
+import type { Options, Props } from '~/types';
+import { MODULE_NAME } from '~/constants';
 
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
@@ -17,6 +19,7 @@ export function slash(string: string): string {
  */
 
 export function isPlainObject(v: any) {
+	/* eslint no-proto: off */
 	return !!v && typeof v === 'object' && (v.__proto__ === null || v.__proto__ === Object.prototype);
 }
 
@@ -25,8 +28,18 @@ export function isPlainObject(v: any) {
  * @param v
  */
 
-export function isVueComponent(v: Component) {
+export function isVueComponent(v: any) {
 	return isPlainObject(v) && v.render && v.__file && v.__hmrId;
+}
+
+/**
+ *
+ * @param vnode
+ * @param node
+ * @param options
+ */
+export function wrapVNode(vnode: VNode, node: Parameters<typeof h>[0], options: any) {
+	return h(h(node, options), vnode);
 }
 
 /**
@@ -35,10 +48,11 @@ export function isVueComponent(v: Component) {
  */
 
 export function getElement(v: VNode): any {
-	if(v.el) {
+	if (v.el) {
 		if (v.el.nodeName === '#text') {
 			return v.el.nextSibling;
-		} else if(v.el.nodeName === '#comment' && Array.isArray(v.children) && v.children.length === 1) {
+		}
+		else if (v.el.nodeName === '#comment' && Array.isArray(v.children) && v.children.length === 1) {
 			return getElement(v.children[0] as VNode);
 		}
 		else {
@@ -53,11 +67,12 @@ export function getElement(v: VNode): any {
  */
 
 export function removeElement(element: HTMLElement) {
-    if (typeof element.remove !== 'undefined') {
-        element.remove();
-    } else {
-        element.parentNode && element.parentNode.removeChild(element);
-    }
+	if (typeof element.remove !== 'undefined') {
+		element.remove();
+	}
+	else {
+		element.parentNode && element.parentNode.removeChild(element);
+	}
 }
 
 /**
@@ -67,10 +82,10 @@ export function removeElement(element: HTMLElement) {
 
 export function isComment(v: HTMLElement) {
 	return (
-		v.nodeType === Node.COMMENT_NODE ||
-		v.nodeName === '#comment' ||
-		v.nodeValue === 'teleport start' ||
-		v.nodeValue === 'teleport end'
+		v.nodeType === Node.COMMENT_NODE
+		|| v.nodeName === '#comment'
+		|| v.nodeValue === 'teleport start'
+		|| v.nodeValue === 'teleport end'
 	);
 }
 
@@ -80,12 +95,14 @@ export function isComment(v: HTMLElement) {
  */
 
 export function removeComments(element: HTMLElement) {
-	if(!element.hasChildNodes()) { return; }
+	if (!element.hasChildNodes()) {
+		return;
+	}
 
 	const children = [].slice.call(element.childNodes).filter(el => isComment(el));
 
 	children.forEach((el: any, index: number) => {
-		if(index <= 1 && el.nodeType === Node.COMMENT_NODE) {
+		if (index <= 1 && el.nodeType === Node.COMMENT_NODE) {
 			delete children[el];
 			element.removeChild(el);
 		}
@@ -117,9 +134,10 @@ export function empty(value: any) {
  */
 
 export function toArray<T>(value: T | T[]): T[] {
-	if(Array.isArray(value)) {
+	if (Array.isArray(value)) {
 		return value;
-	} else {
+	}
+	else {
 		return [value];
 	}
 }
@@ -128,13 +146,58 @@ export function toArray<T>(value: T | T[]): T[] {
  * Simple Info/Warn/Error Consola Instance
  */
 
-export const logger = consola.create({});
+export const logger = consola.create({ defaults: { message: `[${MODULE_NAME}] -` } });
+export function abort(message: any) {
+	throw logger.error(new Error(message));
+}
 
 /**
  * Returns basename from component file
  * @param string
  */
 
-export function basename(string: string){
+export function basename(string: string) {
 	return slash(string).substring(string.lastIndexOf('/') + 1).split('.')[0];
-};
+}
+
+/**
+ *
+ * @param slottedComponents
+ */
+
+export function slotify<T>(slottedComponents: Options<T> | Options<T>[]) {
+	return toArray(slottedComponents).reduce((result: any, item: Options<T>) => {
+		if (typeof item === 'string') {
+			throw logger.error(new Error('String Elements are not supported as properties.'));
+		}
+
+		if (isVueComponent(item)) {
+			item.component = {} as any;
+			for (const key of Object.keys(item)) {
+				item.component[key] = item[key];
+				if (key !== 'component') {
+					delete item[key];
+				}
+			}
+		}
+
+		if (!item.slot) {
+			item.slot = 'default';
+		}
+
+		const data = mergeProps(item.props as VNodeProps, item.emits) as Props<T>;
+
+		if (result[item.slot]) {
+			return {
+				...result,
+				[item.slot]: () => [result[item.slot as string](), h(item.component, data, item.children ? slotify(item.children) : null)]
+			};
+		}
+		else {
+			return {
+				...result,
+				[item.slot]: () => h(item.component, data, item.children ? slotify(item.children) : null)
+			};
+		}
+	}, {});
+}

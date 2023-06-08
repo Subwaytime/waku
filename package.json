@@ -1,10 +1,15 @@
 {
 	"name": "vue-mountable",
-	"description": "Vue 3 Component DOM Mounting",
 	"version": "0.0.12",
-	"main": "dist/index.js",
-	"module": "dist/index.mjs",
-	"types": "dist/index.d.ts",
+	"private": false,
+	"description": "Vue 3 Component DOM Mounting",
+	"author": "Subwaytime <leon.l@nophase.de>",
+	"license": "MIT",
+	"homepage": "https://github.com/subwaytime/vue-mountable#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/subwaytime/vue-mountable"
+	},
 	"exports": {
 		".": {
 			"require": "./dist/index.js",
@@ -12,18 +17,10 @@
 			"types": "./dist/index.d.ts"
 		}
 	},
-	"private": false,
-	"license": "MIT",
-	"author": "Subwaytime <leon.l@nophase.de>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/subwaytime/vue-mountable"
-	},
-	"homepage": "https://github.com/subwaytime/vue-mountable#readme",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
 	"bugs": "https://github.com/subwaytime/vue-mountable/issues",
-	"files": [
-		"dist"
-	],
 	"keywords": [
 		"vite",
 		"vue",
@@ -32,22 +29,30 @@
 		"mount",
 		"components"
 	],
-	"scripts": {
-		"dev": "npm run build -- --watch",
-		"build": "tsup src/index.ts --dts --format cjs,esm --clean",
-		"release": "npx git-ensure -a && npx bumpp --commit --tag --push && npm publish",
-		"prepublishOnly": "npm run build"
-	},
-	"devDependencies": {
-		"tsup": "^6.7.0",
-		"typescript": "^5.0.4"
-	},
-	"dependencies": {
-		"consola": "^3.1.0",
-		"vue": "^3.2.47"
-	},
+	"files": [
+		"dist"
+	],
 	"engines": {
 		"node": ">=16.6.0",
-		"npm": ">=7.0.0"
+		"pnpm": ">=7.0.0"
+	},
+	"scripts": {
+		"dev": "pnpm run build --watch",
+		"build": "tsup src/index.ts --dts --format cjs,esm --clean",
+		"release": "npx git-ensure -a && npx bumpp --commit --tag --push && pnpm publish",
+		"prepublishOnly": "pnpm run build"
+	},
+	"dependencies": {
+		"@vue/devtools-api": "^6.5.0",
+		"@vue/runtime-core": "^3.2.47",
+		"consola": "^3.1.0",
+		"nanoid": "^4.0.2",
+		"type-fest": "^3.11.0",
+		"vue": "^3.2.47"
+	},
+	"devDependencies": {
+		"@subwaytime/eslint-config": "^0.0.9",
+		"tsup": "^6.7.0",
+		"typescript": "^5.0.4"
 	}
 }

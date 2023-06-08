@@ -1,21 +1,30 @@
 {
-    "compilerOptions": {
-        "module": "ESNext",
-        "target": "es2020",
-        "lib": [
-            "ESNext",
-            "DOM"
-        ],
-        "esModuleInterop": true,
-        "strict": true,
-        "strictNullChecks": true,
-        "moduleResolution": "Node",
-        "resolveJsonModule": true,
-        "skipLibCheck": true
-    },
-    "exclude": [
-        "**/dist",
-        "**/node_modules",
-        "**/test"
-    ]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"module": "ESNext",
+		"target": "es2020",
+		"lib": [
+			"ESNext",
+			"DOM"
+		],
+		"esModuleInterop": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"moduleResolution": "Node",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"paths": {
+			"~/*": [
+				"src/*"
+			]
+		}
+	},
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"**/dist",
+		"**/node_modules",
+		"**/test"
+	]
 }
