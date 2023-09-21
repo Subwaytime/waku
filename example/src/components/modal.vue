@@ -1,48 +1,46 @@
 <template>
-	<div class="modal" ref="modal">
-		<h1>
+	<div ref="modal" class="modal">
+    	<h1>
 			{{ message }}
 		</h1>
-		<slot name="body"></slot>
-		<slot name="footer"></slot>
-		<slot></slot>
+		<slot />
+		<slot name="header" @close="close" />
+		<div v-if="testEmit">
+			<button @click.prevent="$emit('example')">
+				<IconPhConfetti />
+			</button>
+		</div>
 		<button @click.prevent="close">
-			<svg
-				width="32"
-				height="32"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-				fill="currentColor"
-				aria-hidden="true"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-					clip-rule="evenodd"
-				/>
-			</svg>
+			<IconPhX />
 		</button>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { destroy } from '../../../dist/index.mjs';
+interface Props {
+  mountedId: string
+  message?: string,
+  testEmit?: boolean
+}
 
-defineProps<{
-  message: string
+const { mountedId, message = 'I am a modal!', testEmit = false } = defineProps<Props>();
+
+const emit = defineEmits<{
+  destroy: [],
+  example: []
 }>();
 
-const modal = ref(null);
-
 function close() {
-	destroy(modal.value);
+	emit('destroy');
 }
+
+console.log(`mountedId: ${mountedId}`, `message: ${message}`);
 </script>
 
 <style lang="css">
 	.modal {
 		align-items: center;
-		position: fixed;
+		/* position: fixed; */
 		display: flex;
 		flex-flow: column;
 		top: 0;
@@ -59,13 +57,19 @@ function close() {
 
 	.modal > button {
 		appearance: none;
-		background: transparent;
+		background: #C1C1C1;
+    border-radius: 100%;
 		border: 0 none;
 		color: #151515;
 		cursor: pointer;
+    display: flex;
 		position: absolute;
-		padding: 2rem;
-		top: 0;
-		right: 0;
+		padding: 0.25rem;
+		top: 1em;
+		right: 1em;
+
+    > svg {
+      font-size: 1.25em;
+    }
 	}
 </style>

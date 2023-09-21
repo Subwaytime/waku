@@ -1,163 +1,196 @@
 <template>
-	<div class="wrapper">
-		<div>
-			<p>
-				The Snackbar Button will add a tiny Snackbar on the top right!
-				<br />
-				It will also teleport the Snackbar directly into <code style="background: #ff6b6b; padding: 0.25rem;">.notifications</code>
-			</p>
-			<button @click.prevent="addSnackbar('This is fun!')">
-				Add Snackbar
-			</button>
-		</div>
-		<div>
-			<p>
-				The Tag Button will just add a HTML Tag to the DOM.
-			</p>
-			<button @click.prevent="addTag('h3')">
-				Add Tag
-			</button>
-		</div>
-		<div>
-			<p>
-				The Modal Button on the other hand will mount a Modal without teleporting it.
-			</p>
-			<button @click.prevent="addModal">
-				Add Modal
-			</button>
-		</div>
-		<div>
-			<p>
-				Adds a Toast with random Messages via Props!
-			</p>
-			<button @click.prevent="addOptions">
-				Add Toast
-			</button>
-		</div>
-		<div>
-			<p>
-				Remove all created Elements
-			</p>
-			<button @click.prevent="destroyAll">
-				Destroy
-			</button>
-		</div>
-	</div>
+  <div class="wrapper">
+    <h1>
+      Vue Mountable
+    </h1>
+    <nav>
+      <ul>
+        <li>
+          <button @click.prevent="addComponent">
+            Mount component
+          </button>
+        </li>
+        <li>
+          <button @click.prevent="addComponentWithProps">
+            Mount component with props
+          </button>
+		  <br />
+		<button @click.prevent="message = 'cool'">
+			Change props
+		  </button>
+        </li>
+        <li>
+          <button @click.prevent="addComponentWithSlots">
+            Mount component with slots
+          </button>
+        </li>
+		<li>
+          <button @click.prevent="addComponentWithEmits">
+            Mount component with emits
+          </button>
+        </li>
+        <li>
+          <button @click.prevent="addComponentAndTeleport">
+            Mount & Teleport component
+          </button>
+        </li>
+        <li>
+          <button @click.prevent="addComponentViaStore">
+            Mount component via pinia/store
+          </button>
+        </li>
+        <li>
+          <button @click.prevent="removeComponent">
+            Unmount component
+          </button>
+        </li>
+        <li>
+          <button @click.prevent="unmountAllComponents">
+            Unmount all components
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
 <script setup lang="ts">
-import modal from '~components/modal.vue';
-import modalBody from '~components/modalBody.vue';
-import modalFooter from '~components/modalFooter.vue';
-import modalTest from '~components/modalTest.vue';
-import snackbar from '~components/snackbar.vue';
-import tagBody from '~components/tagBody.vue';
-import toast from '~components/toast.vue';
-import { useNotify } from '~utils/useNotify';
-import { destroyAll, mount } from '../../dist/index.mjs';
+import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from '../../dist/index.js';
+import Modal from '~components/modal.vue';
+import DefaultSlotComponent from '~components/modal-slots/default.vue';
+import HeaderSlotComponent from '~components/modal-slots/header.vue';
+import { useExampleStore } from './store';
 
-const { addNotification } = useNotify();
-let counter = 0;
+// NOTE: Saving a component to a ref, won't remove it from the DOM if the ref is changed!
+const currentComponent = ref<MountedComponentInstance | null>(null);
+const message = ref('I am a Modal with Props!');
 
-function addSnackbar(message) {
-	addNotification({
-		component: snackbar,
-		props: {
-			counted: counter++,
-			message: message,
-		},
-	});
+const { addComponentViaStore } = useExampleStore();
+
+function addComponent() {
+  currentComponent.value = mountComponent(Modal);
 }
 
-function addTag(tag) {
-	mount(tag, {
-		slots: tagBody
-	});
-}
-
-function addModal() {
-	mount(modal, {
+function addComponentWithProps() {
+  currentComponent.value = mountComponent({
+	component: Modal,
     props: {
-      message: 'test'
-    }
+		// NOTE: Props are also reactive if you use a ref/reactive
+		message
+	}
   });
 }
 
-function addOptions() {
-	const messages = [
-		'crazy',
-		'mega',
-		'super',
-		'ultra',
-		'nice'
-	];
-
-	mount(toast, {
-		props: {
-			message: messages[Math.floor(Math.random() * messages.length)]
+function addComponentWithSlots() {
+  currentComponent.value = mountComponent({
+	component: Modal,
+	slots: [
+		DefaultSlotComponent, // This will always be assigned to the DEFAULT Slot
+		{
+			slotName: 'header',
+			component: HeaderSlotComponent,
+			props: {
+				title: 'I am the header slot!'
+			}
 		}
-	});
+	]
+  });
 }
+
+function addComponentWithEmits() {
+	currentComponent.value = mountComponent({
+		component: Modal,
+		props: {
+			testEmit: true // show the confetti emit button - not needed for emits just for this Example
+		},
+		emits: {
+			onExample() {
+				alert('This works nicely!');
+			}
+		}
+	})
+}
+
+function addComponentAndTeleport() {
+  currentComponent.value = mountComponent({
+	component: Modal,
+	props: {
+		message: 'I am a teleported Modal!'
+	},
+    target: '.notifications'
+  });
+}
+
+function removeComponent() {
+  // OPTION 1 - save the component in a ref and call destroy
+  currentComponent.value?.destroy();
+
+  // OPTION 2 - call unmountComponent seperately and pass over the mounted component id
+  // unmountComponent(ADD_YOUR_COMPONENT_ID);
+}
+
 </script>
 
 <style lang="css">
-	body {
-		font-family: Avenir, Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		align-items: center;
-		background: #e9ecef;
-		display: flex;
-		height: 100vh;
-		justify-content: center;
-		margin: 0;
-		padding: 0;
-		text-align: center;
-		width: 100%;
-	}
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  align-items: center;
+  background: #e9ecef;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
 
-	p {
-		margin: 0;
-		padding: 0 1em 1em;
-		text-align: justify;
-	}
+p {
+  margin: 0;
+  padding: 0 1em 1em;
+  text-align: justify;
+}
 
-	.wrapper {
-		align-items: center;
-		background: #f8f9fa;
-		border-radius: 1rem;
-		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-		display: flex;
-		flex-flow: column wrap;
-		justify-content: space-between;
-		margin: 0 auto;
-		padding: 1.5rem;
-		width: 24rem;
-	}
+.wrapper {
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 1.5rem;
+  width: 24rem;
+}
 
-	.wrapper > div {
-		align-items: center;
-		display: flex;
-		flex-flow: column wrap;
-		justify-content: center;
-		padding: 1rem;
-		flex: 1 1 auto;
-	}
+.wrapper > nav ul {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column wrap;
+  gap: 1em;
+  justify-content: center;
+  list-style: none;
+  padding: 1rem;
+}
 
-	.wrapper button {
-		appearance: none;
-		background: #151515;
-		border-radius: 0.25rem;
-		padding: 1rem 1.5rem;
-		color: #FAFAFA;
-		cursor: pointer;
-		border: 0 none;
-	}
+.wrapper button {
+  appearance: none;
+  background: #151515;
+  border-radius: 0.25rem;
+  padding: 1rem 1.5rem;
+  color: #FAFAFA;
+  cursor: pointer;
+  border: 0 none;
+}
 
-	h3 {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-	}
+h3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
 </style>
