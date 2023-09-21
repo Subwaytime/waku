@@ -12,30 +12,30 @@ Vue Mountable is a tiny DOM Library for Vue 3.
 
 ## Features
 
-• Native Vue 3 Teleport
+• 🤏 Tiny - Only 2.85KB min
 <br />
-• Slotting, Events & Props
+• 💚 Native Vue 3
 <br />
-• use `inject` and `provide`
+• ⚡ Fast & Simple - no config required!
 <br />
-• Mount multiple Children Components
+• 🔥 Hot-Module Reloading for `vite`
 <br />
-• Mount HTML Tag's
+• 🫒 Usable outside of `setup` lifecycle
 <br />
-• Support for `defineComponent` and `defineAsyncComponent`
-<br />
-• Support for multiple Vue Instances
-<br />
-• Hot-Module Reloading for `vite`
-<br />
-• can be used outside of `setup` lifecycle
+• 🌊 Support for `defineComponent`, `defineAsyncComponent`, `h` and more!
 
 ## Usage
 
 Install
 
 ```bash
+bun i vue-mountable
+
+#npm
 npm i vue-mountable
+
+# pnpm
+pnpm i vue-mountable
 ```
 
 Add it to `main.js`
@@ -49,60 +49,14 @@ app.use(VueMountable());
 
 ## Getting Started
 
-```html
-// main.vue
+```ts
+import { mountComponent } from 'vue-mountable';
+import component from 'component.vue';
 
-<script setup>
-	import { mount, destroy } from 'vue-mountable';
-	import test from 'components/test.vue';
-
-	function addTest() {
-		mount(test, {
-			props: {
-				message: 'This is a Test Component!'	
-			}
-		});
-	}
-</script>
+const { id, vnode, container, destroy } = mountComponent(component);
 ```
 
-```html
-// test.vue
-<template>
-	<div ref="test">
-		{{ message }}
-
-		<button @click.prevent="close">Remove Test Component</button>
-	</div>
-</template>
-
-<script setup>
-	import { destroy } from 'vue-mountable';
-
-	defineProps({
-		message: {
-			type: String
-		}
-	});
-	
-	const test = ref(null);
-	
-	function close() {
-		destroy(test.value);
-	}
-</script>
-```
-
-## Examples
-
-Tiny List of what you can easily add with Mountable:
-
--   [Notifications](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/utils/useNotify.js)
--   [Modal](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/components/modal.vue)
--   [Tag](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/components/tagBody.vue)
--   [Snackbar](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/components/snackbar.vue)
-
-Also, checkout the [App Component](https://github.com/Subwaytime/vue-mountable/blob/main/example/src/app.vue) for more Ideas!
+<a href="https://github.com/Subwaytime/vue-mountable/tree/main/example">Checkout Examples</a>
 
 ## Configuration
 
@@ -110,58 +64,54 @@ Current available Function Parameters:
 
 ```ts
 import {
-	mount, // mount function
-	destroy, // destroy function
-	destroyAll, // destroy all mounted elements
-	useMountable // contains vue instance and elements
+	mountComponent, // mount function
+	unmountComponent, // unmount function
+	unmountAllComponents, // unmount all mounted items
+	useMountable // contains vue instance and items
 } from 'vue-mountable';
 
-mount(
-	/**
-	* Vue Component File
-	*/
-	component,
-	{
-		/**
-		 * Native Vue Props
-		 */
+mountComponent({
+  /**
+  * Vue Component File
+  */
+  component,
 
-		props: {},
+  /**
+   * Native Vue Props
+   */
 
-		/**
-		 * Vue Children Components
-		 * Array with Vue Components or Object array with Mount Options: component, children, props, target, slot
-		 * @props {}
-		 * @children []
-		 * @target string
-		 * @slot string
-		 */
-		children: [],
+  props: {},
 
-		/**
-		 * Teleportation Target
-		 * Can be defined in the loaded component or here
-		 * Note: If the component has a target prop, it will override this option
-		 * String referencing an DOM Target
-		 */
-		target: '',
-	},
+  /**
+   * Vue Children Components
+   * Array with Vue Components or Object array with Mount Options: component, children, props, target, slot
+   * @props {}
+   * @children []
+   * @target string
+   * @slot string
+   */
+  slots: [],
+
+  /**
+   * Teleportation Target
+   * Can be defined in the loaded component or here
+   * Note: If the component has a target prop, it will override this option
+   * String referencing an DOM Target
+   */
+  target: '',
+});
+
+unmountComponent(
+  /**
+   * DOM Element
+   */
+
+  element,
 );
 
-destroy(
-	/**
-	 * DOM Element
-	 */
-
-	element,
-);
-
-destroyAll();
+unmountAllComponents();
 ```
-
-## Limitations
-Devtool support is currently in testing! That means added Components wont be visible in Devtools for now..
 
 ## License
 
-MIT License © 2020-PRESENT [Leon Langer](https://github.com/subwaytime)
+MIT License © 2021-PRESENT [Leon Langer](https://github.com/subwaytime)
