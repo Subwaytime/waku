@@ -1,7 +1,7 @@
 import { render } from 'vue';
 import { useMountableService } from '../service';
 import { ServiceItem } from '../types';
-import { empty, logger, removeElement } from '../utils';
+import { empty, removeElement } from '../utils';
 
 export function unmountComponent(id: string): void {
 	const service = useMountableService();

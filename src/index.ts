@@ -7,7 +7,8 @@ export {
 } from './modifiers/mount';
 
 export {
-	unmountComponent, unmountAll
+	unmountComponent,
+  unmountAllComponents
 } from './modifiers/unmount';
 
 export type {
