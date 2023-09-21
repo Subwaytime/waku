@@ -7,8 +7,6 @@ import type { AllowedComponentProps, Component,
   VNodeProps,
  } from 'vue';
 
-export type ID = string;
-
 type InternalProps = keyof VNodeProps | keyof AllowedComponentProps | keyof DefaultProps;
 export type ExtractComponentProps<TComponent> = TComponent extends new () => { $props: infer P } ? P : never;
 type ComponentProps<C extends Component> = C extends new (...args: any) => any
@@ -35,7 +33,7 @@ export interface SlottedComponent {
 }
 
 export interface DefaultProps {
-	mountedId?: ID
+	mountedId?: string
 	isProgrammatic?: boolean
 	onDestroy: () => void
 }
@@ -49,7 +47,7 @@ export interface MountedComponentInstance {
 }
 
 export interface ServiceItem {
-	id: ID
+	id: string
 	container: RendererElement
 	element: HTMLElement | Element
 }

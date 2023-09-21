@@ -2,7 +2,7 @@
 import { type App,
 	getCurrentInstance, inject, reactive } from 'vue';
 import { MODULE_NAME, MountableServiceSymbol } from './constants';
-import type { ID, ServiceItem } from './types';
+import type { ServiceItem } from './types';
 
 /**
  * Active mountable service instance
@@ -76,7 +76,7 @@ export class Service {
    * @param component
    * @param vnode
    */
-	public addItem(id: ID, label: any, el: any, vNode: any): void {
+	public addItem(id: string, label: any, el: any, vNode: any): void {
 		this.items.push({
 			id,
 			label,
@@ -91,7 +91,7 @@ export class Service {
    * Remove Item from Service
    * @param id
    */
-	public removeItem(id: ID) {
+	public removeItem(id: string) {
 		this.items = this.items.filter((item: ServiceItem) => item.id !== id);
 	}
 
@@ -99,7 +99,7 @@ export class Service {
    * Retrieve an existing Item from Service
    * @param id
    */
-	public getItem(id: ID): ServiceItem | void {
+	public getItem(id: string): ServiceItem | void {
 		const item = this.items.find((i: ServiceItem) => i.id === id);
 
 		if (!item) {
