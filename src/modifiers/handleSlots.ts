@@ -16,11 +16,11 @@ export function handleSlots(slottedComponents: SlottedComponent | SlottedCompone
     }
 
     if (isVueComponent(item)) {
-      item.component = {} as any;
-      for (const key of Object.keys(item) as any) {
-        item.component[key] = item[key];
+      (item as any).component = {} as any;
+      for (const key of Object.keys(item as any)) {
+        (item as any).component[key] = (item as any)[key];
         if (key !== 'component') {
-          delete item[key];
+          delete (item as any)[key];
         }
       }
     }
