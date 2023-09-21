@@ -1,12 +1,13 @@
-import consola from 'consola';
 import type { VNode } from 'vue';
-import type { Component } from './types';
+import { customAlphabet } from 'nanoid';
+import { MODULE_NAME } from './constants';
+import { isRef } from 'vue';
+import { unref } from 'vue';
 
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
  * @param string
  */
-
 export function slash(string: string): string {
 	return string.replace(/\\/g, '/');
 }
@@ -15,7 +16,6 @@ export function slash(string: string): string {
  * Check if Value is a Plain Object
  * @param {*} v
  */
-
 export function isPlainObject(v: any) {
 	return !!v && typeof v === 'object' && (v.__proto__ === null || v.__proto__ === Object.prototype);
 }
@@ -24,8 +24,7 @@ export function isPlainObject(v: any) {
  * Check if Value is a Vue Component
  * @param v
  */
-
-export function isVueComponent(v: Component) {
+export function isVueComponent(v: any) {
 	return isPlainObject(v) && v.render && v.__file && v.__hmrId;
 }
 
@@ -34,8 +33,8 @@ export function isVueComponent(v: Component) {
  * @param v
  */
 
-export function getElement(v: VNode): any {
-	if(v.el) {
+export function getElement(v: VNode | null): any {
+	if (v && v.el) {
 		if (v.el.nodeName === '#text') {
 			return v.el.nextSibling;
 		} else if(v.el.nodeName === '#comment' && Array.isArray(v.children) && v.children.length === 1) {
@@ -51,7 +50,6 @@ export function getElement(v: VNode): any {
  * Removes HTML Element from DOM
  * @param element
  */
-
 export function removeElement(element: HTMLElement) {
     if (typeof element.remove !== 'undefined') {
         element.remove();
@@ -64,13 +62,12 @@ export function removeElement(element: HTMLElement) {
  * Check if Value is a DOM Comment
  * @param v
  */
-
 export function isComment(v: HTMLElement) {
 	return (
-		v.nodeType === Node.COMMENT_NODE ||
-		v.nodeName === '#comment' ||
-		v.nodeValue === 'teleport start' ||
-		v.nodeValue === 'teleport end'
+		v.nodeType === Node.COMMENT_NODE
+    || v.nodeName === '#comment'
+    || v.nodeValue === 'teleport start'
+    || v.nodeValue === 'teleport end'
 	);
 }
 
@@ -78,7 +75,6 @@ export function isComment(v: HTMLElement) {
  * Remove Teleportation DOM Comments
  * @param value
  */
-
 export function removeComments(element: HTMLElement) {
 	if(!element.hasChildNodes()) { return; }
 
@@ -97,7 +93,6 @@ export function removeComments(element: HTMLElement) {
  * supports: Array, Object, String
  * @param value
  */
-
 export function empty(value: any) {
 	if (value === null || value === undefined || value === '{}' || value === '') {
 		return true;
@@ -115,7 +110,6 @@ export function empty(value: any) {
  * @param string
  * @param seperator
  */
-
 export function toArray<T>(value: T | T[]): T[] {
 	if(Array.isArray(value)) {
 		return value;
@@ -124,17 +118,35 @@ export function toArray<T>(value: T | T[]): T[] {
 	}
 }
 
-/**
- * Simple Info/Warn/Error Consola Instance
- */
+export function smarfUnref(value: any): any {
+  const newValue = isRef(value) ? unref(value) : value;
 
-export const logger = consola.create({});
+  if(!isPlainObject(newValue)) {
+    return newValue;
+  }
+
+  if(Array.isArray(newValue)) {
+    return newValue.map((v) => smarfUnref(v));
+  }
+
+  let unrefObject: any = {};
+  Object.keys(newValue).forEach((key) => (unrefObject[key] = smarfUnref(newValue[key])));
+  return unrefObject;
+}
 
 /**
  * Returns basename from component file
  * @param string
  */
-
 export function basename(string: string){
 	return slash(string).substring(string.lastIndexOf('/') + 1).split('.')[0];
 };
+
+/**
+ * Generate custom component ID
+ */
+const allowedValues = '1234567890abcdefghijklmnopqrstuvwxyz';
+export function generateID(length = 10) {
+	const nanoid = customAlphabet(allowedValues, length);
+	return nanoid();
+}
