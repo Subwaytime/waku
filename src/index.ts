@@ -1,17 +1,24 @@
-import { App } from 'vue';
+import type { App, Plugin } from 'vue';
+import { Service } from './service';
 import { MountableServiceSymbol } from './constants';
-import { Service, setActiveService } from './service';
 
-export { destroy, destroyAll } from './destroy';
-export { mount } from './mount';
-export { useMountable } from './service';
+export {
+	mountComponent,
+} from './modifiers/mount';
 
-export function VueMountable() {
+export {
+	unmountComponent, unmountAll
+} from './modifiers/unmount';
+
+export type {
+    MountedComponentInstance
+} from './types';
+
+export function VueMountable(): Plugin {
 	const service = new Service();
 	service.install = (app: App) => {
-		service.instance = app;
+		service.__init(app);
 		app.config.globalProperties.$useMountable = service;
-		setActiveService(service);
 		app.provide(MountableServiceSymbol, service);
 	};
 
