@@ -1,53 +1,50 @@
 {
-	"name": "vue-mountable",
-	"description": "Vue 3 Component DOM Mounting",
-	"version": "0.0.12",
-	"main": "dist/index.js",
-	"module": "dist/index.mjs",
-	"types": "dist/index.d.ts",
-	"exports": {
-		".": {
-			"require": "./dist/index.js",
-			"import": "./dist/index.mjs",
-			"types": "./dist/index.d.ts"
-		}
-	},
-	"private": false,
-	"license": "MIT",
-	"author": "Subwaytime <leon.l@nophase.de>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/subwaytime/vue-mountable"
-	},
-	"homepage": "https://github.com/subwaytime/vue-mountable#readme",
-	"bugs": "https://github.com/subwaytime/vue-mountable/issues",
-	"files": [
-		"dist"
-	],
-	"keywords": [
-		"vite",
-		"vue",
-		"vue3",
-		"dom",
-		"mount",
-		"components"
-	],
-	"scripts": {
-		"dev": "npm run build -- --watch",
-		"build": "tsup src/index.ts --dts --format cjs,esm --clean",
-		"release": "npx git-ensure -a && npx bumpp --commit --tag --push && npm publish",
-		"prepublishOnly": "npm run build"
-	},
-	"devDependencies": {
-		"tsup": "^6.7.0",
-		"typescript": "^5.0.4"
-	},
-	"dependencies": {
-		"consola": "^3.1.0",
-		"vue": "^3.2.47"
-	},
-	"engines": {
-		"node": ">=16.6.0",
-		"npm": ">=7.0.0"
-	}
+  "name": "vue-mountable",
+  "version": "0.0.12",
+  "private": false,
+  "description": "Vue 3 Component DOM Mounting",
+  "author": "Subwaytime <leon.l@nophase.de>",
+  "license": "MIT",
+  "homepage": "https://github.com/subwaytime/vue-mountable#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/subwaytime/vue-mountable"
+  },
+  "bugs": "https://github.com/subwaytime/vue-mountable/issues",
+  "module": "./src/index.ts",
+  "type": "module",
+  "keywords": [
+    "vite",
+    "vue",
+    "vue3",
+    "dom",
+    "mount",
+    "components"
+  ],
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "scripts": {
+    "dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
+    "build": "bun ./bunfig.ts",
+    "release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "@vue/devtools-api": "^6.5.0",
+    "@vue/runtime-core": "^3.3.4",
+    "nanoid": "^5.0.1",
+    "type-fest": "^4.3.1"
+  },
+  "devDependencies": {
+    "@subwaytime/eslint-config": "^0.0.11",
+    "bun-types": "^1.0.2",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.4"
+  }
 }
