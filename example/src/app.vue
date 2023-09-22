@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from '../../dist/index.js';
+import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from '../../dist/index';
 import Modal from '~components/modal.vue';
 import DefaultSlotComponent from '~components/modal-slots/default.vue';
 import HeaderSlotComponent from '~components/modal-slots/header.vue';
@@ -113,10 +113,10 @@ function addComponentWithEmits() {
 
 function addComponentAndTeleport() {
   currentComponent.value = mountComponent({
-	component: Modal,
-	props: {
-		message: 'I am a teleported Modal!'
-	},
+    component: Modal,
+    props: {
+      message: 'I am a teleported Modal!'
+    },
     target: '.notifications'
   });
 }

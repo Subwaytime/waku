@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { VueMountable } from '/home/subway/work/vue-mountable/src/index';
+import { VueMountable } from '../../dist/index';
 import App from './app.vue';
 import { createPinia } from 'pinia';
 

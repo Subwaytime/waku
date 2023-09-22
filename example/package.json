@@ -29,8 +29,7 @@
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "vite-aliases": "^0.11.3",
-    "vue": "^3.3.4",
-    "vue-mountable": "^0.0.12"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.6",

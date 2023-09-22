@@ -22,7 +22,12 @@
       "bun-types" // add Bun global
     ]
 	},
+  "include": [
+    "./bunfig.ts",
+    "src/**/*"
+  ],
 	"exclude": [
+    "**/example",
 		"**/dist",
 		"**/node_modules",
 		"**/test"
