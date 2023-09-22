@@ -1,6 +1,6 @@
 {
   "name": "vue-mountable",
-  "version": "0.0.12",
+  "version": "0.1.0",
   "private": false,
   "description": "Vue 3 Component DOM Mounting",
   "author": "Subwaytime <leon.l@nophase.de>",
