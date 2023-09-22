@@ -53,7 +53,7 @@ app.use(VueMountable());
 import { mountComponent } from 'vue-mountable';
 import component from 'component.vue';
 
-const { id, vnode, container, destroy } = mountComponent(component);
+const { id, vNode, el, destroy } = mountComponent(component);
 ```
 
 <a href="https://github.com/Subwaytime/vue-mountable/tree/main/example">Checkout Examples</a>
@@ -83,10 +83,10 @@ mountComponent({
   props: {},
 
   /**
-   * Vue Children Components
-   * Array with Vue Components or Object array with Mount Options: component, children, props, target, slot
+   * Vue Slot Components
+   * Array with Vue Components or Object array with Mount Options: component, slots, props, target, slot
    * @props {}
-   * @children []
+   * @slots []
    * @target string
    * @slot string
    */
@@ -103,10 +103,10 @@ mountComponent({
 
 unmountComponent(
   /**
-   * DOM Element
+   * Mounted Component ID
    */
 
-  element,
+  id
 );
 
 unmountAllComponents();
