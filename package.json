@@ -37,7 +37,8 @@
     "@vue/devtools-api": "^6.5.0",
     "@vue/runtime-core": "^3.3.4",
     "nanoid": "^5.0.1",
-    "type-fest": "^4.3.1"
+    "type-fest": "^4.3.1",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@subwaytime/eslint-config": "^0.0.11",
