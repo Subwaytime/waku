@@ -11,8 +11,16 @@
     "url": "https://github.com/subwaytime/vue-mountable"
   },
   "bugs": "https://github.com/subwaytime/vue-mountable/issues",
-  "module": "./src/index.ts",
   "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist.index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "keywords": [
     "vite",
     "vue",

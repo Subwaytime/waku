@@ -23,8 +23,8 @@
     ]
 	},
   "include": [
-    "./bunfig.ts",
-    "src/**/*"
+    "src/**/*",
+    "./bunfig.ts"
   ],
 	"exclude": [
     "**/example",
