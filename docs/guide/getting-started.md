@@ -5,13 +5,13 @@ Vue Mountable is a flexible Vue.js plugin that simplifies the process of mountin
 
 ## Installation
 :::code-group
-```bun
+```txt [bun]
 bun add vue-mountable
 ```
-```npm
+```txt [npm]
 npm add vue-mountable
 ```
-```pnpm
+```txt [pnpm]
 pnpm add vue-mountable
 ```
 :::

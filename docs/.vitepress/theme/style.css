@@ -136,10 +136,3 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
-
-code.highlight {
-  background-color: var(--vp-code-bg);
-  border-radius: 4px;
-  color: var(--vp-c-brand-1);
-  padding: 3px 6px;
-}

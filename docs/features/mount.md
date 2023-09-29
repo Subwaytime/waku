@@ -1,6 +1,6 @@
 # Mount
 <br />
-<div style="text-align: justify">
+<div class="cleaner-text">
 <code class="highlight">mountComponent</code> enables you to dynamically insert and control Vue components within your application.
 <br />
 <br />
@@ -17,6 +17,7 @@ This function offers fine-grained configuration options and seamlessly integrate
 Extending the functionality of their applications, like the old `Vue.extend`, is its main purpose by offering a versatile and intuitive way to manage dynamic components and enhance user interactions.
 
 ## Basic
+
 ```ts
 import modal from './modal.vue';
 
@@ -95,7 +96,7 @@ const { id, vNode, el, destroy } = mountComponent({
 :::
 
 ## Slots
-Slots allow you to chain multiple Components together, passing over props, emits or simply add more slots!
+<div class="cleaner-text">Slots allow you to chain multiple Components together, passing over props, emits or simply add more slots!</div>
 
 :::code-group
 ```ts [setup]
@@ -152,7 +153,8 @@ const props = defineProps({
 ## Teleport
 With Teleport you can easily move components around your DOM!
 <br />
-More info can be found here <a href="https://vuejs.org/guide/built-ins/teleport.html"> Vue Docs Teleport </a>
+More info can be found here [Vue Docs Teleport](https://vuejs.org/guide/built-ins/teleport.html)
+
 ```ts
 import modal from './modal.vue';
 
@@ -163,9 +165,10 @@ const { id, vNode, el, destroy } = mountComponent({
 ```
 
 ## via Store/Pinia
-Vue Mountable supports mounting components outside of the Lifecycle `setup`.
-<br />
-So you can mount them from anywhere you'd like!
+<div class="cleaner-text">
+Vue Mountable offers the flexibility to mount components outside of the standard Lifecycle <code class="highlight">setup</code>, allowing you to mount them from anywhere you like.
+</div>
+
 :::code-group
 ```ts [setup]
 import { useExampleStore } from './store';
@@ -175,7 +178,7 @@ const { addModal } = useExampleStore();
 import { defineStore } from 'pinia';
 import { mountComponent } from 'vue-mountable';
 
-import modal from '~components/modal.vue';
+import modal from './modal.vue';
 
 export const useExampleStore = defineStore('example', () => {
   function addModal() {

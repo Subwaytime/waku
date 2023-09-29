@@ -10,12 +10,13 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Features', link: '/features/mount' },
       { text: 'API', link: '/api/' },
-      { text: 'Examples', link: '/examples'}
+      { text: 'Examples', link: '/examples/'}
     ],
 
     sidebar: [
       {
         text: 'Introduction',
+        collapsed: false,
         items: [
           { text: 'Getting started', link: '/guide/getting-started' },
           { text: 'Roadmap', link: 'https://github.com/Subwaytime/vue-mountable/issues/10' }
@@ -23,6 +24,7 @@ export default defineConfig({
       },
       {
         text: 'Features',
+        collapsed: false,
         items: [
           {
             text: 'Mount', link: '/features/mount'
@@ -38,12 +40,15 @@ export default defineConfig({
       },
       {
         text: 'Examples',
-        link: '/examples'
+        link: '/examples/'
       }
     ],
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Subwaytime/vue-mountable' }
     ]
+  },
+  vue: {
+    reactivityTransform: true
   }
 })

@@ -1,10 +1,13 @@
 # Unmount
 <br />
-<div style="text-align: justify">
+<div class="cleaner-text">
 Vue Mountable allows you to gracefully remove a dynamically mounted Vue component from your application's DOM.
 <br />
 <br />
-This function simplifies the process of cleaning up and removing components that are no longer needed, helping you manage your application's resources efficiently.
+It simplifies the process of cleaning up and removing components that are no longer needed, helping you manage your application's resources efficiently.
+<br />
+<br />
+When unmounting any components, they will also trigger their Lifecycle hooks like <code class="highlight">onUnmounted</code> etc and clean up the DOM.
 </div>
 
 ## Basic
@@ -37,6 +40,8 @@ function removeModal() {
 ```
 
 ## via unmountComponent
+<div class="cleaner-text">Unmounting a component is achieved by passing over its <code class="highlight">mountedId</code>, this will then clear the DOM and triggers the component's lifecycle hooks.</div>
+
 ```ts
 import { unmountComponent } from 'vue-mountable';
 import modal from './components/modal.vue';
@@ -68,10 +73,13 @@ const emit = defineEmits(['destroy']);
 :::
 
 ## Cleanup everything
-`unmountAllComponents` removes all dynamically mounted Vue components from the DOM, providing a quick way to clean up and clear the application's interface.
+<div class="cleaner-text">
+<code class="highlight">unmountAllComponents</code> removes all dynamically mounted Vue components from the DOM, providing a quick way to clean up and clear the application's interface.
 <br />
 <br />
 This also kill any cached Components inside the Vue Mountable service.
+</div>
+
 ```ts
 import { unmountAllComponents } from 'vue-mountable';
 unmountAllComponents();

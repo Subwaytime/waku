@@ -1,16 +1,15 @@
-// https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import './style.css'
+import './custom.css'
+import { VueMountable } from 'vue-mountable';
+import Default from './default.vue';
+import { createPinia } from 'pinia';
 
 export default {
   extends: Theme,
-  Layout: () => {
-    return h(Theme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    })
-  },
+  Layout: Default,
   enhanceApp({ app, router, siteData }) {
-    // ...
+    app.use(createPinia());
+    app.use(VueMountable());
   }
 }

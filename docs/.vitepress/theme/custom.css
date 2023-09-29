@@ -1,0 +1,30 @@
+:root {
+  --vp-c-brand-1: #ffa94d;
+  --vp-c-brand-2: #ff922b;
+  --vp-c-brand-3: #fd7e14;
+  --vp-home-hero-name-background: -webkit-linear-gradient( 120deg, #fd7e14 30%, #ffe066 );
+}
+
+code.highlight {
+  background-color: var(--vp-code-bg);
+  border-radius: 4px;
+  color: var(--vp-c-brand-1);
+  padding: 3px 6px;
+}
+
+h2 {
+  display: flex;
+}
+
+.crosslink {
+  align-self: center;
+  font-size: 14px;
+}
+
+.cleaner-text {
+  text-align: justify;
+}
+
+.overlay-open {
+  overflow: hidden;
+}
