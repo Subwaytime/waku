@@ -29,9 +29,10 @@ Vue Mountable is a tiny DOM Library for Vue 3.
 Install
 
 ```bash
+# bun
 bun i vue-mountable
 
-#npm
+# npm
 npm i vue-mountable
 
 # pnpm
@@ -56,61 +57,10 @@ import component from 'component.vue';
 const { id, vNode, el, destroy } = mountComponent(component);
 ```
 
-<a href="https://github.com/Subwaytime/vue-mountable/tree/main/example">Checkout Examples</a>
-
-## Configuration
-
-Current available Function Parameters:
-
-```ts
-import {
-	mountComponent, // mount function
-	unmountComponent, // unmount function
-	unmountAllComponents, // unmount all mounted items
-	useMountable // contains vue instance and items
-} from 'vue-mountable';
-
-mountComponent({
-  /**
-  * Vue Component File
-  */
-  component,
-
-  /**
-   * Native Vue Props
-   */
-
-  props: {},
-
-  /**
-   * Vue Slot Components
-   * Array with Vue Components or Object array with Mount Options: component, slots, props, target, slot
-   * @props {}
-   * @slots []
-   * @target string
-   * @slot string
-   */
-  slots: [],
-
-  /**
-   * Teleportation Target
-   * Can be defined in the loaded component or here
-   * Note: If the component has a target prop, it will override this option
-   * String referencing an DOM Target
-   */
-  target: '',
-});
-
-unmountComponent(
-  /**
-   * Mounted Component ID
-   */
-
-  id
-);
-
-unmountAllComponents();
-```
+## Documentation
+For the full documentation, visit <a href="https://github.com/Subwaytime/vue-mountable/tree/main/example" target="_blank" rel="noreferrer">vue-mountable.netlify.app</a>
+<br />
+For NPM, visit <a href="https://www.npmjs.com/package/vue-mountable" target="_blank" ref="noreferrer"> npmjs.com/package/vue-mountable </a>
 
 ## License
 
