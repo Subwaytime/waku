@@ -8,7 +8,8 @@ export function handleSlots(slottedComponents: SlottedComponent | SlottedCompone
   function processItem(item: SlottedComponent): void {
     const {
       slotName = 'default',
-      props = {} as ExtractComponentProps<SlottedComponent['component']>
+      props = {} as ExtractComponentProps<SlottedComponent['component']>,
+      emits
     } = item;
 
     if (typeof item === 'string') {
@@ -28,7 +29,7 @@ export function handleSlots(slottedComponents: SlottedComponent | SlottedCompone
     const slots: any = item.slots ? handleSlots(item.slots) : null;
 
     slotMap[slotName] = (ctx: any) => {
-      const data = mergeProps({...smarfUnref(props)}, { ...ctx });
+      const data = mergeProps({...smarfUnref(props), ...emits}, { ...ctx });
       return h(item.component, data, slots);
     };
   }

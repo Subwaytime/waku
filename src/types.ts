@@ -13,12 +13,14 @@ type ComponentProps<C extends Component> = C extends new (...args: any) => any
 	? { [K in keyof InstanceType<C> as K extends InternalProps ? never : K]: InstanceType<C>; }
 : never;
 
+type Emits = {
+  [key: `on${Capitalize<string>}`]: (...args: any[]) => void
+};
+
 export type Options<C extends Component> = {
   component: C
 	props?: ComponentProps<C>
-	emits?: {
-		[key: `on${Capitalize<string>}`]: (...args: any[]) => void
-	}
+	emits?: Emits
 	slots?: SlottedComponent | SlottedComponent[]
 	target?: TeleportProps['to']
 	// transition?: TransitionProps | TransitionGroupProps
@@ -29,6 +31,7 @@ export interface SlottedComponent {
   slotName: string
   component: Component,
   props?: Record<any, any>
+  emits?: Emits
   slots?: SlottedComponent | SlottedComponent[]
 }
 
