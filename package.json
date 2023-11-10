@@ -42,16 +42,16 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@vue/devtools-api": "^6.5.0",
-    "@vue/runtime-core": "^3.3.4",
-    "nanoid": "^5.0.1",
-    "type-fest": "^4.3.2",
-    "vue": "^3.3.4"
+    "@vue/devtools-api": "^6.5.1",
+    "@vue/runtime-core": "^3.3.8",
+    "nanoid": "^5.0.3",
+    "type-fest": "^4.7.1",
+    "vue": "^3.3.8"
   },
   "devDependencies": {
     "@subwaytime/eslint-config": "^0.0.11",
     "bun-plugin-dts": "^0.2.1",
-    "bun-types": "^1.0.3",
+    "bun-types": "^1.0.11",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
