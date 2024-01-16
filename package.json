@@ -33,7 +33,7 @@
     "dist"
   ],
   "engines": {
-    "bun": ">=1.0.0"
+    "bun": ">=1.0.17"
   },
   "scripts": {
     "dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
@@ -42,16 +42,16 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "@vue/devtools-api": "^6.5.1",
-    "@vue/runtime-core": "^3.3.10",
+    "@vue/devtools-api": "^7.0.10",
+    "@vue/runtime-core": "^3.4.14",
     "nanoid": "^5.0.4",
-    "type-fest": "^4.8.3",
-    "vue": "^3.3.10"
+    "type-fest": "^4.9.0",
+    "vue": "^3.4.14"
   },
   "devDependencies": {
     "@subwaytime/eslint-config": "^0.0.11",
     "bun-plugin-dts": "^0.2.1",
-    "bun-types": "^1.0.15",
+    "bun-types": "^1.0.23",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
