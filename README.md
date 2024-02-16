@@ -58,7 +58,7 @@ const { id, vNode, el, destroy } = mountComponent(component);
 ```
 
 ## Documentation
-For the full documentation, visit <a href="https://github.com/Subwaytime/vue-mountable/tree/main/example" target="_blank" rel="noreferrer">vue-mountable.netlify.app</a>
+For the full documentation, visit <a href="https://vue-mountable.netlify.app" target="_blank" rel="noreferrer">vue-mountable.netlify.app</a>
 <br />
 For NPM, visit <a href="https://www.npmjs.com/package/vue-mountable" target="_blank" ref="noreferrer"> npmjs.com/package/vue-mountable </a>
 
