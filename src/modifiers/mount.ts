@@ -1,5 +1,5 @@
 import type { Component, RendererElement, VNode } from 'vue';
-import { Teleport, createVNode, h, mergeProps, render } from 'vue';
+import { Teleport, createVNode, h, mergeProps, render, readonly, defineComponent } from 'vue';
 import { useMountableService } from '../service';
 import { generateID } from '../utils';
 import type { DefaultProps, MountedComponentInstance, MountOptions, Options } from '../types';
@@ -19,8 +19,8 @@ export function mountComponent<C extends Component>(options: MountOptions<C>): M
 		onDestroy: () => unmountComponent(id)
 	} satisfies DefaultProps;
 
-  const data = mergeProps(defaultProps, { ...opt?.props, ...opt?.emits });
-	let vNode: VNode = createVNode(opt?.component, data, opt.slots ? handleSlots(opt.slots): null);
+	const data = readonly(mergeProps(defaultProps, { ...opt.props, ...opt?.emits }));
+	let vNode: VNode = createVNode(defineComponent(() => () => h(opt?.component as any, data, (opt.slots ? handleSlots(opt.slots) : null) as any)));
 
 	if (opt.target) {
 		const teleporter = h(Teleport as any, { to: opt.target });
