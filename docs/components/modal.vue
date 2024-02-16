@@ -1,6 +1,6 @@
 <template>
   <div class="overlay">
-    <div ref="modal" class="modal vp-doc">
+    <div ref="modal" class="modal vp-doc" v-on-click-outside="close">
       <h1 v-if="!testEmit">
         {{ message }}
       </h1>
@@ -21,10 +21,11 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue';
+import { vOnClickOutside } from '@vueuse/components';
 
 interface Props {
   mountedId: string
-  message?: string,
+  message?: string
   testEmit?: boolean
 }
 
@@ -45,31 +46,35 @@ onUnmounted(() => document.body.classList.remove('overlay-open'));
 </script>
 
 <style lang="css">
-  .overlay {
-    align-items: center;
-    backdrop-filter: blur(12px);
-    display: flex;
-    justify-content: center;
-    inset: 0;
-    position: fixed;
-    z-index: 2;
-  }
+.overlay {
+  align-items: center;
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  inset: 0;
+  position: fixed;
+  z-index: 999;
+}
 
-	.modal {
-		align-items: center;
-		background: var(--vp-button-alt-bg);
-    border: 1px solid var(--vp-c-divider);
-    border-radius: 20px;
-		display: flex;
-    height: 400px;
-		flex-flow: column;
-    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
-		justify-content: center;
-		padding: 2em;
-		overflow: hidden;
-    width: 500px;
-		z-index: 1000;
-	}
+.modal {
+  align-items: center;
+  background: var(--vp-button-alt-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 20px;
+  display: flex;
+  height: 400px;
+  flex-flow: column;
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+  justify-content: center;
+  padding: 2em;
+  overflow: hidden;
+  width: 500px;
+  z-index: 1000;
+}
+
+.modal > h1 {
+  text-align: center;
+}
 
 .close-button {
   align-items: center;

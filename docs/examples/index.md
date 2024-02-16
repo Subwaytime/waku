@@ -4,7 +4,10 @@
 <VPButton class="button" theme="alt" text="Mount component" @click.prevent="addComponent" />
 
 ## Props
-<VPButton class="button" theme="alt" text="Mount component with props" @click.prevent="addComponentWithProps" />
+<div>
+  <VPButton class="button" theme="alt" text="Mount component with props" @click.prevent="addComponentWithProps" />
+  <VPButton class="button" theme="alt" text="Change props" style="margin-left: 1rem;" @click.prevent="changeProps" />
+</div>
 
 ## Slots
 <VPButton class="button" theme="alt" text="Mount component with slots" @click.prevent="addComponentWithSlots" />
@@ -15,7 +18,7 @@
 ## Teleport
 <VPButton class="button" theme="alt" text="Mount & Teleport component" @click.prevent="addComponentAndTeleport" />
 
-## Store
+## Store (Pinia)
 <VPButton class="button" theme="alt" text="Mount component via pinia/store" @click.prevent="addComponentViaStore" />
 
 ## Unmount
@@ -25,8 +28,8 @@
 <VPButton class="button" theme="alt" text="Unmount all components" @click.prevent="unmountAllComponents" />
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from 'vue-mountable';
+import { ref, onMounted, reactive, readonly, h } from 'vue';
+import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from '../../dist/index';
 import Modal from '../components/modal.vue';
 import DefaultSlotComponent from '../components/modal-slots/default.vue';
 import HeaderSlotComponent from '../components/modal-slots/header.vue';
@@ -45,13 +48,18 @@ function addComponent() {
 
 function addComponentWithProps() {
   currentComponent.value = mountComponent({
-	component: Modal,
+    component: Modal,
     props: {
-		// NOTE: Props are also reactive if you use a ref/reactive
-		message
-	}
+      message
+    }
   });
 }
+
+function changeProps() {
+  message.value = (Math.random() + 1).toString(36).substring(7);
+}
+
+const title = ref('I am the header slot!');
 
 function addComponentWithSlots() {
   currentComponent.value = mountComponent({
@@ -62,7 +70,7 @@ function addComponentWithSlots() {
 			slotName: 'header',
 			component: HeaderSlotComponent,
 			props: {
-				title: 'I am the header slot!'
+				title
 			}
 		}
 	]
@@ -87,7 +95,7 @@ function addComponentAndTeleport() {
   currentComponent.value = mountComponent({
     component: Modal,
     props: {
-      message: 'I am a teleported Modal!'
+      message: 'I am teleported to <br />`.notifications`!'
     },
     target: '.notifications'
   });
