@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, readonly, h } from 'vue';
-import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from '../../dist/index';
+import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from 'vue-mountable';
 import Modal from '../components/modal.vue';
 import DefaultSlotComponent from '../components/modal-slots/default.vue';
 import HeaderSlotComponent from '../components/modal-slots/header.vue';

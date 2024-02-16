@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import Modal from '../../components/modal.vue';
-import { mountComponent } from '../../../dist/index';
+import { mountComponent } from 'vue-mountable';
 
 export const useExampleStore = defineStore('example', () => {
 	function addComponentViaStore() {
