@@ -164,7 +164,7 @@ const { id, vNode, el, destroy } = mountComponent({
 });
 ```
 
-## via Store/Pinia
+## via Store (Pinia)
 <div class="cleaner-text">
 Vue Mountable offers the flexibility to mount components outside of the standard Lifecycle <code class="highlight">setup</code>, allowing you to mount them from anywhere you like.
 </div>

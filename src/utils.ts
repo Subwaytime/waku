@@ -1,8 +1,6 @@
 import type { VNode } from 'vue';
 import { customAlphabet } from 'nanoid';
 import { MODULE_NAME } from './constants';
-import { isRef } from 'vue';
-import { unref } from 'vue';
 
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
@@ -116,22 +114,6 @@ export function toArray<T>(value: T | T[]): T[] {
 	} else {
 		return [value];
 	}
-}
-
-export function smarfUnref(value: any): any {
-  const newValue = isRef(value) ? unref(value) : value;
-
-  if(!isPlainObject(newValue)) {
-    return newValue;
-  }
-
-  if(Array.isArray(newValue)) {
-    return newValue.map((v) => smarfUnref(v));
-  }
-
-  let unrefObject: any = {};
-  Object.keys(newValue).forEach((key) => (unrefObject[key] = smarfUnref(newValue[key])));
-  return unrefObject;
 }
 
 /**
