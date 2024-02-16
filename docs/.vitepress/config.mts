@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -52,7 +53,12 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/Subwaytime/vue-mountable' }
     ]
   },
+  vite: {
+    plugins: [VueDevTools()]
+  },
   vue: {
-    reactivityTransform: true
+    script: {
+      propsDestructure: true
+    }
   }
 })
