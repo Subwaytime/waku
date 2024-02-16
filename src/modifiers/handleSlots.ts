@@ -1,5 +1,5 @@
-import { VNode, h, mergeProps } from "vue";
-import { isVueComponent, toArray, smarfUnref } from "../utils";
+import { VNode, h, mergeProps, readonly } from "vue";
+import { isVueComponent, toArray } from "../utils";
 import { ExtractComponentProps, SlottedComponent } from "../types";
 
 export function handleSlots(slottedComponents: SlottedComponent | SlottedComponent[]): Record<string, (ctx: any) => VNode> {
@@ -29,9 +29,9 @@ export function handleSlots(slottedComponents: SlottedComponent | SlottedCompone
     const slots: any = item.slots ? handleSlots(item.slots) : null;
 
     slotMap[slotName] = (ctx: any) => {
-      const data = mergeProps({...smarfUnref(props), ...emits}, { ...ctx });
+      const data = readonly(mergeProps({ ...props as any, ...emits }, { ...ctx }));
       return h(item.component, data, slots);
-    };
+    }
   }
 
   try {
