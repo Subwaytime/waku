@@ -15,7 +15,11 @@ export function slash(string: string): string {
  * @param {*} v
  */
 export function isPlainObject(v: any) {
-	return !!v && typeof v === 'object' && (v.__proto__ === null || v.__proto__ === Object.prototype);
+	return (
+		!!v &&
+		typeof v === 'object' &&
+		(v.__proto__ === null || v.__proto__ === Object.prototype)
+	);
 }
 
 /**
@@ -35,10 +39,13 @@ export function getElement(v: VNode | null): any {
 	if (v && v.el) {
 		if (v.el.nodeName === '#text') {
 			return v.el.nextSibling;
-		} else if(v.el.nodeName === '#comment' && Array.isArray(v.children) && v.children.length === 1) {
+		} else if (
+			v.el.nodeName === '#comment' &&
+			Array.isArray(v.children) &&
+			v.children.length === 1
+		) {
 			return getElement(v.children[0] as VNode);
-		}
-		else {
+		} else {
 			return v.el;
 		}
 	}
@@ -49,11 +56,11 @@ export function getElement(v: VNode | null): any {
  * @param element
  */
 export function removeElement(element: HTMLElement) {
-    if (typeof element.remove !== 'undefined') {
-        element.remove();
-    } else {
-        element.parentNode && element.parentNode.removeChild(element);
-    }
+	if (typeof element.remove !== 'undefined') {
+		element.remove();
+	} else {
+		element.parentNode && element.parentNode.removeChild(element);
+	}
 }
 
 /**
@@ -62,10 +69,10 @@ export function removeElement(element: HTMLElement) {
  */
 export function isComment(v: HTMLElement) {
 	return (
-		v.nodeType === Node.COMMENT_NODE
-    || v.nodeName === '#comment'
-    || v.nodeValue === 'teleport start'
-    || v.nodeValue === 'teleport end'
+		v.nodeType === Node.COMMENT_NODE ||
+		v.nodeName === '#comment' ||
+		v.nodeValue === 'teleport start' ||
+		v.nodeValue === 'teleport end'
 	);
 }
 
@@ -74,16 +81,22 @@ export function isComment(v: HTMLElement) {
  * @param value
  */
 export function removeComments(element: HTMLElement) {
-	if(!element.hasChildNodes()) { return; }
+	if (!element.hasChildNodes()) {
+		return;
+	}
 
-	const children = [].slice.call(element.childNodes).filter(el => isComment(el));
+	const children: Node[] = [].slice
+		.call(element.childNodes)
+		.filter((el) => isComment(el));
 
-	children.forEach((el: any, index: number) => {
-		if(index <= 1 && el.nodeType === Node.COMMENT_NODE) {
-			delete children[el];
+	for (let index = 0; index < children.length; index++) {
+		const el = children[index];
+		if (index <= 1 && el.nodeType === Node.COMMENT_NODE) {
+			delete children[el as any];
 			element.removeChild(el);
 		}
-	});
+
+	}
 }
 
 /**
@@ -92,7 +105,12 @@ export function removeComments(element: HTMLElement) {
  * @param value
  */
 export function empty(value: any) {
-	if (value === null || value === undefined || value === '{}' || value === '') {
+	if (
+		value === null ||
+		value === undefined ||
+		value === '{}' ||
+		value === ''
+	) {
 		return true;
 	}
 
@@ -109,20 +127,22 @@ export function empty(value: any) {
  * @param seperator
  */
 export function toArray<T>(value: T | T[]): T[] {
-	if(Array.isArray(value)) {
+	if (Array.isArray(value)) {
 		return value;
-	} else {
-		return [value];
 	}
+
+	return [value];
 }
 
 /**
  * Returns basename from component file
  * @param string
  */
-export function basename(string: string){
-	return slash(string).substring(string.lastIndexOf('/') + 1).split('.')[0];
-};
+export function basename(string: string) {
+	return slash(string)
+		.substring(string.lastIndexOf('/') + 1)
+		.split('.')[0];
+}
 
 /**
  * Generate custom component ID
