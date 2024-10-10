@@ -5,7 +5,7 @@ import type {
 	FunctionalComponent,
 	RendererElement,
 	VNode,
-} from "vue";
+} from 'vue';
 import {
 	Teleport,
 	createVNode,
@@ -14,19 +14,19 @@ import {
 	render,
 	readonly,
 	defineComponent,
-} from "vue";
-import { defu } from "defu";
-import { useWaku, type Waku } from "../core";
-import { generateID } from "../utils";
+} from 'vue';
+import { defu } from 'defu';
+import { useWaku, type Waku } from '../core';
+import { generateID } from '../utils';
 import type {
 	DefaultProps,
 	MountedComponentInstance,
 	MountOptions,
 	Options,
-} from "../types";
-import { unmountComponent } from "./unmountComponent";
-import { handleSlots } from "./handleSlots";
-import { defaultOptions } from "../constants";
+} from '../types';
+import { unmountComponent } from './unmountComponent';
+import { handleSlots } from './handleSlots';
+import { defaultOptions } from '../constants';
 
 export function mountComponent<C extends DefineComponent>(
 	options: MountOptions<C>,
@@ -47,8 +47,8 @@ export function mountComponent<C extends DefineComponent>(
 	const component = opt.component;
 
 	const defaultProps = {
-		"data-mounted-id": id,
-		"data-is-programmatic": true,
+		'data-mounted-id': id,
+		'data-is-programmatic': true,
 		onDestroy: () => unmountComponent(id),
 	} satisfies DefaultProps;
 
@@ -61,7 +61,11 @@ export function mountComponent<C extends DefineComponent>(
 	let vNode: VNode = createVNode(
 		defineComponent(
 			() => () =>
-				h(component, data, opt.slots ? handleSlots(opt.slots) : undefined),
+				h(
+					component,
+					data,
+					opt.slots ? handleSlots(opt.slots) : undefined,
+				),
 		),
 	);
 

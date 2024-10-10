@@ -4,8 +4,8 @@ import {
 	type App,
 	type VNode,
 	type RendererElement,
-} from "vue";
-import { WakuSymbol, MODULE_NAME } from "./constants";
+} from 'vue';
+import { WakuSymbol, MODULE_NAME } from './constants';
 
 /**
  *

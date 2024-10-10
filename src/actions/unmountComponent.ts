@@ -1,6 +1,6 @@
-import { render } from "vue";
-import { useWaku } from "../core";
-import { empty, removeElement } from "../utils";
+import { render } from 'vue';
+import { useWaku } from '../core';
+import { empty, removeElement } from '../utils';
 
 export function unmountComponent(id: string): void {
 	const waku = useWaku();
@@ -21,7 +21,7 @@ export function unmountAllComponents(): void {
 	const waku = useWaku();
 
 	if (!waku.items || empty(waku.items)) {
-		console.info("There are no components that can be dismounted!");
+		console.info('There are no components that can be dismounted!');
 		return;
 	}
 

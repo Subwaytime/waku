@@ -7,7 +7,7 @@ import type {
 	TeleportProps,
 	VNode,
 	VNodeProps,
-} from "vue";
+} from 'vue';
 
 type InternalProps =
 	| keyof VNodeProps
@@ -37,7 +37,7 @@ export type Options<C extends Component> = {
 	props?: ComponentProps<C>;
 	emits?: Emits;
 	slots?: SlottedComponent | SlottedComponent[];
-	target?: TeleportProps["to"];
+	target?: TeleportProps['to'];
 	// transition?: TransitionProps | TransitionGroupProps
 	immediate?: boolean;
 	inheritAttrs: boolean;
@@ -52,8 +52,8 @@ export interface SlottedComponent {
 }
 
 export interface DefaultProps {
-	"data-mounted-id"?: string;
-	"data-is-programmatic"?: boolean;
+	'data-mounted-id'?: string;
+	'data-is-programmatic'?: boolean;
 	onDestroy: () => void;
 }
 

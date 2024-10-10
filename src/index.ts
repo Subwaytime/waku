@@ -1,9 +1,9 @@
-export { mountComponent } from "./actions/mountComponent";
+export { mountComponent } from './actions/mountComponent';
 
 export {
 	unmountComponent,
 	unmountAllComponents,
-} from "./actions/unmountComponent";
+} from './actions/unmountComponent';
 
-export type { MountedComponentInstance } from "./types";
-export { createWaku } from "./createWaku";
+export type { MountedComponentInstance } from './types';
+export { createWaku } from './createWaku';

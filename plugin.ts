@@ -4,9 +4,9 @@ import {
 	inject,
 	reactive,
 	hasInjectionContext,
-} from "vue";
-import { MODULE_NAME, MountableServiceSymbol } from "./constants";
-import type { ServiceItem } from "./types";
+} from 'vue';
+import { MODULE_NAME, MountableServiceSymbol } from './constants';
+import type { ServiceItem } from './types';
 
 /**
  * Active mountable service instance

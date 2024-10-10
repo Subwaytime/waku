@@ -1,6 +1,6 @@
-import { type VNode, h, mergeProps, readonly } from "vue";
-import { isVueComponent, toArray } from "../utils";
-import type { ExtractComponentProps, SlottedComponent } from "../types";
+import { type VNode, h, mergeProps, readonly } from 'vue';
+import { isVueComponent, toArray } from '../utils';
+import type { ExtractComponentProps, SlottedComponent } from '../types';
 
 export function handleSlots(
 	slottedComponents: SlottedComponent | SlottedComponent[],
@@ -9,20 +9,20 @@ export function handleSlots(
 
 	function processItem(item: SlottedComponent): void {
 		const {
-			slotName = "default",
-			props = {} as ExtractComponentProps<SlottedComponent["component"]>,
+			slotName = 'default',
+			props = {} as ExtractComponentProps<SlottedComponent['component']>,
 			emits,
 		} = item;
 
-		if (typeof item === "string") {
-			throw new Error("String elements are not supported as properties.");
+		if (typeof item === 'string') {
+			throw new Error('String elements are not supported as properties.');
 		}
 
 		if (isVueComponent(item)) {
 			(item as any).component = {} as any;
 			for (const key of Object.keys(item as any)) {
 				(item as any).component[key] = (item as any)[key];
-				if (key !== "component") {
+				if (key !== 'component') {
 					delete (item as any)[key];
 				}
 			}

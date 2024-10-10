@@ -1,6 +1,6 @@
-import type { App } from "vue";
-import { type Waku, type WakuItem, setActiveWaku } from "./core";
-import { MODULE_NAME, WakuSymbol } from "./constants";
+import type { App } from 'vue';
+import { type Waku, type WakuItem, setActiveWaku } from './core';
+import { MODULE_NAME, WakuSymbol } from './constants';
 
 export function createWaku() {
 	// biome-ignore lint/suspicious/noImplicitAnyLet:

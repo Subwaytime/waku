@@ -20,8 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
-import { vOnClickOutside } from "@vueuse/components";
+import { onMounted, onUnmounted } from 'vue';
+import { vOnClickOutside } from '@vueuse/components';
 
 interface Props {
 	mountedId: string;
@@ -31,7 +31,7 @@ interface Props {
 
 const {
 	mountedId,
-	message = "I am a modal!",
+	message = 'I am a modal!',
 	testEmit = false,
 } = defineProps<Props>();
 
@@ -41,12 +41,12 @@ const emit = defineEmits<{
 }>();
 
 function close() {
-	emit("destroy");
+	emit('destroy');
 }
 
 console.log(`mountedId: ${mountedId}`, `message: ${message}`);
-onMounted(() => document.body.classList.add("overlay-open"));
-onUnmounted(() => document.body.classList.remove("overlay-open"));
+onMounted(() => document.body.classList.add('overlay-open'));
+onUnmounted(() => document.body.classList.remove('overlay-open'));
 </script>
 
 <style lang="css">
