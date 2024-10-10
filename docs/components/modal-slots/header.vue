@@ -12,10 +12,10 @@
 
 <script setup lang="ts">
 defineProps<{
-title: string
+	title: string;
 }>();
 
 const emit = defineEmits<{
-	close: []
+	close: [];
 }>();
 </script>

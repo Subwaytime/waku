@@ -1,17 +1,23 @@
-import { hasInjectionContext, inject, type App, type VNode, type RendererElement } from "vue";
+import {
+	hasInjectionContext,
+	inject,
+	type App,
+	type VNode,
+	type RendererElement,
+} from "vue";
 import { WakuSymbol, MODULE_NAME } from "./constants";
 
 /**
  *
  */
 export interface Waku {
-    id: string;
-    instance?: App;
-    items?: WakuItem[];
-    install: (app: App) => void;
-    addItem: (item: WakuItem) => void;
-    getItem: (id: string) => false | WakuItem;
-    removeItem: (id: string) => void;
+	id: string;
+	instance?: App;
+	items?: WakuItem[];
+	install: (app: App) => void;
+	addItem: (item: WakuItem) => void;
+	getItem: (id: string) => false | WakuItem;
+	removeItem: (id: string) => void;
 }
 
 /**
@@ -51,28 +57,28 @@ export function setActiveWaku(waku: Waku | undefined): SetActiveWaku {
  * @param waku
  */
 export function getActiveWaku() {
-    return (hasInjectionContext() && inject(WakuSymbol)) || activeWaku;
+	return (hasInjectionContext() && inject(WakuSymbol)) || activeWaku;
 }
 
 /**
  *
  */
 export function useWaku(waku?: Waku | null): Waku {
-    const hasContext = hasInjectionContext();
-    // biome-ignore lint/style/noParameterAssign:
-    waku = (hasContext ? inject(WakuSymbol, null): null);
+	const hasContext = hasInjectionContext();
+	// biome-ignore lint/style/noParameterAssign:
+	waku = hasContext ? inject(WakuSymbol, null) : null;
 
-    if (waku) {
-        setActiveWaku(waku);
-    }
+	if (waku) {
+		setActiveWaku(waku);
+	}
 
-    if(!activeWaku) {
-        throw new Error(`[${MODULE_NAME}]: No Waku Instance provided!`);
-    }
+	if (!activeWaku) {
+		throw new Error(`[${MODULE_NAME}]: No Waku Instance provided!`);
+	}
 
-    // biome-ignore lint/style/noNonNullAssertion:
-    // biome-ignore lint/style/noParameterAssign:
-    waku = activeWaku!;
+	// biome-ignore lint/style/noNonNullAssertion:
+	// biome-ignore lint/style/noParameterAssign:
+	waku = activeWaku!;
 
-    return waku;
+	return waku;
 }

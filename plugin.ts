@@ -4,9 +4,9 @@ import {
 	inject,
 	reactive,
 	hasInjectionContext,
-} from 'vue';
-import { MODULE_NAME, MountableServiceSymbol } from './constants';
-import type { ServiceItem } from './types';
+} from "vue";
+import { MODULE_NAME, MountableServiceSymbol } from "./constants";
+import type { ServiceItem } from "./types";
 
 /**
  * Active mountable service instance
@@ -88,7 +88,6 @@ export class Service {
 		// setActiveService(this);
 		// this.id = `${MODULE_NAME}-plugin-id`;
 		// this.instance = app;
-
 	}
 
 	/**

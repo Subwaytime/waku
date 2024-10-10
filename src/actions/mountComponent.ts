@@ -1,4 +1,11 @@
-import type { AppContext, Component, DefineComponent, FunctionalComponent, RendererElement, VNode } from 'vue';
+import type {
+	AppContext,
+	Component,
+	DefineComponent,
+	FunctionalComponent,
+	RendererElement,
+	VNode,
+} from "vue";
 import {
 	Teleport,
 	createVNode,
@@ -7,19 +14,19 @@ import {
 	render,
 	readonly,
 	defineComponent,
-} from 'vue';
+} from "vue";
 import { defu } from "defu";
-import { useWaku, type Waku } from '../core';
-import { generateID } from '../utils';
+import { useWaku, type Waku } from "../core";
+import { generateID } from "../utils";
 import type {
 	DefaultProps,
 	MountedComponentInstance,
 	MountOptions,
 	Options,
-} from '../types';
-import { unmountComponent } from './unmountComponent';
-import { handleSlots } from './handleSlots';
-import { defaultOptions } from '../constants';
+} from "../types";
+import { unmountComponent } from "./unmountComponent";
+import { handleSlots } from "./handleSlots";
+import { defaultOptions } from "../constants";
 
 export function mountComponent<C extends DefineComponent>(
 	options: MountOptions<C>,
@@ -29,7 +36,10 @@ export function mountComponent<C extends DefineComponent>(
 		? options
 		: { component: options };
 
-	const opt = defu({}, { ...defaultOptions, ...wrappedOptions }) as unknown as Options<C>;
+	const opt = defu(
+		{},
+		{ ...defaultOptions, ...wrappedOptions },
+	) as unknown as Options<C>;
 	const id: string = generateID();
 
 	const container: RendererElement | Element | null =
@@ -37,8 +47,8 @@ export function mountComponent<C extends DefineComponent>(
 	const component = opt.component;
 
 	const defaultProps = {
-		'data-mounted-id': id,
-		'data-is-programmatic': true,
+		"data-mounted-id": id,
+		"data-is-programmatic": true,
 		onDestroy: () => unmountComponent(id),
 	} satisfies DefaultProps;
 
@@ -60,13 +70,13 @@ export function mountComponent<C extends DefineComponent>(
 		vNode = h(teleporter, vNode);
 	}
 
-    vNode.appContext = waku?.instance?._context as AppContext;
+	vNode.appContext = waku?.instance?._context as AppContext;
 	render(vNode, container as Element);
 	waku.addItem({
-        id,
-        label: component.__name as string,
-        el: container,
-        vNode
+		id,
+		label: component.__name as string,
+		el: container,
+		vNode,
 	});
 
 	return {

@@ -1,12 +1,12 @@
-import type { VNode } from 'vue';
-import { customAlphabet } from 'nanoid';
+import type { VNode } from "vue";
+import { customAlphabet } from "nanoid";
 
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
  * @param string
  */
 export function slash(string: string): string {
-	return string.replace(/\\/g, '/');
+	return string.replace(/\\/g, "/");
 }
 
 /**
@@ -16,7 +16,7 @@ export function slash(string: string): string {
 export function isPlainObject(v: any) {
 	return (
 		!!v &&
-		typeof v === 'object' &&
+		typeof v === "object" &&
 		(v.__proto__ === null || v.__proto__ === Object.prototype)
 	);
 }
@@ -36,14 +36,14 @@ export function isVueComponent(v: any) {
 
 export function getElement(v: VNode | null): any {
 	if (v?.el) {
-		if (v.el.nodeName === '#text') {
+		if (v.el.nodeName === "#text") {
 			return v.el.nextSibling;
 		}
 
 		if (
-			v.el.nodeName === '#comment'
-			&& Array.isArray(v.children)
-			&& v.children.length === 1
+			v.el.nodeName === "#comment" &&
+			Array.isArray(v.children) &&
+			v.children.length === 1
 		) {
 			return getElement(v.children[0] as VNode);
 		}
@@ -57,7 +57,7 @@ export function getElement(v: VNode | null): any {
  * @param element
  */
 export function removeElement(element: HTMLElement) {
-	if (typeof element.remove !== 'undefined') {
+	if (typeof element.remove !== "undefined") {
 		element.remove();
 	} else {
 		element.parentNode?.removeChild(element);
@@ -71,9 +71,9 @@ export function removeElement(element: HTMLElement) {
 export function isComment(v: HTMLElement) {
 	return (
 		v.nodeType === Node.COMMENT_NODE ||
-		v.nodeName === '#comment' ||
-		v.nodeValue === 'teleport start' ||
-		v.nodeValue === 'teleport end'
+		v.nodeName === "#comment" ||
+		v.nodeValue === "teleport start" ||
+		v.nodeValue === "teleport end"
 	);
 }
 
@@ -96,7 +96,6 @@ export function removeComments(element: HTMLElement) {
 			delete children[el as any];
 			element.removeChild(el);
 		}
-
 	}
 }
 
@@ -106,12 +105,7 @@ export function removeComments(element: HTMLElement) {
  * @param value
  */
 export function empty(value: any) {
-	if (
-		value === null ||
-		value === undefined ||
-		value === '{}' ||
-		value === ''
-	) {
+	if (value === null || value === undefined || value === "{}" || value === "") {
 		return true;
 	}
 
@@ -141,14 +135,14 @@ export function toArray<T>(value: T | T[]): T[] {
  */
 export function basename(string: string) {
 	return slash(string)
-		.substring(string.lastIndexOf('/') + 1)
-		.split('.')[0];
+		.substring(string.lastIndexOf("/") + 1)
+		.split(".")[0];
 }
 
 /**
  * Generate custom component ID
  */
-const allowedValues = '1234567890abcdefghijklmnopqrstuvwxyz';
+const allowedValues = "1234567890abcdefghijklmnopqrstuvwxyz";
 export function generateID(length = 10) {
 	const nanoid = customAlphabet(allowedValues, length);
 	return nanoid();

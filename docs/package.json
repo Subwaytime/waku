@@ -1,20 +1,20 @@
 {
-  "name": "@vue-mountable/docs",
-  "type": "module",
-  "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
-  },
-  "devDependencies": {
-    "vitepress": "^1.0.0-rc.42",
-    "vue": "^3.4.19"
-  },
-  "dependencies": {
-    "@vueuse/components": "^10.7.2",
-    "@vueuse/core": "^10.7.2",
-    "pinia": "^2.1.7",
-    "vite-plugin-vue-devtools": "^7.0.14",
-    "vue-mountable": "^0.1.5"
-  }
+	"name": "@vue-mountable/docs",
+	"type": "module",
+	"scripts": {
+		"docs:dev": "vitepress dev",
+		"docs:build": "vitepress build",
+		"docs:preview": "vitepress preview"
+	},
+	"devDependencies": {
+		"vitepress": "^1.0.0-rc.42",
+		"vue": "^3.4.19"
+	},
+	"dependencies": {
+		"@vueuse/components": "^10.7.2",
+		"@vueuse/core": "^10.7.2",
+		"pinia": "^2.1.7",
+		"vite-plugin-vue-devtools": "^7.0.14",
+		"vue-mountable": "^0.1.5"
+	}
 }
