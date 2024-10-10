@@ -1,6 +1,5 @@
 import type { VNode } from 'vue';
 import { customAlphabet } from 'nanoid';
-import { MODULE_NAME } from './constants';
 
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
@@ -36,18 +35,20 @@ export function isVueComponent(v: any) {
  */
 
 export function getElement(v: VNode | null): any {
-	if (v && v.el) {
+	if (v?.el) {
 		if (v.el.nodeName === '#text') {
 			return v.el.nextSibling;
-		} else if (
-			v.el.nodeName === '#comment' &&
-			Array.isArray(v.children) &&
-			v.children.length === 1
+		}
+
+		if (
+			v.el.nodeName === '#comment'
+			&& Array.isArray(v.children)
+			&& v.children.length === 1
 		) {
 			return getElement(v.children[0] as VNode);
-		} else {
-			return v.el;
 		}
+
+		return v.el;
 	}
 }
 
@@ -59,7 +60,7 @@ export function removeElement(element: HTMLElement) {
 	if (typeof element.remove !== 'undefined') {
 		element.remove();
 	} else {
-		element.parentNode && element.parentNode.removeChild(element);
+		element.parentNode?.removeChild(element);
 	}
 }
 

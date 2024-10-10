@@ -1,11 +1,10 @@
 import { render } from 'vue';
-import { useMountableService } from '../service';
-import { ServiceItem } from '../types';
+import { useWaku } from '../core';
 import { empty, removeElement } from '../utils';
 
 export function unmountComponent(id: string): void {
-	const service = useMountableService();
-	const item: any = service.getItem(id);
+	const waku = useWaku();
+	const item = waku.getItem(id);
 
 	if (!item) {
 		return;
@@ -13,22 +12,23 @@ export function unmountComponent(id: string): void {
 
 	render(null, item.el);
 	removeElement(item.el as HTMLElement);
-	item.el = null;
-	item.vNode = null;
-	service.removeItem(id);
+	item.el = null as any;
+	item.vNode = null as any;
+	waku.removeItem(id);
 }
 
 export function unmountAllComponents(): void {
-  const service = useMountableService();
+    const waku = useWaku();
 
-	if (empty(service.items)) {
+	if (!waku.items || empty(waku.items)) {
 		console.info('There are no components that can be dismounted!');
 		return;
 	}
 
-	service.items.forEach((item: ServiceItem) => {
+	for (let index = 0; index < waku.items.length; index++) {
+		const item = waku.items[index];
 		unmountComponent(item.id);
-	});
+	}
 
-	service.items.length = 0;
+	waku.items.length = 0;
 }
