@@ -31,7 +31,7 @@
 		"build": "bun ./bunfig.ts",
 		"lint": "biome ci",
 		"format": "biome format --write .",
-		"lint:fix": "biome lint --apply .",
+		"lint:fix": "biome lint --write .",
 		"clean": "bun run format && bun run lint:fix",
 		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish",
 		"prepublishOnly": "bun run build"
