@@ -1,61 +1,57 @@
 {
-  "name": "vue-mountable",
-  "version": "0.1.5",
-  "private": false,
-  "description": "Vue 3 Component DOM Mounting",
-  "author": "Subwaytime <leon.l@nophase.de>",
-  "license": "MIT",
-  "homepage": "https://github.com/subwaytime/vue-mountable#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/subwaytime/vue-mountable"
-  },
-  "bugs": "https://github.com/subwaytime/vue-mountable/issues",
-  "type": "module",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "default": "./dist.index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "keywords": [
-    "vite",
-    "vue",
-    "vue3",
-    "dom",
-    "mount",
-    "components"
-  ],
-  "files": [
-    "dist"
-  ],
-  "engines": {
-    "bun": ">=1.0.17"
-  },
-  "scripts": {
-    "dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
-    "build": "bun ./bunfig.ts",
-    "lint:fix": "eslint . --fix",
-    "release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish",
-    "prepublishOnly": "bun run build"
-  },
-  "dependencies": {
-    "@vue/devtools-api": "^7.4.6",
-    "@vue/runtime-core": "^3.5.10",
-    "nanoid": "^5.0.7",
-    "type-fest": "^4.26.1",
-    "vue": "^3.3.4"
-  },
-  "devDependencies": {
-    "@subwaytime/eslint-config": "^0.0.11",
-    "bun-plugin-dts": "^0.2.3",
-    "bun-types": "^1.1.29",
-    "typescript": "^5.6.2"
-  },
-  "peerDependencies": {
-    "vue": "^3.3.4"
-  }
+	"name": "vue-mountable",
+	"version": "0.1.5",
+	"private": false,
+	"description": "Vue 3 Component DOM Mounting",
+	"author": "Subwaytime <leon.l@nophase.de>",
+	"license": "MIT",
+	"homepage": "https://github.com/subwaytime/vue-mountable#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/subwaytime/vue-mountable"
+	},
+	"bugs": "https://github.com/subwaytime/vue-mountable/issues",
+	"type": "module",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"default": "./dist.index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"keywords": ["vite", "vue", "vue3", "dom", "mount", "components"],
+	"files": ["dist"],
+	"engines": {
+		"bun": ">=1.0.17"
+	},
+	"scripts": {
+		"dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
+		"build": "bun ./bunfig.ts",
+		"lint": "biome ci",
+		"format": "biome format --write .",
+		"lint:fix": "biome lint --apply .",
+		"clean": "bun run format && bun run lint:fix",
+		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish",
+		"prepublishOnly": "bun run build"
+	},
+	"dependencies": {
+		"@biomejs/biome": "^1.9.2",
+		"@vue/devtools-api": "^7.4.6",
+		"@vue/runtime-core": "^3.5.10",
+		"defu": "^6.1.4",
+		"nanoid": "^5.0.7",
+		"type-fest": "^4.26.1",
+		"vue": "^3.3.4"
+	},
+	"devDependencies": {
+		"@subwaytime/eslint-config": "^0.0.11",
+		"bun-plugin-dts": "^0.2.3",
+		"bun-types": "^1.1.29",
+		"typescript": "^5.6.2"
+	},
+	"peerDependencies": {
+		"vue": "^3.3.4"
+	}
 }
