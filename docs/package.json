@@ -7,14 +7,14 @@
 		"docs:preview": "vitepress preview"
 	},
 	"devDependencies": {
-		"vitepress": "^1.0.0-rc.42",
-		"vue": "^3.4.19"
+		"vitepress": "^1.4.0",
+		"vue": "^3.5.11"
 	},
 	"dependencies": {
-		"@vueuse/components": "^10.7.2",
-		"@vueuse/core": "^10.7.2",
-		"pinia": "^2.1.7",
-		"vite-plugin-vue-devtools": "^7.0.14",
+		"@vueuse/components": "^11.1.0",
+		"@vueuse/core": "^11.1.0",
+		"pinia": "^2.2.4",
+		"vite-plugin-vue-devtools": "^7.4.6",
 		"vue-mountable": "^0.1.5"
 	}
 }
