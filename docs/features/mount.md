@@ -14,7 +14,7 @@ This function offers fine-grained configuration options and seamlessly integrate
 - Implement tooltips and context menus that dynamically display content.
 - Build extensible and reusable UI elements that can be easily integrated into different parts of your Vue.js application.
 
-Extending the functionality of their applications, like the old `Vue.extend`, is its main purpose by offering a versatile and intuitive way to manage dynamic components and enhance user interactions.
+Extending the functionality of their applications, like `Vue.extend`, is its main purpose by offering a versatile and intuitive way to manage dynamic components and enhance user interactions.
 
 ## Basic
 

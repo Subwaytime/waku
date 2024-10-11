@@ -1,7 +1,7 @@
 # Unmount
 <br />
 <div class="cleaner-text">
-Vue Mountable allows you to gracefully remove a dynamically mounted Vue component from your application's DOM.
+Waku allows you to gracefully remove a dynamically mounted Vue component from your application's DOM.
 <br />
 <br />
 It simplifies the process of cleaning up and removing components that are no longer needed, helping you manage your application's resources efficiently.
@@ -77,7 +77,7 @@ const emit = defineEmits(['destroy']);
 <code class="highlight">unmountAllComponents</code> removes all dynamically mounted Vue components from the DOM, providing a quick way to clean up and clear the application's interface.
 <br />
 <br />
-This also kill any cached Components inside the Vue Mountable service.
+This also kill any cached Components inside the Waku instance.
 </div>
 
 ```ts

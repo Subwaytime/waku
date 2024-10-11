@@ -1,37 +1,37 @@
 # Getting Started
 
-Vue Mountable is a flexible Vue.js plugin that simplifies the process of mounting components in your Vue.js applications. Whether you want to create popups, tooltips, or other dynamically mountable elements, Vue Mountable has you covered.
+Waku is a flexible plugin that simplifies the process of mounting components in your Vue applications. Whether you want to create popups, tooltips, or other dynamically mountable elements, Waku has you covered.
 
 
 ## Installation
 :::code-group
 ```txt [bun]
-bun add vue-mountable
+bun add @subwaytime/waku
 ```
 ```txt [npm]
-npm add vue-mountable
+npm add @subwaytime/waku
 ```
 ```txt [pnpm]
-pnpm add vue-mountable
+pnpm add @subwaytime/waku
 ```
 :::
 
 ## Usage
 
-Once you've installed Vue Mountable, you can start using it in your Vue.js application.
+Once you've installed Waku, you can start using it in your Vue application.
 <br />
 Here's a basic example of how to get started:
 <br />
 <br />
 
-1. Import Vue Mountable
-In your Vue component or main JavaScript file, import Vue Mountable:
+1. Import Waku Plugin
+In your Vue component or main JavaScript file, import `createWaku`:
 ```ts
 import { createApp } from 'vue';
-import { VueMountable } from 'vue-mountable';
+import { createWaku } from '@subwaytime/waku';
 
 const app = createApp();
-app.use(VueMountable());
+app.use(createWaku());
 ```
 2. Create a mountable Component
 ```vue
@@ -51,7 +51,7 @@ const { id, vNode, el, destroy } = mountComponent(modal);
 Check out the <a href="/features/mount">features</a> for detailed information on configuration options and advanced usage.
 <br />
 <br />
-That's it! You've successfully integrated Vue Mountable into your Vue.js application. Feel free to explore the library's features and customize mountable components to suit your needs.
+That's it! You've successfully integrated Waku into your Vue application. Feel free to explore the library's features and customize mountable components to suit your needs.
 <br />
 <br />
 Happy mounting!
