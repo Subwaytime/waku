@@ -1,7 +1,7 @@
 import Theme from 'vitepress/theme';
 import './style.css';
 import './custom.css';
-import { createWaku } from '@subwaytime/waku';
+import { createWaku } from 'vue-mountable';
 import Default from './default.vue';
 import { createPinia } from 'pinia';
 

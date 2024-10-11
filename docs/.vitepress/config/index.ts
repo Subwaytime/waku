@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitepress';
-import VueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	title: 'Waku',
 	description: 'Waku Documentation',
+	appearance: 'dark',
 	themeConfig: {
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [
@@ -22,7 +22,7 @@ export default defineConfig({
 					{ text: 'Getting started', link: '/guide/getting-started' },
 					{
 						text: 'Roadmap',
-						link: 'https://github.com/Subwaytime/vue-mountable/issues/10',
+						link: 'https://github.com/subwaytime/waku/issues/10',
 					},
 				],
 			},
@@ -57,12 +57,20 @@ export default defineConfig({
 		socialLinks: [
 			{
 				icon: 'github',
-				link: 'https://github.com/Subwaytime/vue-mountable',
+				link: 'https://github.com/subwaytime/waku',
 			},
 		],
+
+		footer: {
+			copyright: 'Copyright © 2021-PRESENT Leon Langer',
+			message: 'Released under the MIT License.',
+		},
 	},
-	vite: {
-		plugins: [VueDevTools()],
+	markdown: {
+		theme: {
+			dark: 'vitesse-dark',
+			light: 'vitesse-light',
+		},
 	},
 	vue: {
 		script: {

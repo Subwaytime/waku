@@ -32,3 +32,14 @@ h2 {
 .overlay-open {
 	overflow: hidden;
 }
+
+.VPContent.is-home {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding-top: 0!important;
+}
+
+.VPHome {
+	margin-bottom: 0!important;
+}
