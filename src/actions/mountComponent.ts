@@ -85,8 +85,8 @@ export function mountComponent<C extends DefineComponent>(
 
 	return {
 		id,
-		vNode,
 		el: container,
+		vNode,
 		destroy: () => unmountComponent(id),
 	};
 }

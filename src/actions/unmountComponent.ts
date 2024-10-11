@@ -10,10 +10,10 @@ export function unmountComponent(id: string): void {
 		return;
 	}
 
-	render(null, item.el);
+	render(null, item.el as Element);
 	removeElement(item.el as HTMLElement);
-	item.el = null as any;
-	item.vNode = null as any;
+	item.el = null;
+	item.vNode = null;
 	waku.removeItem(id);
 }
 

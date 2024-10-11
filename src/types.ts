@@ -29,6 +29,7 @@ type ComponentProps<C extends Component> = C extends new (
 	: never;
 
 type Emits = {
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	[key: `on${Capitalize<string>}`]: (...args: any[]) => void;
 };
 

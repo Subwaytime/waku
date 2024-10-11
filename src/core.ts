@@ -29,11 +29,14 @@ interface SetActiveWaku {
 	(waku: Waku | undefined): Waku | undefined;
 }
 
+/**
+ *
+ */
 export interface WakuItem {
 	id: string;
 	label: string;
-	el: RendererElement;
-	vNode: VNode;
+	el: Element | HTMLElement | RendererElement | null;
+	vNode: VNode | null;
 }
 
 /**
