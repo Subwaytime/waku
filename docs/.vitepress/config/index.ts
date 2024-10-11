@@ -3,8 +3,8 @@ import VueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-	title: 'Vue Mountable',
-	description: 'Vue Mountable Documentation',
+	title: 'Waku',
+	description: 'Waku Documentation',
 	themeConfig: {
 		// https://vitepress.dev/reference/default-theme-config
 		nav: [

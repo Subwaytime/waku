@@ -1,7 +1,7 @@
 import Theme from 'vitepress/theme';
 import './style.css';
 import './custom.css';
-import { VueMountable } from 'vue-mountable';
+import { createWaku } from '@subwaytime/waku';
 import Default from './default.vue';
 import { createPinia } from 'pinia';
 
@@ -10,6 +10,6 @@ export default {
 	Layout: Default,
 	enhanceApp({ app }) {
 		app.use(createPinia());
-		app.use(VueMountable());
+		app.use(createWaku());
 	},
 };
