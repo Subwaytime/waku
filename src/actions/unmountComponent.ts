@@ -2,6 +2,11 @@ import { render } from 'vue';
 import { useWaku } from '../core';
 import { empty, removeElement } from '../utils';
 
+/**
+ *
+ * @param id
+ * @returns
+ */
 export function unmountComponent(id: string): void {
 	const waku = useWaku();
 	const item = waku.getItem(id);
@@ -17,6 +22,10 @@ export function unmountComponent(id: string): void {
 	waku.removeItem(id);
 }
 
+/**
+ *
+ * @returns
+ */
 export function unmountAllComponents(): void {
 	const waku = useWaku();
 

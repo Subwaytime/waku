@@ -1,6 +1,7 @@
 import { type VNode, h, mergeProps, readonly } from 'vue';
+import type { StringKeyOf } from 'type-fest';
 import { isVueComponent, toArray } from '../utils';
-import type { ExtractComponentProps, SlottedComponent } from '../types';
+import type { SlottedComponent } from '../types';
 
 export function handleSlots(
 	slottedComponents: SlottedComponent | SlottedComponent[],
@@ -10,7 +11,7 @@ export function handleSlots(
 	function processItem(item: SlottedComponent): void {
 		const {
 			slotName = 'default',
-			props = {} as ExtractComponentProps<SlottedComponent['component']>,
+			props,
 			emits,
 		} = item;
 
@@ -19,11 +20,12 @@ export function handleSlots(
 		}
 
 		if (isVueComponent(item)) {
-			(item as any).component = {} as any;
-			for (const key of Object.keys(item as any)) {
-				(item as any).component[key] = (item as any)[key];
-				if (key !== 'component') {
-					delete (item as any)[key];
+			item.component = {};
+			type SlotKey = keyof SlottedComponent
+			for (const index of Object.keys(item)) {
+				item.component[index] = item[index as SlotKey];
+				if (index !== "component") {
+					delete item[index as SlotKey];
 				}
 			}
 		}
@@ -32,17 +34,13 @@ export function handleSlots(
 
 		slotMap[slotName] = (ctx: any) => {
 			const data = readonly(
-				mergeProps({ ...(props as any), ...emits }, { ...ctx }),
+				mergeProps({ ...props, ...emits }, { ...ctx }),
 			);
 			return h(item.component, data, slots);
 		};
 	}
 
-	try {
-		toArray(slottedComponents).forEach(processItem);
-	} catch (error) {
-		throw error;
-	}
+	toArray(slottedComponents).forEach(processItem);
 
 	return slotMap;
 }
