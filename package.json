@@ -37,16 +37,16 @@
 		"prepublishOnly": "bun run build"
 	},
 	"dependencies": {
-		"@biomejs/biome": "^1.9.3",
 		"@vue/devtools-api": "^7.4.6",
 		"@vue/runtime-core": "^3.5.11",
 		"defu": "^6.1.4",
 		"nanoid": "^5.0.7",
-		"type-fest": "^4.26.1",
 		"vue": "^3.3.4"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.3",
 		"bun-types": "^1.1.30",
+		"type-fest": "^4.26.1",
 		"typescript": "^5.6.3"
 	},
 	"peerDependencies": {
