@@ -4,9 +4,13 @@ import { isVueComponent, toArray } from '../utils';
 import type { SlottedComponent } from '../types';
 
 export function handleSlots(
-	slottedComponents: SlottedComponent | SlottedComponent[],
-): Record<string, (ctx: any) => VNode> {
+	slottedComponents: SlottedComponent | SlottedComponent[] | undefined,
+): Record<string, (ctx: any) => VNode> | undefined {
 	const slotMap: Record<string, (ctx: any) => VNode> = {};
+
+	if(!slottedComponents) {
+		return undefined;
+	}
 
 	function processItem(item: SlottedComponent): void {
 		const {
@@ -32,7 +36,7 @@ export function handleSlots(
 
 		const slots = item.slots ? handleSlots(item.slots) : undefined;
 
-		slotMap[slotName] = (ctx: any) => {
+		slotMap[slotName] = (ctx) => {
 			const data = readonly(
 				mergeProps({ ...props, ...emits }, { ...ctx }),
 			);
