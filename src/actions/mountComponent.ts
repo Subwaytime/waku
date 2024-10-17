@@ -58,23 +58,14 @@ export function mountComponent<C extends DefineComponent>(
 
 	component.inheritAttrs = opt.inheritAttrs;
 
-	let vNode: VNode = createVNode(
-		defineComponent(
-			() => () =>
-				h(
-					component,
-					data,
-					opt.slots ? handleSlots(opt.slots) : undefined,
-				),
-		),
-	);
+	let vNode: VNode = h(component, data, handleSlots(opt.slots));
+	vNode.appContext = waku?.instance?._context as AppContext;
 
 	if (opt.target) {
 		const teleporter = h(Teleport as any, { to: opt.target });
 		vNode = h(teleporter, vNode);
 	}
 
-	vNode.appContext = waku?.instance?._context as AppContext;
 	render(vNode, container as Element);
 	waku.addItem({
 		id,
