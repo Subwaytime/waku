@@ -1,19 +1,15 @@
 import type {
 	AppContext,
-	Component,
 	DefineComponent,
-	FunctionalComponent,
 	RendererElement,
 	VNode,
 } from 'vue';
 import {
 	Teleport,
-	createVNode,
 	h,
 	mergeProps,
 	render,
 	readonly,
-	defineComponent,
 } from 'vue';
 import { defu } from 'defu';
 import { useWaku, type Waku } from '../core';
