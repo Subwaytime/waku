@@ -146,8 +146,12 @@ export function basename(string: string) {
 
 /**
  * Generate custom component ID
+ * @param integer
+ * @return string
  */
-const allowedValues = '1234567890abcdefghijklmnopqrstuvwxyz';
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+const allowedValues = `1234567890${alphabet}${alphabet.toUpperCase()}`;
+
 export function generateID(length = 10) {
 	const nanoid = customAlphabet(allowedValues, length);
 	return nanoid();
