@@ -1,7 +1,6 @@
 import { type VNode, h, mergeProps, readonly } from 'vue';
-import type { StringKeyOf } from 'type-fest';
-import { isVueComponent, toArray } from '../utils';
-import type { SlottedComponent } from '../types';
+import { isVueComponent, toArray } from '~/utils';
+import type { SlottedComponent } from '~/types';
 
 export function handleSlots(
 	slottedComponents: SlottedComponent | SlottedComponent[] | undefined,

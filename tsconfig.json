@@ -16,7 +16,10 @@
 		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true,
 		"allowJs": true,
-		"types": ["bun-types"]
+		"types": ["bun-types"],
+		"paths": {
+			"~/*": ["src/*"]
+		}
 	},
 	"include": ["src/**/*", "./bunfig.ts"],
 	"exclude": ["**/example", "**/dist", "**/node_modules", "**/test"]

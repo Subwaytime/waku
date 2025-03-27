@@ -5,7 +5,7 @@ import {
 	type VNode,
 	type RendererElement,
 } from 'vue';
-import { WakuSymbol, MODULE_NAME } from './constants';
+import { WakuSymbol, MODULE_NAME } from '~/constants';
 
 /**
  *

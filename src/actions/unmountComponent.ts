@@ -1,6 +1,6 @@
 import { render } from 'vue';
-import { useWaku } from '../core';
-import { empty, removeElement } from '../utils';
+import { useWaku } from '~/core';
+import { empty, removeElement } from '~/utils';
 
 /**
  *

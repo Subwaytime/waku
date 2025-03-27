@@ -12,17 +12,17 @@ import {
 	readonly,
 } from 'vue';
 import { defu } from 'defu';
-import { useWaku, type Waku } from '../core';
-import { generateID } from '../utils';
+import { useWaku, type Waku } from '~/core';
+import { generateID } from '~/utils';
 import type {
 	DefaultProps,
 	MountedComponentInstance,
 	MountOptions,
 	Options,
-} from '../types';
-import { unmountComponent } from './unmountComponent';
-import { handleSlots } from './handleSlots';
-import { defaultOptions } from '../constants';
+} from '~/types';
+import { unmountComponent } from '~/actions/unmountComponent';
+import { handleSlots } from '~/actions/handleSlots';
+import { defaultOptions } from '~/constants';
 
 export function mountComponent<C extends DefineComponent>(
 	options: MountOptions<C>,
