@@ -59,7 +59,7 @@ export function setActiveWaku(waku: Waku | undefined): SetActiveWaku {
  *
  * @param waku
  */
-export function getActiveWaku() {
+export function getActiveWaku(): Waku | undefined {
 	return (hasInjectionContext() && inject(WakuSymbol)) || activeWaku;
 }
 

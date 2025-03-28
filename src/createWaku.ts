@@ -2,7 +2,7 @@ import type { App } from 'vue';
 import { type Waku, type WakuItem, setActiveWaku } from './core';
 import { MODULE_NAME, WakuSymbol } from './constants';
 
-export function createWaku() {
+export function createWaku(): Waku {
 	// biome-ignore lint/suspicious/noImplicitAnyLet:
 	let instance;
 

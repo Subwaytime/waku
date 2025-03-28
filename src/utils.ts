@@ -13,7 +13,7 @@ export function slash(string: string): string {
  * Check if Value is a Plain Object
  * @param {*} v
  */
-export function isPlainObject(v: any) {
+export function isPlainObject(v: any): boolean {
 	return (
 		!!v &&
 		typeof v === 'object' &&
@@ -25,7 +25,7 @@ export function isPlainObject(v: any) {
  * Check if Value is a Vue Component
  * @param v
  */
-export function isVueComponent(v: any) {
+export function isVueComponent(v: any): boolean {
 	return isPlainObject(v) && v.render && v.__file && v.__hmrId;
 }
 
@@ -56,7 +56,7 @@ export function getElement(v: VNode | null): any {
  * Removes HTML Element from DOM
  * @param element
  */
-export function removeElement(element: HTMLElement) {
+export function removeElement(element: HTMLElement): void {
 	if (typeof element.remove !== 'undefined') {
 		element.remove();
 	} else {
@@ -68,7 +68,7 @@ export function removeElement(element: HTMLElement) {
  * Check if Value is a DOM Comment
  * @param v
  */
-export function isComment(v: HTMLElement) {
+export function isComment(v: HTMLElement): boolean {
 	return (
 		v.nodeType === Node.COMMENT_NODE ||
 		v.nodeName === '#comment' ||
@@ -81,7 +81,7 @@ export function isComment(v: HTMLElement) {
  * Remove Teleportation DOM Comments
  * @param value
  */
-export function removeComments(element: HTMLElement) {
+export function removeComments(element: HTMLElement): void {
 	if (!element.hasChildNodes()) {
 		return;
 	}
@@ -104,7 +104,7 @@ export function removeComments(element: HTMLElement) {
  * supports: Array, Object, String
  * @param value
  */
-export function empty(value: any) {
+export function empty(value: any): boolean {
 	if (
 		value === null ||
 		value === undefined ||
@@ -138,7 +138,7 @@ export function toArray<T>(value: T | T[]): T[] {
  * Returns basename from component file
  * @param string
  */
-export function basename(string: string) {
+export function basename(string: string): string {
 	return slash(string)
 		.substring(string.lastIndexOf('/') + 1)
 		.split('.')[0];
@@ -152,7 +152,7 @@ export function basename(string: string) {
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const allowedValues = `1234567890${alphabet}${alphabet.toUpperCase()}`;
 
-export function generateID(length = 10) {
+export function generateID(length = 10): string {
 	const nanoid = customAlphabet(allowedValues, length);
 	return nanoid();
 }
