@@ -17,18 +17,18 @@
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
-			"default": "./dist.index.js",
 			"types": "./dist/index.d.ts"
 		}
 	},
 	"keywords": ["vite", "vue", "vue3", "dom", "mount", "components"],
-	"files": ["dist"],
+	"files": ["./dist"],
 	"engines": {
 		"bun": ">=1.0.17"
 	},
 	"scripts": {
 		"dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
 		"build": "bun ./bunfig.ts",
+		"bundle": "bunx --bun vite build",
 		"lint": "biome ci",
 		"format": "biome format --write .",
 		"lint:fix": "biome lint --write .",
@@ -37,18 +37,20 @@
 		"prepublishOnly": "bun run build"
 	},
 	"dependencies": {
-		"@vue/devtools-api": "^7.4.6",
-		"@vue/runtime-core": "^3.5.11",
+		"@vue/devtools-api": "^7.7.2",
+		"@vue/runtime-core": "^3.5.13",
 		"defu": "^6.1.4",
-		"nanoid": "^5.0.7",
-		"vue": "^3.3.4",
-		"vue-component-type-helpers": "^2.2.8"
+		"nanoid": "^5.1.5",
+		"vue": "^3.5.13"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.3",
-		"bun-types": "^1.1.30",
-		"type-fest": "^4.26.1",
-		"typescript": "^5.6.3"
+		"@biomejs/biome": "^1.9.4",
+		"@types/bun": "^1.2.8",
+		"type-fest": "^4.38.0",
+		"typescript": "^5.8.2",
+		"vite": "^6.2.3",
+		"vite-plugin-dts": "^4.5.3",
+		"vue-component-type-helpers": "^2.2.8"
 	},
 	"peerDependencies": {
 		"vue": "^3.3.4"
