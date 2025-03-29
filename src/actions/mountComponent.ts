@@ -24,23 +24,20 @@ import { unmountComponent } from '~/actions/unmountComponent';
 import { handleSlots } from '~/actions/handleSlots';
 import { defaultOptions } from '~/constants';
 
-export function mountComponent<C extends DefineComponent>(
+export function mountComponent<C>(
 	options: MountOptions<C>,
 ): MountedComponentInstance {
 	const waku = useWaku();
-	const wrappedOptions = (options as Options<C>).component
+	const wrappedOptions = 'component' in options
 		? options
 		: { component: options };
 
-	const opt = defu(
-		{},
-		{ ...defaultOptions, ...wrappedOptions },
-	) as unknown as Options<C>;
+	const opt: Options<C> = defu({}, { ...defaultOptions, ...wrappedOptions });
 	const id: string = generateID();
 
 	const container: RendererElement | Element | null =
 		document.createDocumentFragment();
-	const component = opt.component;
+	const component = opt.component as DefineComponent;
 
 	const defaultProps = {
 		'data-mounted-id': id,
