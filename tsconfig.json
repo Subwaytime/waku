@@ -1,26 +1,35 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
-		"lib": ["ESNext"],
+		"lib": ["ESNext", "DOM"],
 		"module": "esnext",
 		"target": "esnext",
 		"moduleResolution": "bundler",
 		"moduleDetection": "force",
 		"allowImportingTsExtensions": true,
-		"noEmit": true,
-		"composite": true,
-		"strict": true,
-		"downlevelIteration": true,
-		"skipLibCheck": true,
-		"jsx": "preserve",
 		"allowSyntheticDefaultImports": true,
+		"composite": true,
+		"declaration": true,
+		"downlevelIteration": true,
+		"emitDeclarationOnly": true,
 		"forceConsistentCasingInFileNames": true,
-		"allowJs": true,
-		"types": ["bun-types"],
+		"isolatedDeclarations": true,
+		"jsx": "preserve",
+		"noEmit": true,
+		"skipLibCheck": false,
+		"strict": true,
+		"types": ["@types/bun", "vue"],
 		"paths": {
 			"~/*": ["src/*"]
 		}
 	},
-	"include": ["src/**/*", "./bunfig.ts"],
-	"exclude": ["**/example", "**/dist", "**/node_modules", "**/test"]
+	"include": [
+		"src/**/*.ts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"test",
+		"example"
+	]
 }
