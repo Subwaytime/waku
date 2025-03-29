@@ -1,5 +1,3 @@
-/// <reference lib="dom" />
-
 import type {
 	AllowedComponentProps,
 	Component,
@@ -9,48 +7,56 @@ import type {
 	VNodeProps,
 } from 'vue';
 
-type InternalProps =
-	| keyof VNodeProps
-	| keyof AllowedComponentProps
-	| keyof DefaultProps;
-export type ExtractComponentProps<TComponent> = TComponent extends new () => {
-	$props: infer P;
-}
-	? P
-	: never;
-type ComponentProps<C extends Component> = C extends new (
-	...args: any
-) => any
-	? {
-			[K in keyof InstanceType<C> as K extends InternalProps
-				? never
-				: K]: InstanceType<C>;
-		}
-	: never;
+import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
+import type { SimplifyDeep } from 'type-fest';
+
+// DISABLED FOR NOW
+// type InternalProps =
+// 	| keyof VNodeProps
+// 	| keyof AllowedComponentProps
+// 	| keyof DefaultProps;
+// export type ExtractComponentProps<TComponent> = TComponent extends new () => {
+// 	$props: infer P;
+// }
+// 	? P
+// 	: never;
+// type ComponentProps<C extends Component> = C extends new (
+// 	...args: any
+// ) => any
+// 	? {
+// 			[K in keyof InstanceType<C> as K extends InternalProps
+// 				? never
+// 				: K]: InstanceType<C>;
+// 		}
+// 	: never;
 
 type Emits = {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	[key: `on${Capitalize<string>}`]: (...args: any[]) => void;
 };
 
-export type Options<C extends Component> = {
+export type Options<C> = {
 	component: C;
-	props?: ComponentProps<C>;
+	props?: ComponentProps<C>
 	emits?: Emits;
-	slots?: SlottedComponent | SlottedComponent[];
+	slots?: SlottedComponent<C, any>[];
 	target?: TeleportProps['to'];
 	// transition?: TransitionProps | TransitionGroupProps
 	immediate?: boolean;
 	inheritAttrs: boolean;
 };
 
-export interface SlottedComponent {
-	slotName: string;
-	component: Component;
-	props?: Record<any, any>;
+type RemoveIndexSignature<T> = {
+	[K in keyof T as K extends `${infer _}` ? K : never]: T[K]
+};
+export type SlotNames<C> = keyof RemoveIndexSignature<SimplifyDeep<ComponentSlots<C>>>;
+export type SlottedComponent<P, SC extends Component> = {
+	slotName: SlotNames<P>;
+	component: SC;
+	props?: ComponentProps<SC>;
 	emits?: Emits;
-	slots?: SlottedComponent | SlottedComponent[];
-}
+	slots?: SlottedComponent<SC, any>[];
+};
 
 export interface DefaultProps {
 	'data-mounted-id'?: string;
@@ -58,7 +64,7 @@ export interface DefaultProps {
 	onDestroy: () => void;
 }
 
-export type MountOptions<C extends Component> = Component<C> | Options<C>;
+export type MountOptions<C> = { component: C } | Options<C>;
 export interface MountedComponentInstance {
 	id: string;
 	vNode: VNode;
