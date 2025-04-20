@@ -18,5 +18,8 @@ export default defineConfig({
             strictOutput: false,
             copyDtsFiles: true,
         }) as any
-    ]
+    ],
+    onSuccess() {
+        console.log('Build successful! ✅');
+    }
 });
