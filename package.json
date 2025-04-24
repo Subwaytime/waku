@@ -37,7 +37,7 @@
 		"prepublishOnly": "bun run build"
 	},
 	"dependencies": {
-		"@vue/devtools-api": "^7.7.2",
+		"@vue/devtools-api": "^7.7.5",
 		"@vue/runtime-core": "^3.5.13",
 		"defu": "^6.1.4",
 		"nanoid": "^5.1.5",
