@@ -23,7 +23,7 @@
 	"keywords": ["vite", "vue", "vue3", "dom", "mount", "components"],
 	"files": ["./dist"],
 	"engines": {
-		"bun": ">=1.0.17"
+		"bun": ">=1.2.10"
 	},
 	"scripts": {
 		"dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
@@ -57,6 +57,6 @@
 		"vue-component-type-helpers": "^2.2.10"
 	},
 	"peerDependencies": {
-		"vue": "^3.3.4"
+		"vue": "^3.5.13"
 	}
 }
