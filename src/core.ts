@@ -5,7 +5,16 @@ import {
 	type VNode,
 	type RendererElement,
 } from 'vue';
+import type { Emitter } from 'mitt';
+import type { ValueOf } from 'type-fest';
 import { WakuSymbol, MODULE_NAME } from '~/constants';
+
+export const WakuEventsEnum = {
+	ITEM_ADDED: 'item:added',
+	ITEM_REMOVED: 'item:removed'
+} as const;
+
+export type WakuEvents = Record<ValueOf<typeof WakuEventsEnum>, string>;
 
 /**
  *
@@ -18,6 +27,7 @@ export interface Waku {
 	addItem: (item: WakuItem) => void;
 	getItem: (id: string) => false | WakuItem;
 	removeItem: (id: string) => void;
+	internal: Emitter<WakuEvents>;
 }
 
 /**
