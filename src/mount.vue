@@ -5,8 +5,6 @@
             :key="item.id"
             :is="item.vNode"
             v-memo="[item.id]"
-            v-bind="item.props"
-            v-on="item.emits"
         />
     </div>
 </template>
