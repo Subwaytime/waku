@@ -45,7 +45,7 @@ interface SetActiveWaku {
 export interface WakuItem {
 	id: string;
 	label: string;
-	el: Element | HTMLElement | RendererElement | null;
+	el?: Element | HTMLElement | RendererElement | null;
 	vNode: VNode | null;
 }
 
