@@ -38,7 +38,13 @@ export function createWaku(): Waku {
 			waku.internal.emit(WakuEventsEnum.ITEM_ADDED, item.id);
 		},
 		removeItem(id: string) {
-			waku.items = waku.items?.filter((i) => i.id !== id);
+			const index = waku.items?.findIndex((i) => i.id === id);
+
+			if (index === undefined || index <= -1) {
+				return;
+			}
+
+			waku.items?.splice(index, 1);
 			waku.internal.emit(WakuEventsEnum.ITEM_REMOVED, id);
 		},
 		getItem(id: string) {
