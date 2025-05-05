@@ -1,6 +1,5 @@
-import { render } from 'vue';
 import { useWaku } from '~/core';
-import { empty, removeElement } from '~/utils';
+import { empty } from '~/utils';
 
 /**
  *
@@ -15,8 +14,6 @@ export function unmountComponent(id: string): void {
 		return;
 	}
 
-	render(null, item.el as Element);
-	removeElement(item.el as HTMLElement);
 	item.el = null;
 	item.vNode = null;
 	waku.removeItem(id);
