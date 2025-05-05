@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-// import { type ComponentInstance, onMounted, onUnmounted } from 'vue';
 import { useWaku } from './core';
 
 const { items } = useWaku();
