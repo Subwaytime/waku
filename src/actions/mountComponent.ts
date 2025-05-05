@@ -17,6 +17,7 @@ import {
 	readonly,
 	createVNode,
 	Teleport,
+	RendererElement
 } from 'vue';
 import { defu } from 'defu';
 
@@ -32,7 +33,7 @@ interface defaultProps {
 export interface MountedComponentInstance {
 	id: string;
 	vNode: VNode;
-	// el: RendererElement | Element | null;
+	el?: RendererElement | Element | null;
 	destroy: () => void;
 }
 
@@ -99,7 +100,7 @@ interface BaseOptions<C> {
 };
 
 type Options<C> = Component & { component?: never } | SimplifyDeep<BaseOptions<C>>;
-export function mountComponent<C>(input: Options<C>): any {
+export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 	const wrappedOptions = 'component' in input
 		? input
 		: { component: input };
