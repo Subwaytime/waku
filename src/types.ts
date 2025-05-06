@@ -1,4 +1,5 @@
 import type {
+	Component,
 	RendererElement,
 	TeleportProps,
 	TransitionGroupProps,
@@ -8,6 +9,7 @@ import type {
 
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import type { SimplifyDeep } from 'type-fest';
+import { createSlot } from '~/actions/createSlot';
 
 type RemoveIndexSignature<T> = {
 	[K in keyof T as K extends `${infer _}` ? K : never]: T[K]
@@ -49,7 +51,7 @@ type BaseProps<T> = OnlyReadonlyNonOnProps<ComponentProps<T>>;
 type BaseEmits<T> = OnlyReadonlyOnProps<ComponentProps<T>>;
 
 type BaseSlots<T> = {
-	[K in SlotNames<T>]?: <C>(input: BaseOptions<C>) => void | any;
+	[K in SlotNames<T>]?: typeof createSlot;
 };
 
 type InferResolvedProps<P> = P extends object
@@ -64,10 +66,10 @@ export interface BaseOptions<C> {
 	component?: C;
 	props?: InferResolvedProps<C>;
 	emits?: InferResolvedEmits<C>;
-	target?: TeleportProps['to'];
 	slots?: BaseSlots<C>;
 	inheritAttrs?: boolean;
 	immediate?: boolean;
+	target?: TeleportProps['to'];
 	transition?: TransitionProps | TransitionGroupProps
 };
 
@@ -83,3 +85,5 @@ export interface MountedComponentInstance {
 	el?: RendererElement | Element | null;
 	destroy: () => void;
 }
+
+export type Options<C> = Component & { component?: never } | SimplifyDeep<BaseOptions<C>>;
