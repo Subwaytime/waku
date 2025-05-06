@@ -5,12 +5,12 @@ import { handleSlots } from '~/actions/handleSlots';
 import { MODULE_NAME } from '~/constants';
 import type {
 	BaseOptions,
+	DefaultProps,
 	MountedComponentInstance,
-	DefaultProps
+	Options,
  } from '~/types';
 
 import {
-	type Component,
 	type DefineComponent,
 	h,
 } from 'vue';
@@ -20,11 +20,8 @@ import {
 	createVNode,
 	Teleport,
 } from 'vue';
-import type { SimplifyDeep } from 'type-fest';
 import { defu } from 'defu';
 
-
-export type Options<C> = Component & { component?: never } | SimplifyDeep<BaseOptions<C>>;
 export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 	const wrappedOptions = 'component' in input
 		? input
