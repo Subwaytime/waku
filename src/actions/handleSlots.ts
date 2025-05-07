@@ -1,49 +1,31 @@
 import { type VNode, h, mergeProps, readonly } from 'vue';
 import { isVueComponent, toArray } from '~/utils';
-import type { SlottedComponent } from '~/types';
 
-export function handleSlots(
-	slottedComponents: SlottedComponent | SlottedComponent[] | undefined,
-): Record<string, (ctx: any) => VNode> | undefined {
-	const slotMap: Record<string, (ctx: any) => VNode> = {};
+export function handleSlots(input: any): Record<string, () => VNode> | undefined {
+    // TODO: Check if input is a handledSlot or an array
+    const slotMap: Record<string, (ctx: any) => VNode> = {};
 
-	if(!slottedComponents) {
-		return undefined;
-	}
+    const nodes = Object.entries(input);
 
-	function processItem(item: SlottedComponent): void {
-		const {
-			slotName = 'default',
-			props,
-			emits,
-		} = item;
+    function processItem(item: any): void {
+        const { slotName = 'default'} = item[0];
 
-		if (typeof item === 'string') {
-			throw new Error('String elements are not supported as properties.');
-		}
+        const {
+            vNode,
+            props,
+            emits,
+        } = item[1];
 
-		if (isVueComponent(item)) {
-			item.component = {};
-			type SlotKey = keyof SlottedComponent
-			for (const index of Object.keys(item)) {
-				item.component[index] = item[index as SlotKey];
-				if (index !== "component") {
-					delete item[index as SlotKey];
-				}
-			}
-		}
+        const slots = item.slots ? handleSlots(item.slots) : undefined;
 
-		const slots = item.slots ? handleSlots(item.slots) : undefined;
+        slotMap[slotName] = (ctx) => {
+            const data = readonly(
+                mergeProps({ ...props, ...emits }, { ...ctx }),
+            );
+            return h(vNode, data, slots);
+        };
+    }
 
-		slotMap[slotName] = (ctx) => {
-			const data = readonly(
-				mergeProps({ ...props, ...emits }, { ...ctx }),
-			);
-			return h(item.component, data, slots);
-		};
-	}
-
-	toArray(slottedComponents).forEach(processItem);
-
-	return slotMap;
+    toArray(nodes).forEach(processItem);
+    return slotMap;
 }
