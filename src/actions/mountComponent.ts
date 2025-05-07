@@ -26,7 +26,7 @@ export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 		onDestroy: () => unmountComponent(id)
 	}) as const satisfies DefaultProps;
 
-	const { id, vNode } = prepareData(input, defaultProps, defaultOptions);
+	const { id, vNode } = prepareData(input, defaultProps, defaultOptions, waku);
 
 	waku.addItem({
 		id,

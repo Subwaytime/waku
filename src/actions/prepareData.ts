@@ -1,4 +1,5 @@
 import {
+    AppContext,
     type DefineComponent,
     h,
     Teleport,
@@ -15,8 +16,9 @@ import { defu } from 'defu';
 
 import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
+import { Waku } from '~/core';
 
-export function prepareData(input: any, defaultProps: any, defaultOptions: any): { id: string, vNode: VNode, opt: any } {
+export function prepareData(input: any, defaultProps: any, defaultOptions: any, waku?: Waku): { id: string, vNode: VNode, opt: any } {
     const wrappedOptions = 'component' in input
         ? input
         : { component: input };
@@ -34,7 +36,7 @@ export function prepareData(input: any, defaultProps: any, defaultOptions: any):
     );
 
     component.inheritAttrs = opt.inheritAttrs;
-    const slots = opt.slots ? handleSlots(opt.slots) : null;
+    const slots = opt.slots ? handleSlots(opt.slots) : undefined;
     let vNode = createVNode(component, data, slots);
 
     if (opt.target) {
@@ -42,7 +44,9 @@ export function prepareData(input: any, defaultProps: any, defaultOptions: any):
         vNode = h(teleporter, vNode);
     }
 
-    vNode.appContext = waku.instance._context;
+    if(waku) {
+        vNode.appContext = waku?.instance?._context as AppContext;
+    }
 
     return {
         id,
