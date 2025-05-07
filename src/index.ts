@@ -9,4 +9,5 @@ export {
 	createSlot
 } from '~/actions/createSlot';
 
+export { MountedComponentInstance } from '~/types';
 export { createWaku } from '~/createWaku';
