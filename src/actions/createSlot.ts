@@ -1,52 +1,31 @@
 import {
-    mergeProps,
-    readonly,
-    createVNode,
-    type DefineComponent
+    type VNode,
 } from 'vue';
-import { defu } from 'defu';
-import type { Options, BaseOptions } from '~/types';
-import { generateID } from '~/utils';
-import { handleSlots } from '~/actions/handleSlots';
+import { prepareData } from '~/actions/prepareData';
 
-export interface Slot<C> {
+declare const _createSlotHandled: unique symbol;
+
+export interface CreatedSlot {
     id: string;
-    vNode: ReturnType<typeof createVNode>;
-    __handled: boolean;
+    vNode: VNode;
+    [_createSlotHandled]: boolean;
 };
 
-export function createSlot<C>(input: Options<C>): Slot<C> {
-    const wrappedOptions = 'component' in input
-        ? input
-        : { component: input };
-
+export function createSlot<C>(input: any): CreatedSlot {
     const defaultOptions = {
         inheritAttrs: false,
         immediate: true,
     } as const;
 
-    const opt = defu({}, { ...defaultOptions, ...wrappedOptions }) as BaseOptions<C>;
-
-    const id: string = generateID();
-    const component = opt.component as DefineComponent;
-
-    const defaultProps = {
+    const defaultProps= (id: string) => ({
         'waku-slot-id': id,
-    } as const;
+    }) as const;
 
-    const data = readonly(
-        mergeProps(defaultProps, {
-            ...opt.props ?? {},
-            ...opt?.emits ?? {}
-        })
-    );
-
-    const slots = opt.slots ? handleSlots(opt.slots) : null;
-    const vNode = createVNode(component, data, slots);
+    const { id, vNode } = prepareData(input, defaultProps, defaultOptions);
 
     return {
         id,
         vNode,
-        __handled: true
+        [_createSlotHandled]: true
     }
 }
