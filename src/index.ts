@@ -5,5 +5,8 @@ export {
 	unmountAllComponents,
 } from '~/actions/unmountComponent';
 
-export type { MountedComponentInstance } from '~/types';
+export {
+	createSlot
+} from '~/actions/createSlot';
+
 export { createWaku } from '~/createWaku';
