@@ -1,12 +1,9 @@
 import {
-    createVNode,
     readonly,
     mergeProps,
-    h,
     type DefineComponent,
     type Component,
     type VNode,
-    Teleport,
 } from 'vue';
 import { defu } from 'defu';
 
@@ -14,6 +11,7 @@ import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
 import { useWaku } from '~/core';
 import { MODULE_NAME } from '~/constants';
+import type { Options } from '~/types';
 
 // declare const _createSlotHandled: unique symbol;
 
@@ -25,7 +23,7 @@ export interface CreatedSlot {
     // [_createSlotHandled]: boolean;
 };
 
-export function createSlot<C>(input: any): CreatedSlot {
+export function createSlot<C>(input: Options<C>): CreatedSlot {
     const waku = useWaku();
 
     if (!waku.instance) {
