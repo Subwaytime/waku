@@ -1,7 +1,7 @@
 import { type VNode, h, mergeProps, readonly } from 'vue';
-import { isVueComponent, toArray } from '~/utils';
+import { toArray } from '~/utils';
 
-export function handleSlots(input: any): Record<string, () => VNode> | undefined {
+export function handleSlots(input: any): Record<string, (ctx: any) => VNode> | undefined {
     // TODO: Check if input is a handledSlot or an array
     const slotMap: Record<string, (ctx: any) => VNode> = {};
 
@@ -11,18 +11,17 @@ export function handleSlots(input: any): Record<string, () => VNode> | undefined
         const { slotName = 'default'} = item[0];
 
         const {
-            vNode,
-            props,
-            emits,
+            component,
+            data
         } = item[1];
 
         const slots = item.slots ? handleSlots(item.slots) : undefined;
 
         slotMap[slotName] = (ctx) => {
-            const data = readonly(
-                mergeProps({ ...props, ...emits }, { ...ctx }),
+            const slotData = readonly(
+                mergeProps({ ...data }, { ...ctx }),
             );
-            return h(vNode, data, slots);
+            return h(component, slotData, slots);
         };
     }
 
