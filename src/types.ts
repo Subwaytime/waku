@@ -9,11 +9,12 @@ import type {
 
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import type { SimplifyDeep } from 'type-fest';
-import { createSlot } from '~/actions/createSlot';
+import type { CreatedSlot, createSlot } from '~/actions/createSlot';
 
 type RemoveIndexSignature<T> = {
-	[K in keyof T as K extends `${infer _}` ? K : never]: T[K]
+  [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
 };
+
 
 type ReadonlyKeys<T> = {
 	[K in keyof T]-?: IfEquals<
@@ -45,27 +46,19 @@ type OnlyReadonlyOnProps<T> = {
 	: never]: T[K];
 };
 
-export type SlotNames<C> = keyof RemoveIndexSignature<SimplifyDeep<ComponentSlots<C>>>;
 
 type BaseProps<T> = OnlyReadonlyNonOnProps<ComponentProps<T>>;
 type BaseEmits<T> = OnlyReadonlyOnProps<ComponentProps<T>>;
 
+type SlotNames<C> = keyof RemoveIndexSignature<ComponentSlots<C>>;
 type BaseSlots<T> = {
-	[K in SlotNames<T>]?: typeof createSlot;
+	[K in SlotNames<T>]?: CreatedSlot;
 };
-
-type InferResolvedProps<P> = P extends object
-	? SimplifyDeep<BaseProps<P>>
-	: never;
-
-type InferResolvedEmits<E> = E extends object
-	? SimplifyDeep<BaseEmits<E>>
-	: never;
 
 export interface BaseOptions<C> {
 	component?: C;
-	props?: InferResolvedProps<C>;
-	emits?: InferResolvedEmits<C>;
+	props?: BaseProps<C>;
+	emits?: BaseEmits<C>;
 	slots?: BaseSlots<C>;
 	inheritAttrs?: boolean;
 	immediate?: boolean;
