@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, readonly, h } from 'vue';
-import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance } from 'vue-mountable';
+import { mountComponent, unmountComponent, unmountAllComponents, type MountedComponentInstance, createSlot } from '@subwaytime/waku';
 import Modal from '../components/modal.vue';
 import DefaultSlotComponent from '../components/modal-slots/default.vue';
 import HeaderSlotComponent from '../components/modal-slots/header.vue';
@@ -43,7 +43,8 @@ const message = ref('I am a Modal with Props!');
 const { addComponentViaStore } = useExampleStore();
 
 function addComponent() {
-  currentComponent.value = mountComponent(Modal);
+  currentComponent.value = mountComponent({ component: Modal });
+  console.log(currentComponent.value);
 }
 
 function addComponentWithProps() {
@@ -64,16 +65,15 @@ const title = ref('I am the header slot!');
 function addComponentWithSlots() {
   currentComponent.value = mountComponent({
 	component: Modal,
-	slots: [
-		DefaultSlotComponent, // This will always be assigned to the DEFAULT Slot
-		{
-			slotName: 'header',
+	slots: {
+		default: createSlot(DefaultSlotComponent),
+		header: createSlot({
 			component: HeaderSlotComponent,
 			props: {
 				title
 			}
-		}
-	]
+		})
+  }
   });
 }
 
