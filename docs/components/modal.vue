@@ -24,15 +24,16 @@ import { onMounted, onUnmounted } from 'vue';
 import { vOnClickOutside } from '@vueuse/components';
 
 interface Props {
-	mountedId: string;
+	'waku-mounted-id': string;
 	message?: string;
 	testEmit?: boolean;
+  target: string;
 }
 
 const {
-	mountedId,
 	message = 'I am a modal!',
 	testEmit = false,
+  target = '.notifications',
 } = defineProps<Props>();
 
 const emit = defineEmits<{
@@ -44,7 +45,6 @@ function close() {
 	emit('destroy');
 }
 
-console.log(`mountedId: ${mountedId}`, `message: ${message}`);
 onMounted(() => document.body.classList.add('overlay-open'));
 onUnmounted(() => document.body.classList.remove('overlay-open'));
 </script>
