@@ -3,7 +3,6 @@ import {
     mergeProps,
     type DefineComponent,
     type Component,
-    type VNode,
 } from 'vue';
 import { defu } from 'defu';
 
@@ -13,14 +12,14 @@ import { useWaku } from '~/core';
 import { MODULE_NAME } from '~/constants';
 import type { Options } from '~/types';
 
-// declare const _createSlotHandled: unique symbol;
+declare const _createSlotHandled: unique symbol;
 
 export interface CreatedSlot {
     id: string;
     component: Component;
     data: any;
     slots: any;
-    // [_createSlotHandled]: boolean;
+    [_createSlotHandled]: boolean;
 };
 
 export function createSlot<C>(input: Options<C>): CreatedSlot {
@@ -62,7 +61,7 @@ export function createSlot<C>(input: Options<C>): CreatedSlot {
         id,
         component,
         data,
-        slots
-        // [_createSlotHandled]: true
+        slots,
+        [_createSlotHandled]: true
     }
 }
