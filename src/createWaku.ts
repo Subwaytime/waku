@@ -1,4 +1,4 @@
-import { type App, DefineComponent, Fragment, h, reactive } from 'vue';
+import { type App, type DefineComponent, Fragment, h, reactive } from 'vue';
 import { type Waku, type WakuItem, type WakuEvents, WakuEventsEnum, setActiveWaku } from './core';
 import { MODULE_NAME, WakuSymbol } from './constants';
 import WakuMount from './mount.vue';

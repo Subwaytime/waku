@@ -1,4 +1,4 @@
-import { type VNode } from 'vue';
+import type { VNode } from 'vue';
 import { customAlphabet } from 'nanoid';
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar

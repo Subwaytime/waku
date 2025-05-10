@@ -19,7 +19,6 @@ import type {
 import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
 
-
 export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 	const waku = useWaku();
 
@@ -59,7 +58,7 @@ export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 	let vNode = createVNode(component, data, slots);
 
 	if (opt.target) {
-		const teleporter = h(Teleport as any, { to: opt.target });
+		const teleporter = h(Teleport, { to: opt.target });
 		vNode = h(teleporter, vNode);
 	}
 
