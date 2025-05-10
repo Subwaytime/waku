@@ -3,38 +3,43 @@
 	"version": "0.1.5",
 	"private": false,
 	"description": "Vue 3 Component DOM Mounting",
-	"author": "Subwaytime <leon.l@nophase.de>",
-	"license": "MIT",
+	"keywords": [
+		"vite",
+		"vue",
+		"vue3",
+		"dom",
+		"mount",
+		"components"
+	],
 	"homepage": "https://github.com/subwaytime/waku#readme",
+	"bugs": "https://github.com/subwaytime/waku/issues",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/subwaytime/waku"
 	},
-	"bugs": "https://github.com/subwaytime/waku/issues",
+	"license": "MIT",
+	"author": "Subwaytime <leon.l@nophase.de>",
 	"type": "module",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		}
 	},
-	"keywords": ["vite", "vue", "vue3", "dom", "mount", "components"],
-	"files": ["./dist"],
-	"engines": {
-		"bun": ">=1.2.10"
-	},
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"./dist"
+	],
 	"scripts": {
-		"dev": "bun build ./src/index.ts --outdir ./dist --watch --external vue --minify",
-		"build": "bun ./bunfig.ts",
+		"dev": "bunx --bun tsdown --watch",
 		"bundle": "bunx --bun tsdown",
-		"lint": "biome ci",
-		"format": "biome format --write .",
-		"lint:fix": "biome lint --write .",
 		"clean": "bun run format && bun run lint:fix",
-		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish",
-		"prepublishOnly": "bun run build"
+		"format": "biome format --write .",
+		"lint": "biome ci",
+		"lint:fix": "biome lint --write .",
+		"prepublishOnly": "bun run build",
+		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish"
 	},
 	"dependencies": {
 		"@vue/devtools-api": "^7.7.6",
@@ -57,5 +62,8 @@
 	},
 	"peerDependencies": {
 		"vue": "^3.5.13"
+	},
+	"engines": {
+		"bun": ">=1.2.10"
 	}
 }
