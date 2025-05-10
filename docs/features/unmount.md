@@ -21,7 +21,7 @@ destroy();
 
 ## Advanced
 ```ts
-import { unmountComponent } from 'vue-mountable';
+import { unmountComponent } from '@subwaytime/waku';
 import modal from './components/modal.vue';
 
 const currentComponent = ref(null);
@@ -43,7 +43,7 @@ function removeModal() {
 <div class="cleaner-text">Unmounting a component is achieved by passing over its <code class="highlight">mountedId</code>, this will then clear the DOM and triggers the component's lifecycle hooks.</div>
 
 ```ts
-import { unmountComponent } from 'vue-mountable';
+import { unmountComponent } from '@subwaytime/waku';
 import modal from './components/modal.vue';
 
 const { id } = mountComponent(modal);
@@ -81,6 +81,6 @@ This also kill any cached Components inside the Waku instance.
 </div>
 
 ```ts
-import { unmountAllComponents } from 'vue-mountable';
+import { unmountAllComponents } from '@subwaytime/waku';
 unmountAllComponents();
 ```

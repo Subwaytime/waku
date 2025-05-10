@@ -104,9 +104,9 @@ import modal from './modal.vue';
 
 const { id, vNode, el, destroy } = mountComponent({
   component: modal,
-  slots: [
-    DefaultSlotComponent // Added to DEFAULT Slot
-  ]
+  slots: {
+    default: createSlot(DefaultSlotComponent)
+  }
 });
 ```
 ```vue [modal.vue]
@@ -122,19 +122,19 @@ will get overwritten by the props defined in the slots array.
 :::
 :::code-group
 ```ts [setup]
+import { mountComponent, createSlot } from '@subwaytime/waku';
 import modal from './modal.vue';
 
 const { id, vNode, el, destroy } = mountComponent({
   component: modal,
-  slots: [
-    {
-      slotName: 'header',
+  slots: {
+    header: createSlot({
       component: HeaderSlotComponent,
       props: {
         title: 'I am the header slot!'
       }
-    }
-  ]
+    })
+  }
 });
 ```
 ```vue [modal.vue]
@@ -176,7 +176,7 @@ const { addModal } = useExampleStore();
 ```
 ```ts [store.ts]
 import { defineStore } from 'pinia';
-import { mountComponent } from 'vue-mountable';
+import { mountComponent } from '@subwaytime/waku';
 
 import modal from './modal.vue';
 
@@ -195,7 +195,7 @@ export const useExampleStore = defineStore('example', () => {
 
 ## Typescript
 ```ts
-import type { MountedComponentInstance } from 'vue-mountable';
+import type { MountedComponentInstance } from '@subwaytime/waku';
 import modal from './modal.vue';
 
 const currentComponent = ref<MountedComponentInstance | null>(null);
