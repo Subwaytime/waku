@@ -1,7 +1,7 @@
-<h2 align="left">Vue Mountable</h2>
+<h2 align="left">Waku</h2>
 
 <p align="left">
-Vue Mountable is a tiny DOM Library for Vue 3.
+Waku is a tiny DOM Library for Vue 3.
 </p>
 
 <p align="left">
@@ -12,7 +12,7 @@ Vue Mountable is a tiny DOM Library for Vue 3.
 
 ## Features
 
-• 🤏 Tiny - Only 2.85KB min
+• 🤏 Tiny - Only 3.8KB min
 <br />
 • 💚 Native Vue 3
 <br />
@@ -30,28 +30,28 @@ Install
 
 ```bash
 # bun
-bun i vue-mountable
+bun i @subwaytime/waku
 
 # npm
-npm i vue-mountable
+npm i @subwaytime/waku
 
 # pnpm
-pnpm i vue-mountable
+pnpm i @subwaytime/waku
 ```
 
 Add it to `main.js`
 
 ```ts
-import { VueMountable } from 'vue-mountable';
+import { createWaku } from '@subwaytime/waku';
 
 // created vue instance
-app.use(VueMountable());
+app.use(createWaku());
 ```
 
 ## Getting Started
 
 ```ts
-import { mountComponent } from 'vue-mountable';
+import { mountComponent } from '@subwaytime/waku';
 import component from 'component.vue';
 
 const { id, vNode, el, destroy } = mountComponent(component);
