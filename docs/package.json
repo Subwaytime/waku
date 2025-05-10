@@ -1,5 +1,5 @@
 {
-	"name": "@wak/docs",
+	"name": "@waku/docs",
 	"type": "module",
 	"scripts": {
 		"dev": "vitepress dev",
@@ -15,6 +15,6 @@
 		"@vueuse/core": "^13.1.0",
 		"pinia": "^3.0.2",
 		"vite-plugin-vue-devtools": "^7.7.6",
-		"vue-mountable": "link:vue-mountable"
+		"@subwaytime/waku": "link:vue-mountable"
 	}
 }
