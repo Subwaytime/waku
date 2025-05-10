@@ -6,7 +6,7 @@ export default defineConfig({
     entry: ['./src/index.ts'],
     external: ['vue'],
     format: ['es'],
-    minify: false,
+    minify: true,
     outDir: 'dist',
     target: 'esnext',
     dts: true,
