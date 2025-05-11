@@ -13,7 +13,6 @@
 		"downlevelIteration": true,
 		"emitDeclarationOnly": true,
 		"forceConsistentCasingInFileNames": true,
-		"isolatedDeclarations": true,
 		"jsx": "preserve",
 		"noEmit": true,
 		"skipLibCheck": false,
