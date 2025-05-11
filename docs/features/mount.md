@@ -17,26 +17,12 @@ This function offers fine-grained configuration options and seamlessly integrate
 Extending the functionality of their applications, like `Vue.extend`, is its main purpose by offering a versatile and intuitive way to manage dynamic components and enhance user interactions.
 
 ## Basic
-
-```ts
-import modal from './modal.vue';
-
-const { id, vNode, el, destroy } = mountComponent(modal);
-```
+<<< @/snippets/addComponent.ts#snippet
 
 ## Props
 
 :::code-group
-```ts [setup]
-import modal from './modal.vue';
-
-const { id, vNode, el, destroy } = mountComponent({
-  component: modal,
-  props: {
-    title: 'Test'
-  }
-});
-```
+<<< @/snippets/addComponentWithReactiveProps.ts#snippet [setup]
 ```vue [modal.vue]
 <template>
   <div>
@@ -52,36 +38,14 @@ const { id, vNode, el, destroy } = mountComponent({
 ```
 :::
 
-:::info
+<!-- :::info
 You can also simply pass over `ref/reactive` properties!
 :::
-```ts
-import modal from './modal.vue';
-
-const title = ref('Test');
-
-const { id, vNode, el, destroy } = mountComponent({
-  component: modal,
-  props: {
-    title
-  }
-});
-```
+<<< @/snippets/addComponentWithReactiveProps.ts#snippet -->
 
 ## Emits
 :::code-group
-```ts [setup]
-import modal from './modal.vue';
-
-const { id, vNode, el, destroy } = mountComponent({
-  component: modal,
-  emits: {
-    onExample() {
-      alert('This works nicely!');
-    }
-  }
-});
-```
+<<< @/snippets/addComponentWithEmits.ts#snippet [setup]
 ```vue [modal.vue]
 <template>
   <button @click.prevent="$emit('example')">
@@ -99,16 +63,7 @@ const { id, vNode, el, destroy } = mountComponent({
 <div class="cleaner-text">Slots allow you to chain multiple Components together, passing over props, emits or simply add more slots!</div>
 
 :::code-group
-```ts [setup]
-import modal from './modal.vue';
-
-const { id, vNode, el, destroy } = mountComponent({
-  component: modal,
-  slots: {
-    default: createSlot(DefaultSlotComponent)
-  }
-});
-```
+<<< @/snippets/addComponentWithDefaultSlot.ts#snippet [setup]
 ```vue [modal.vue]
 <template>
   <slot />
@@ -121,22 +76,7 @@ Predefined props like this `<slot name="header" title="ok"></slot>`
 will get overwritten by the props defined in the slots array.
 :::
 :::code-group
-```ts [setup]
-import { mountComponent, createSlot } from '@subwaytime/waku';
-import modal from './modal.vue';
-
-const { id, vNode, el, destroy } = mountComponent({
-  component: modal,
-  slots: {
-    header: createSlot({
-      component: HeaderSlotComponent,
-      props: {
-        title: 'I am the header slot!'
-      }
-    })
-  }
-});
-```
+<<< @/snippets/addComponentWithHeaderSlot.ts#snippet [setup]
 ```vue [modal.vue]
 <template>
   <slot name="header" v-bind="props" />
@@ -155,14 +95,7 @@ With Teleport you can easily move components around your DOM!
 <br />
 More info can be found here [Vue Docs Teleport](https://vuejs.org/guide/built-ins/teleport.html)
 
-```ts
-import modal from './modal.vue';
-
-const { id, vNode, el, destroy } = mountComponent({
-  component: modal,
-  target: '.notifications'
-});
-```
+<<< @/snippets/addComponentWithTeleport.ts#snippet
 
 ## via Store (Pinia)
 <div class="cleaner-text">
