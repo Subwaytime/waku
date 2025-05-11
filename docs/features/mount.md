@@ -22,7 +22,7 @@ Extending the functionality of their applications, like `Vue.extend`, is its mai
 ## Props
 
 :::code-group
-<<< @/snippets/addComponentWithReactiveProps.ts#snippet [setup]
+<<< @/snippets/addComponentWithProps.ts#snippet [setup]
 ```vue [modal.vue]
 <template>
   <div>
@@ -103,27 +103,8 @@ Vue Mountable offers the flexibility to mount components outside of the standard
 </div>
 
 :::code-group
-```ts [setup]
-import { useExampleStore } from './store';
-const { addModal } = useExampleStore();
-```
-```ts [store.ts]
-import { defineStore } from 'pinia';
-import { mountComponent } from '@subwaytime/waku';
-
-import modal from './modal.vue';
-
-export const useExampleStore = defineStore('example', () => {
-  function addModal() {
-    return mountComponent(modal);
-  }
-
-  return {
-    addModal
-  }
-});
-
-```
+<<< @/snippets/viaStore.ts#snippet [setup]
+<<< @/snippets/viaStore.ts#store [setup]
 :::
 
 ## Typescript
