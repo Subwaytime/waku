@@ -18,6 +18,7 @@ Extending the functionality of their applications, like `Vue.extend`, is its mai
 
 ## Basic
 <<< @/snippets/addComponent.ts#snippet
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
 
 ## Props
 
@@ -37,6 +38,7 @@ Extending the functionality of their applications, like `Vue.extend`, is its mai
 </script>
 ```
 :::
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
 
 <!-- :::info
 You can also simply pass over `ref/reactive` properties!
@@ -58,6 +60,7 @@ You can also simply pass over `ref/reactive` properties!
 </script>
 ```
 :::
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
 
 ## Slots
 <div class="cleaner-text">Slots allow you to chain multiple Components together, passing over props, emits or simply add more slots!</div>
@@ -79,6 +82,7 @@ will get overwritten by the props defined in the slots array.
 <<< @/snippets/addComponentWithHeaderSlot.ts#snippet [setup]
 ```vue [modal.vue]
 <template>
+  <slot />
   <slot name="header" v-bind="props" />
 </template>
 
@@ -89,6 +93,7 @@ const props = defineProps({
 </script>
 ```
 :::
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
 
 ## Teleport
 With Teleport you can easily move components around your DOM!
@@ -96,6 +101,7 @@ With Teleport you can easily move components around your DOM!
 More info can be found here [Vue Docs Teleport](https://vuejs.org/guide/built-ins/teleport.html)
 
 <<< @/snippets/addComponentWithTeleport.ts#snippet
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
 
 ## via Store (Pinia)
 <div class="cleaner-text">
@@ -103,9 +109,9 @@ Vue Mountable offers the flexibility to mount components outside of the standard
 </div>
 
 :::code-group
-<<< @/snippets/viaStore.ts#snippet [setup]
-<<< @/snippets/viaStore.ts#store [setup]
+<<< @/snippets/store.ts#snippet [setup]
 :::
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
 
 ## Typescript
 ```ts
@@ -115,3 +121,9 @@ import modal from './modal.vue';
 const currentComponent = ref<MountedComponentInstance | null>(null);
 currentComponent.value = mountComponent(modal);
 ```
+
+
+<script setup lang="ts">
+import { VPButton } from 'vitepress/theme';
+import { addComponent, addComponentWithDefaultSlot, addComponentWithEmits, addComponentWithHeaderSlot, addComponentWithProps, addComponentWithTeleport } from '../snippets/index';
+</script>
