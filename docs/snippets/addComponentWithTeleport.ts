@@ -1,7 +1,7 @@
 import Modal from '../components/modal.vue';
 import { mountComponent } from '@subwaytime/waku';
 
-export function addComponentAndTeleport() {
+export function addComponentWithTeleport() {
     const { id, vNode, el, destroy } =
     // #region snippet
     mountComponent({
