@@ -24,16 +24,14 @@ import { onMounted, onUnmounted } from 'vue';
 import { vOnClickOutside } from '@vueuse/components';
 
 interface Props {
-	'waku-mounted-id': string;
+  wakuMountedId: string;
 	message?: string;
 	testEmit?: boolean;
-  target: string;
 }
 
 const {
 	message = 'I am a modal!',
 	testEmit = false,
-  target = '.notifications',
 } = defineProps<Props>();
 
 const emit = defineEmits<{
