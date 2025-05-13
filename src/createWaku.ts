@@ -20,10 +20,10 @@ export function createWaku(): Waku {
 			waku.instance = app;
 
 			const rootComponent = app._component as DefineComponent;
-			const originalRender = rootComponent.render;
-			rootComponent.render = function (...args: any) {
+			const originalRender = rootComponent.render ?? rootComponent.setup;
+			rootComponent.setup = function (...args: any) {
 				const root = originalRender?.apply(this, args);
-				return h(Fragment, null, [
+				return () => h(Fragment, null, [
 					h(root),
 					h(WakuMount)
 				]);
