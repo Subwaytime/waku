@@ -1,5 +1,5 @@
 <template>
-    <div class="waku-mount">
+    <div class="waku-mountpoint">
         <component
             v-for="item in items"
             :key="item.id"
@@ -13,10 +13,14 @@
 import { useWaku } from './core';
 
 const { items } = useWaku();
+
+defineOptions({
+    name: 'WakuMountPoint'
+});
 </script>
 
 <style scoped>
-.waku-mount {
+.waku-mountpoint {
     display: contents;
 }
 </style>
