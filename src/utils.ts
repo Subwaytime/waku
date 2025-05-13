@@ -1,4 +1,5 @@
-import type { VNode } from 'vue';
+import { Fragment, h, type VNode } from 'vue';
+import WakuMount from './mount.vue';
 import { customAlphabet } from 'nanoid';
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
@@ -154,4 +155,14 @@ const allowedValues = `1234567890${alphabet}${alphabet.toUpperCase()}`;
 export function generateID(length = 10): string {
 	const nanoid = customAlphabet(allowedValues, length);
 	return nanoid();
+}
+
+/**
+ *
+ */
+export function injectMountPoint<R>(root: R): VNode {
+	return h(Fragment, null, [
+		h(root as VNode),
+		h(WakuMount)
+	]);
 }
