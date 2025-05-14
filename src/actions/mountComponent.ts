@@ -32,8 +32,8 @@ export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 	} as const;
 
 	const defaultProps = (id: string) => ({
-		'waku-mounted-id': id,
-		'waku-is-programmatic': true,
+		wakuMountedId: id,
+		wakuIsProgrammatic: true,
 		onDestroy: () => unmountComponent(id)
 	}) as const satisfies DefaultProps;
 
@@ -58,7 +58,7 @@ export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
 	let vNode = createVNode(component, data, slots);
 
 	if (opt.target) {
-		const teleporter = h(Teleport, { to: opt.target });
+		const teleporter = h(Teleport as any, { to: opt.target });
 		vNode = h(teleporter, vNode);
 	}
 

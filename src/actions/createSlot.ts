@@ -41,7 +41,7 @@ export function createSlot<C>(input: Options<C>): CreatedSlot {
     } as const;
 
     const defaultProps = {
-        'waku-slot-id': id,
+        wakuSlotId: id,
     } as const;
 
     const opt = defu({}, { ...defaultOptions, ...wrappedOptions }) as any;
