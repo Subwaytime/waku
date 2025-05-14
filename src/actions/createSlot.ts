@@ -12,14 +12,14 @@ import { useWaku } from '~/core';
 import { MODULE_NAME } from '~/constants';
 import type { Options } from '~/types';
 
-declare const _createSlotHandled: unique symbol;
+const __isWakuSlot: unique symbol = Symbol('__isWakuSlot');
 
 export interface CreatedSlot {
     id: string;
     component: Component;
     data: any;
     slots: any;
-    [_createSlotHandled]: boolean;
+    [__isWakuSlot]: boolean;
 };
 
 export function createSlot<C>(input: Options<C>): CreatedSlot {
@@ -62,6 +62,6 @@ export function createSlot<C>(input: Options<C>): CreatedSlot {
         component,
         data,
         slots,
-        [_createSlotHandled]: true
+        [__isWakuSlot]: true
     }
 }
