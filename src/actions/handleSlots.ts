@@ -8,7 +8,7 @@ export function handleSlots(input: any): Record<string, (ctx: any) => VNode> | u
     const nodes = Object.entries(input);
 
     function processItem(item: any): void {
-        const { slotName = 'default'} = item[0];
+        const slotName = item[0] ?? 'default';
 
         const {
             component,
