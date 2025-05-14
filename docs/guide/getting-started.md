@@ -42,11 +42,9 @@ app.use(createWaku());
 </template>
 ```
 3. Mount your component
-```ts
-import modal from './modal.vue';
 
-const { id, vNode, el, destroy } = mountComponent(modal);
-```
+<<< @/snippets/addComponent.ts#snippet
+
 <br />
 Check out the <a href="/features/mount">features</a> for detailed information on configuration options and advanced usage.
 <br />
