@@ -1,8 +1,8 @@
-import { type App, type DefineComponent, Fragment, h, reactive } from 'vue';
+import mitt from 'mitt';
+import { type App, type DefineComponent, reactive } from 'vue';
 import { type Waku, type WakuItem, type WakuEvents, WakuEventsEnum, setActiveWaku } from './core';
 import { MODULE_NAME, WakuSymbol } from './constants';
-import WakuMount from './mount.vue';
-import mitt from 'mitt';
+import { injectMountPoint } from '~/utils';
 
 export function createWaku(): Waku {
 	// biome-ignore lint/suspicious/noImplicitAnyLet:
@@ -20,14 +20,20 @@ export function createWaku(): Waku {
 			waku.instance = app;
 
 			const rootComponent = app._component as DefineComponent;
-			const originalRender = rootComponent.render ?? rootComponent.setup;
-			rootComponent.setup = function (...args: any) {
-				const root = originalRender?.apply(this, args);
-				return () => h(Fragment, null, [
-					h(root),
-					h(WakuMount)
-				]);
-			};
+
+			if ('render' in rootComponent && typeof rootComponent.render === 'function') {
+				const original = rootComponent.render;
+				rootComponent.render = function (...args: any[]) {
+					const root = original.apply(this, args);
+					return injectMountPoint(root);
+				};
+			} else {
+				const original = rootComponent.setup!;
+				rootComponent.setup = function (...args) {
+					const root = original.apply(this, args);
+					return () => injectMountPoint(root);
+				};
+			}
 		},
 		addItem(item: WakuItem) {
 			if (waku.getItem(item.id)) {
