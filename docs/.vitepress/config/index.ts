@@ -11,7 +11,6 @@ export default defineConfig({
 			{ text: 'Guide', link: '/guide/getting-started' },
 			{ text: 'Features', link: '/features/mount' },
 			{ text: 'API', link: '/api/' },
-			{ text: 'Examples', link: '/examples/' },
 		],
 
 		sidebar: [
@@ -43,10 +42,6 @@ export default defineConfig({
 			{
 				text: 'API',
 				link: '/api/',
-			},
-			{
-				text: 'Examples',
-				link: '/examples/',
 			},
 		],
 
