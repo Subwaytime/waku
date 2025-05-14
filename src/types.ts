@@ -9,12 +9,11 @@ import type {
 
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import type { SimplifyDeep } from 'type-fest';
-import type { CreatedSlot, createSlot } from '~/actions/createSlot';
+import type { CreatedSlot } from '~/actions/createSlot';
 
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
 };
-
 
 type ReadonlyKeys<T> = {
 	[K in keyof T]-?: IfEquals<
@@ -67,8 +66,8 @@ export interface BaseOptions<C> {
 };
 
 export interface DefaultProps {
-	'waku-mounted-id': string;
-	'waku-is-programmatic': boolean;
+	wakuMountedId: string;
+	wakuIsProgrammatic: boolean;
 	onDestroy: () => void;
 };
 
