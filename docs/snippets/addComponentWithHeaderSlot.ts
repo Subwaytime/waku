@@ -9,7 +9,6 @@ export function addComponentWithHeaderSlot() {
     mountComponent({
         component: Modal,
         slots: {
-            default: createSlot(DefaultSlotComponent),
             header: createSlot({
                 component: HeaderSlotComponent,
                 props: {
