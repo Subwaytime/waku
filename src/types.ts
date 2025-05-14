@@ -48,6 +48,7 @@ type OnlyReadonlyOnProps<T> = {
 
 type BaseProps<T> = OnlyReadonlyNonOnProps<ComponentProps<T>>;
 type BaseEmits<T> = OnlyReadonlyOnProps<ComponentProps<T>>;
+type ResolvedProps<T> = Omit<BaseProps<T>, keyof OnlyReadonlyNonOnProps<DefaultProps>>;
 
 type SlotNames<C> = keyof RemoveIndexSignature<ComponentSlots<C>>;
 type BaseSlots<T> = {
@@ -56,7 +57,7 @@ type BaseSlots<T> = {
 
 export interface BaseOptions<C> {
 	component?: C;
-	props?: BaseProps<C>;
+	props?: ResolvedProps<C>;
 	emits?: BaseEmits<C>;
 	slots?: BaseSlots<C>;
 	inheritAttrs?: boolean;
@@ -65,11 +66,15 @@ export interface BaseOptions<C> {
 	transition?: TransitionProps | TransitionGroupProps
 };
 
-export interface DefaultProps {
-	wakuMountedId: string;
-	wakuIsProgrammatic: boolean;
+export interface DefaultProps extends WakuInternalProps {
 	onDestroy: () => void;
 };
+
+interface WakuInternalProps {
+	readonly wakuMountedId: string;
+	readonly wakuSlotId: string;
+	readonly wakuIsProgrammatic: boolean;
+}
 
 export interface MountedComponentInstance {
 	id: string;
