@@ -3,7 +3,7 @@
     {{  title  }}
   </h1>
   <code style="background: #65a30d; padding: 1rem;">
-		Header slot with prop
+		Header slot with
 		<button @click.prevent="$emit('close')">
 			Close here
 		</button>
@@ -15,7 +15,7 @@ defineProps<{
 	title: string;
 }>();
 
-const emit = defineEmits<{
+defineEmits<{
 	close: [];
 }>();
 </script>
