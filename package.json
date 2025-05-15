@@ -1,6 +1,6 @@
 {
 	"name": "@subwaytime/waku",
-	"version": "0.1.5",
+	"version": "1.0.0",
 	"private": false,
 	"description": "Vue 3 Component DOM Mounting",
 	"keywords": [
