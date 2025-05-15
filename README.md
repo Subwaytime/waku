@@ -5,8 +5,8 @@ Waku is a tiny DOM Library for Vue 3.
 </p>
 
 <p align="left">
-<a href="https://www.npmjs.com/package/vue-mountable">
-<img src="https://img.shields.io/npm/v/vue-mountable?color=222&style=flat-square"></img>
+<a href="https://www.npmjs.com/package/@subwaytime/waku">
+<img src="https://img.shields.io/npm/v/@subwaytime/waku?color=222&style=flat-square"></img>
 </a>
 </p>
 
@@ -58,9 +58,9 @@ const { id, vNode, el, destroy } = mountComponent(component);
 ```
 
 ## Documentation
-For the full documentation, visit <a href="https://vue-mountable.netlify.app" target="_blank" rel="noreferrer">vue-mountable.netlify.app</a>
+For the full documentation, visit <a href="https://waku.netlify.app" target="_blank" rel="noreferrer">waku.netlify.app</a>
 <br />
-For NPM, visit <a href="https://www.npmjs.com/package/vue-mountable" target="_blank" ref="noreferrer"> npmjs.com/package/vue-mountable </a>
+For NPM, visit <a href="https://www.npmjs.com/package/@subwaytime/waku" target="_blank" ref="noreferrer"> npmjs.com/package/@subwaytime/waku </a>
 
 ## License
 
