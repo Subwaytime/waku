@@ -6,3 +6,4 @@ export { addComponentWithHeaderSlot }  from "./addComponentWithHeaderSlot.ts";
 export { addComponentWithEmits }  from "./addComponentWithEmits.ts";
 export { addComponentWithDefaultSlot }  from "./addComponentWithDefaultSlot.ts";
 export { addComponent }  from "./addComponent.ts";
+export { useExampleStore } from './store.ts';
