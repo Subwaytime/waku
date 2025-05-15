@@ -38,7 +38,7 @@ Extending the functionality of their applications, like `Vue.extend`, is its mai
 </script>
 ```
 :::
-<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponentWithProps" />
 
 <!-- :::info
 You can also simply pass over `ref/reactive` properties!
@@ -60,7 +60,7 @@ You can also simply pass over `ref/reactive` properties!
 </script>
 ```
 :::
-<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponentWithEmits" />
 
 ## Slots
 <div class="cleaner-text">Slots allow you to chain multiple Components together, passing over props, emits or simply add more slots!</div>
@@ -73,10 +73,11 @@ You can also simply pass over `ref/reactive` properties!
 </template>
 ```
 :::
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponentWithDefaultSlot" />
 
 :::warning
-Predefined props like this `<slot name="header" title="ok"></slot>`
-will get overwritten by the props defined in the slots array.
+Predefined values like this `<slot name="header" title="ok" />`
+will overwrite props or emits defined in the createSlot object.
 :::
 :::code-group
 <<< @/snippets/addComponentWithHeaderSlot.ts#snippet [setup]
@@ -93,15 +94,18 @@ const props = defineProps({
 </script>
 ```
 :::
-<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponentWithHeaderSlot" />
 
 ## Teleport
 With Teleport you can easily move components around your DOM!
 <br />
 More info can be found here [Vue Docs Teleport](https://vuejs.org/guide/built-ins/teleport.html)
+:::warning
+Ensure the existence of the target element in the DOM or it's mounting state before teleporting.
+:::
 
 <<< @/snippets/addComponentWithTeleport.ts#snippet
-<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponentWithTeleport" />
 
 ## via Store (Pinia)
 <div class="cleaner-text">
@@ -111,7 +115,7 @@ Vue Mountable offers the flexibility to mount components outside of the standard
 :::code-group
 <<< @/snippets/store.ts#snippet [setup]
 :::
-<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponent" />
+<VPButton class="button" theme="alt" text="Example" @click.prevent="addComponentViaStore" />
 
 ## Typescript
 ```ts
@@ -125,5 +129,15 @@ currentComponent.value = mountComponent(modal);
 
 <script setup lang="ts">
 import { VPButton } from 'vitepress/theme';
-import { addComponent, addComponentWithDefaultSlot, addComponentWithEmits, addComponentWithHeaderSlot, addComponentWithProps, addComponentWithTeleport } from '../snippets/index';
+import {
+  addComponent,
+  addComponentWithDefaultSlot,
+  addComponentWithEmits,
+  addComponentWithHeaderSlot,
+  addComponentWithProps,
+  addComponentWithTeleport,
+  useExampleStore
+} from '../snippets/index';
+
+const { addComponentViaStore } = useExampleStore();
 </script>
