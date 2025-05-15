@@ -58,7 +58,7 @@ const { id, vNode, el, destroy } = mountComponent(component);
 ```
 
 ## Documentation
-For the full documentation, visit <a href="https://waku.netlify.app" target="_blank" rel="noreferrer">waku.netlify.app</a>
+For the full documentation, visit <a href="https://subwaytime-waku.netlify.app/" target="_blank" rel="noreferrer">subwaytime-waku.netlify.app</a>
 <br />
 For NPM, visit <a href="https://www.npmjs.com/package/@subwaytime/waku" target="_blank" ref="noreferrer"> npmjs.com/package/@subwaytime/waku </a>
 
