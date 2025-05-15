@@ -39,7 +39,7 @@
 		"lint": "biome ci",
 		"lint:fix": "biome lint --write .",
 		"prepublishOnly": "bun run bundle",
-		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && npm publish"
+		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && bun publish --access public"
 	},
 	"dependencies": {
 		"@vue/devtools-api": "^7.7.6",
