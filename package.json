@@ -44,16 +44,16 @@
 	"dependencies": {
 		"@vue/devtools-api": "^7.7.6",
 		"@vue/devtools-applet": "^7.7.6",
-		"@vue/runtime-core": "^3.5.13",
+		"@vue/runtime-core": "^3.5.14",
 		"defu": "^6.1.4",
 		"mitt": "^3.0.1",
 		"nanoid": "^5.1.5",
-		"tsdown": "^0.11.2",
-		"vue": "^3.5.13"
+		"tsdown": "^0.11.9",
+		"vue": "^3.5.14"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@types/bun": "^1.2.12",
+		"@types/bun": "^1.2.13",
 		"type-fest": "^4.41.0",
 		"typescript": "^5.8.3",
 		"unplugin-vue": "^6.2.0",
