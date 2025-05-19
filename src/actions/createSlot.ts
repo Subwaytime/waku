@@ -10,17 +10,7 @@ import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
 import { useWaku } from '~/core';
 import { MODULE_NAME } from '~/constants';
-import type { Options } from '~/types';
-
-const __isWakuSlot: unique symbol = Symbol('__isWakuSlot');
-
-export interface CreatedSlot {
-    id: string;
-    component: Component;
-    data: any;
-    slots: any;
-    [__isWakuSlot]: boolean;
-};
+import type { Options, CreatedSlot } from '~/types';
 
 export function createSlot<C>(input: Options<C>): CreatedSlot {
     const waku = useWaku();

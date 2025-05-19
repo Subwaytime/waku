@@ -55,6 +55,14 @@ type BaseSlots<T> = {
 	[K in SlotNames<T>]?: CreatedSlot;
 };
 
+export interface CreatedSlot {
+	id: string;
+	component: Component;
+	data: any;
+	slots: any;
+	[__isWakuSlot]: boolean;
+};
+
 export interface BaseOptions<C> {
 	component?: C;
 	props?: ResolvedProps<C>;
