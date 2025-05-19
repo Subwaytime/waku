@@ -10,9 +10,10 @@ import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
 import { useWaku } from '~/core';
 import { MODULE_NAME } from '~/constants';
-import type { Options, CreatedSlot } from '~/types';
+import type { Options, WakuSlot } from '~/types';
+import { __isWakuSlot } from '~/constants';
 
-export function createSlot<C>(input: Options<C>): CreatedSlot {
+export function createSlot<C>(input: Options<C>): WakuSlot {
     const waku = useWaku();
 
     if (!waku.instance) {
