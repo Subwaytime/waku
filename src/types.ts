@@ -9,7 +9,7 @@ import type {
 
 import type { ComponentProps, ComponentSlots } from 'vue-component-type-helpers';
 import type { SimplifyDeep } from 'type-fest';
-import type { CreatedSlot } from '~/actions/createSlot';
+import type { __isWakuSlot } from '~/constants';
 
 type RemoveIndexSignature<T> = {
   [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
@@ -52,10 +52,10 @@ type ResolvedProps<T> = Omit<BaseProps<T>, keyof OnlyReadonlyNonOnProps<DefaultP
 
 type SlotNames<C> = keyof RemoveIndexSignature<ComponentSlots<C>>;
 type BaseSlots<T> = {
-	[K in SlotNames<T>]?: CreatedSlot;
+	[K in SlotNames<T>]?: WakuSlot;
 };
 
-export interface CreatedSlot {
+export interface WakuSlot {
 	id: string;
 	component: Component;
 	data: any;
