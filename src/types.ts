@@ -66,17 +66,16 @@ export interface BaseOptions<C> {
 	transition?: TransitionProps | TransitionGroupProps
 };
 
-export interface DefaultProps extends WakuInternalProps {
-	onDestroy: () => void;
-};
+export type DefaultProps = Omit<WakuInternalProps, 'wakuSlotId'>;
 
 interface WakuInternalProps {
 	readonly wakuMountedId: string;
 	readonly wakuSlotId: string;
 	readonly wakuIsProgrammatic: boolean;
+	onDestroy: () => void;
 }
 
-export interface MountedComponentInstance {
+export interface WakuData {
 	id: string;
 	vNode: VNode;
 	el?: RendererElement | Element | null;
