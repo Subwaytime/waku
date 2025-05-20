@@ -2,7 +2,6 @@ import {
     readonly,
     mergeProps,
     type DefineComponent,
-    type Component,
 } from 'vue';
 import { defu } from 'defu';
 
@@ -10,7 +9,7 @@ import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
 import { useWaku } from '~/core';
 import { MODULE_NAME } from '~/constants';
-import type { Options, WakuSlot } from '~/types';
+import type { DefaultSlotProps, Options, WakuSlot } from '~/types';
 import { __isWakuSlot } from '~/constants';
 
 export function createSlot<C>(input: Options<C>): WakuSlot {
@@ -33,7 +32,7 @@ export function createSlot<C>(input: Options<C>): WakuSlot {
 
     const defaultProps = {
         wakuSlotId: id,
-    } as const;
+    } as const satisfies DefaultSlotProps;
 
     const opt = defu({}, { ...defaultOptions, ...wrappedOptions }) as any;
     const component = opt.component as DefineComponent;

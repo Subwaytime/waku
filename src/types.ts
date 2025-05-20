@@ -75,6 +75,7 @@ export interface BaseOptions<C> {
 };
 
 export type DefaultProps = Omit<WakuInternalProps, 'wakuSlotId'>;
+export type DefaultSlotProps = Pick<WakuInternalProps, 'wakuSlotId'>;
 
 interface WakuInternalProps {
 	readonly wakuMountedId: string;
