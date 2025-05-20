@@ -13,13 +13,13 @@ import { unmountComponent } from '~/actions/unmountComponent';
 import { MODULE_NAME } from '~/constants';
 import type {
 	DefaultProps,
-	MountedComponentInstance,
+	WakuData,
 	Options,
 } from '~/types';
 import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
 
-export function mountComponent<C>(input: Options<C>): MountedComponentInstance {
+export function mountComponent<C>(input: Options<C>): WakuData {
 	const waku = useWaku();
 
 	if (!waku.instance) {
