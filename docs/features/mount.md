@@ -119,10 +119,10 @@ Vue Mountable offers the flexibility to mount components outside of the standard
 
 ## Typescript
 ```ts
-import type { MountedComponentInstance } from '@subwaytime/waku';
+import type { WakuData } from '@subwaytime/waku';
 import modal from './modal.vue';
 
-const currentComponent = ref<MountedComponentInstance | null>(null);
+const currentComponent = ref<WakuData | null>(null);
 currentComponent.value = mountComponent(modal);
 ```
 

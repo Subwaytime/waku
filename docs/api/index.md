@@ -12,7 +12,9 @@ mountComponent({
   emits: {},
   slots: {},
   target: '',
-  inheritAttrs: true
+  inheritAttrs: true,
+  immediate: true,
+  transition: ''
 });
 ```
 
@@ -28,10 +30,10 @@ Unmount all currently mounted components.
 unmountAllComponents();
 ```
 
-## MountOptions
+## BaseOptions
 All available options to be passed over to `mountComponent` and `createSlot`.
 ```ts
-export interface BaseOptions<C> {
+interface BaseOptions<C> {
 	component?: C;
 	props?: ResolvedProps<C>;
 	emits?: BaseEmits<C>;
@@ -43,10 +45,10 @@ export interface BaseOptions<C> {
 };
 ```
 
-## MountedComponentInstance
+## WakuData
 Return value of `mountComponent`.
 ```ts
-export interface MountedComponentInstance {
+interface WakuData {
   id: string
   vNode: VNode
   el?: RendererElement | Element | null
@@ -54,12 +56,24 @@ export interface MountedComponentInstance {
 }
 ```
 
+## WakuSlot
+```ts
+interface WakuSlot {
+	id: string;
+	component: Component;
+	data: any;
+	slots: any;
+	[__isWakuSlot]: boolean;
+};
+```
+
 ## DefaultProps
 These Props are automatically generated and passed over to each component that is mounted via `mountComponent`!
 ```ts
-export interface InternalProps {
-  wakuMountedId?: string
-  isProgrammatic?: boolean
-  onDestroy: () => void
+interface WakuInternalProps {
+	readonly wakuMountedId: string;
+	readonly wakuSlotId: string;
+	readonly wakuIsProgrammatic: boolean;
+	onDestroy: () => void;
 }
 ```
