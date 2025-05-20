@@ -16,14 +16,14 @@ export const WakuEventsEnum = {
 
 export type WakuEvents = Record<ValueOf<typeof WakuEventsEnum>, string>;
 
-/**
- *
- */
-export interface Waku {
+export declare interface WakuPlugin {
+	install: (app: App) => void;
+}
+
+export interface Waku extends WakuPlugin {
 	id: string;
 	instance?: App;
 	items?: WakuItem[];
-	install: (app: App) => void;
 	addItem: (item: WakuItem) => void;
 	getItem: (id: string) => false | WakuItem;
 	removeItem: (id: string) => void;
