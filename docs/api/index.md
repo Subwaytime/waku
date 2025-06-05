@@ -52,6 +52,7 @@ interface WakuData {
   id: string
   vNode: VNode
   el?: RendererElement | Element | null
+  visible: ShallowRef<boolean>
   destroy: () => void
 }
 ```
