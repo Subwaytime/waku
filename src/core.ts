@@ -2,12 +2,11 @@ import {
 	hasInjectionContext,
 	inject,
 	type App,
-	type VNode,
-	type RendererElement,
 } from 'vue';
 import type { Emitter } from 'mitt';
 import type { ValueOf } from 'type-fest';
 import { WakuSymbol, MODULE_NAME } from '~/constants';
+import { WakuData } from '~/types';
 
 export const WakuEventsEnum = {
 	ITEM_ADDED: 'item:added',
@@ -42,11 +41,8 @@ interface SetActiveWaku {
 /**
  *
  */
-export interface WakuItem {
-	id: string;
-	label: string;
-	el?: Element | HTMLElement | RendererElement | null;
-	vNode: VNode | null;
+export interface WakuItem extends Omit<WakuData, 'destroy'> {
+	label?: string;
 }
 
 /**
