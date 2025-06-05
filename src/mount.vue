@@ -1,7 +1,7 @@
 <template>
     <div class="waku-mountpoint">
         <component
-            v-for="item in items"
+            v-for="item in activeItems"
             :key="item.id"
             :is="item.vNode"
             v-memo="[item.id]"
@@ -13,6 +13,8 @@
 import { useWaku } from './core';
 
 const { items } = useWaku();
+
+const activeItems = computed(() => items.filter(item => item.visible));
 
 defineOptions({
     name: 'WakuMountPoint'
