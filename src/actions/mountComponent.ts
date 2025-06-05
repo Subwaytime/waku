@@ -5,6 +5,7 @@ import {
 	h,
 	type DefineComponent,
 	Teleport,
+	shallowRef,
 } from 'vue';
 import { defu } from 'defu';
 
@@ -15,6 +16,7 @@ import type {
 	DefaultProps,
 	WakuData,
 	Options,
+	BaseOptions,
 } from '~/types';
 import { generateID } from '~/utils';
 import { handleSlots } from '~/actions/handleSlots';
@@ -41,7 +43,7 @@ export function mountComponent<C>(input: Options<C>): WakuData {
 		? input
 		: { component: input };
 
-	const opt = defu({}, { ...defaultOptions, ...wrappedOptions }) as any;
+	const opt = defu({}, { ...defaultOptions, ...wrappedOptions }) as BaseOptions<C>;
 
 	const id: string = generateID();
 	const component = opt.component as DefineComponent;
@@ -64,15 +66,19 @@ export function mountComponent<C>(input: Options<C>): WakuData {
 
 	vNode.appContext = waku?.instance?._context;
 
+	const isVisible = shallowRef(opt.immediate ?? false);
+
 	waku.addItem({
 		id,
 		label: vNode?.component?.__name as string,
 		vNode,
+		visible: isVisible
 	});
 
 	return {
 		id,
 		vNode,
 		destroy: () => unmountComponent(id),
+		visible: isVisible
 	};
 }
