@@ -4,7 +4,7 @@ import HeaderSlotComponent from '../components/modal-slots/header.vue';
 import { createSlot, mountComponent } from '@subwaytime/waku';
 
 export function addComponentWithHeaderSlot() {
-    const { id, vNode, el, destroy } =
+    const { id, vNode, el, visible, destroy } =
     // #region snippet
     mountComponent({
         component: Modal,

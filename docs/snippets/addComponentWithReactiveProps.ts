@@ -5,7 +5,7 @@ export function addComponentWithReactiveProps() {
     // #region snippet
     const message = ref('Test');
 
-    const { id, vNode, el, destroy } = mountComponent({
+    const { id, vNode, el, visible, destroy } = mountComponent({
         component: Modal,
         props: {
             message

@@ -3,6 +3,6 @@ import { mountComponent } from '@subwaytime/waku';
 
 export function addComponent() {
     // #region snippet
-    const { id, vNode, el, destroy } = mountComponent(Modal);
+    const { id, vNode, el, visible, destroy } = mountComponent(Modal);
     // #endregion snippet
 }
