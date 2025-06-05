@@ -1,6 +1,7 @@
 import type {
 	Component,
 	RendererElement,
+	ShallowRef,
 	TeleportProps,
 	TransitionGroupProps,
 	TransitionProps,
@@ -89,6 +90,7 @@ export interface WakuData {
 	vNode: VNode;
 	el?: RendererElement | Element | null;
 	destroy: () => void;
+	visible: ShallowRef<boolean>
 }
 
 export type Options<C> = Component & { component?: never } | SimplifyDeep<BaseOptions<C>>;
