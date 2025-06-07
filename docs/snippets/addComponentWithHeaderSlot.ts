@@ -1,5 +1,4 @@
 import Modal from '../components/modal.vue';
-import DefaultSlotComponent from '../components/modal-slots/default.vue';
 import HeaderSlotComponent from '../components/modal-slots/header.vue';
 import { createSlot, mountComponent } from '@subwaytime/waku';
 

@@ -10,11 +10,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useWaku } from './core';
 
 const { items } = useWaku();
 
-const activeItems = computed(() => items.filter(item => item.visible));
+const activeItems = computed(() => items ? items.filter(item => item.visible) : []);
 
 defineOptions({
     name: 'WakuMountPoint'
