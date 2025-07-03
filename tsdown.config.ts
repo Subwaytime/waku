@@ -9,9 +9,9 @@ export default defineConfig({
     minify: true,
     outDir: 'dist',
     target: 'esnext',
-    dts: true,
+    dts: { vue: true },
     plugins: [
-        vue(),
+        vue()
     ],
     onSuccess() {
         console.log('Build successful! ✅');
