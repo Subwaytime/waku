@@ -1,5 +1,5 @@
 import { type App, type DefineComponent, Fragment, h, type VNode } from 'vue';
-import WakuMount from './mount.vue';
+import WakuMount from './mountPoint.vue';
 import { customAlphabet } from 'nanoid';
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar

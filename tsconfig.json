@@ -25,7 +25,7 @@
 	},
 	"include": [
 		"src/**/*.ts",
-		"src/mount.vue"
+		"src/mountPoint.vue"
 	],
 	"exclude": [
 		"node_modules",

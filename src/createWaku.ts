@@ -2,7 +2,7 @@ import mitt from 'mitt';
 import { type App, reactive } from 'vue';
 import { type Waku, type WakuPlugin, type WakuItem, type WakuEvents, WakuEventsEnum, setActiveWaku } from './core';
 import { MODULE_NAME, WakuSymbol } from './constants';
-import WakuMount from './mount.vue';
+import WakuMountPoint from './mountPoint.vue';
 
 export function createWaku(): WakuPlugin {
 	// biome-ignore lint/suspicious/noImplicitAnyLet:
@@ -18,7 +18,7 @@ export function createWaku(): WakuPlugin {
 			app.provide(WakuSymbol, waku);
 			app.config.globalProperties.$waku = waku;
 			waku.instance = app;
-			app.component('WakuMountPoint', WakuMount);
+			app.component('WakuMountPoint', WakuMountPoint);
 		},
 		addItem(item: WakuItem) {
 			if (waku.getItem(item.id)) {
