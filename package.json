@@ -48,7 +48,7 @@
 		"defu": "^6.1.4",
 		"mitt": "^3.0.1",
 		"nanoid": "^5.1.5",
-		"tsdown": "^0.12.9",
+		"tsdown": "0.12.8",
 		"vue": "^3.5.17"
 	},
 	"devDependencies": {
