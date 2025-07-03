@@ -13,7 +13,7 @@ import type { SimplifyDeep } from 'type-fest';
 import type { __isWakuSlot } from '~/constants';
 
 type RemoveIndexSignature<T> = {
-  [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
+	[K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
 };
 
 type ReadonlyKeys<T> = {
