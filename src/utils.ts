@@ -1,4 +1,4 @@
-import { Fragment, h, type VNode } from 'vue';
+import { type App, type DefineComponent, Fragment, h, type VNode } from 'vue';
 import WakuMount from './mount.vue';
 import { customAlphabet } from 'nanoid';
 /**
@@ -159,10 +159,33 @@ export function generateID(length = 10): string {
 
 /**
  *
+ * @disabled
  */
 export function injectMountPoint<R>(root: R): VNode {
 	return h(Fragment, null, [
 		h(root as VNode),
 		h(WakuMount)
 	]);
+}
+
+/**
+ *
+ * @disabled
+ */
+
+export function patchAppComponent(app: App): void {
+	const rootComponent = app._component as DefineComponent;
+	if ('render' in rootComponent && typeof rootComponent.render === 'function') {
+		const original = rootComponent.render;
+		rootComponent.render = function (...args: any[]) {
+			const root = original.apply(this, args);
+			return injectMountPoint(root);
+		};
+	}
+
+	const original = rootComponent.setup!;
+	rootComponent.setup = function (...args: any[]) {
+		const root = original.apply(this, args as any);
+		return () => injectMountPoint(root);
+	};
 }
