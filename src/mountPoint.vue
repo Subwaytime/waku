@@ -1,5 +1,5 @@
 <template>
-    <div class="waku-mountpoint">
+    <div class="waku-mountpoint" v-if="items && items.length > 0">
         <component
             v-for="item in activeItems"
             :key="item.id"
@@ -15,7 +15,7 @@ import { useWaku } from './core';
 
 const { items } = useWaku();
 
-const activeItems = computed(() => items ? items.filter(item => item.visible) : []);
+const activeItems = computed(() => items && items.length > 0 ? items.filter(item => item.visible) : []);
 
 defineOptions({
     name: 'WakuMountPoint'
