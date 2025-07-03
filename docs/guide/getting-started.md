@@ -29,11 +29,20 @@ In your Vue component or main JavaScript file, import `createWaku`:
 ```ts
 import { createApp } from 'vue';
 import { createWaku } from '@subwaytime/waku';
+import App from './app.vue';
 
-const app = createApp();
-app.use(createWaku());
+const instance = createApp();
+instance.use(createWaku());
+instance.mount(App);
 ```
-2. Create a mountable Component
+2. Add WakuMointPoint to your vue mount component
+```vue
+> app.vue
+<template>
+  <WakuMointPoint />
+</template>
+```
+3. Create a mountable Component
 ```vue
 <template>
   <div>
@@ -41,7 +50,7 @@ app.use(createWaku());
   </div>
 </template>
 ```
-3. Mount your component
+4. Mount your component
 
 <<< @/snippets/addComponent.ts#snippet
 
