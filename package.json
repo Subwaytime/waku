@@ -42,9 +42,6 @@
 		"release": "bunx git-ensure -a && bunx bumpp --commit --tag --push && bun publish --access public"
 	},
 	"dependencies": {
-		"@vue/devtools-api": "^7.7.7",
-		"@vue/devtools-applet": "^7.7.7",
-		"@vue/runtime-core": "^3.5.17",
 		"defu": "^6.1.4",
 		"mitt": "^3.0.1",
 		"nanoid": "^5.1.5",
@@ -55,7 +52,6 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.6",
 		"@types/bun": "^1.2.17",
-		"oxlint": "^1.5.0",
 		"type-fest": "^4.41.0",
 		"typescript": "^5.8.3",
 		"unplugin-vue": "^6.2.0",
@@ -63,7 +59,7 @@
 		"vue-component-type-helpers": "^3.0.1"
 	},
 	"peerDependencies": {
-		"vue": "^3.5.13"
+		"vue": "^3.5.17"
 	},
 	"engines": {
 		"bun": ">=1.2.10"
