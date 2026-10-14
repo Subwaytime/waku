@@ -31,18 +31,17 @@ import { createApp } from 'vue';
 import { createWaku } from '@subwaytime/waku';
 import App from './app.vue';
 
-const instance = createApp();
+const instance = createApp(App);
 instance.use(createWaku());
-instance.mount(App);
+instance.mount('#app');
 ```
-2. Add WakuMointPoint to your vue mount component
-```vue
-> app.vue
-<template>
-  <WakuMointPoint />
-</template>
-```
-3. Create a mountable Component
+That's it — `WakuMountPoint` is injected automatically. If you prefer to place it yourself, pass `createWaku({ autoMount: false })` and add `<WakuMountPoint />` to your mount component.
+
+::: warning
+Auto-mounting is enabled by default. If you keep a manual `<WakuMountPoint />` while auto-mounting is on, mounted components will render twice.
+:::
+
+2. Create a mountable Component
 ```vue
 <template>
   <div>
@@ -50,7 +49,7 @@ instance.mount(App);
   </div>
 </template>
 ```
-4. Mount your component
+3. Mount your component
 
 <<< @/snippets/addComponent.ts#snippet
 

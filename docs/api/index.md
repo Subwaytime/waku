@@ -1,5 +1,15 @@
 # API Reference
 
+## createWaku
+Creates the Waku plugin. By default it injects a `WakuMountPoint` into the app root once mounted.
+
+```ts
+app.use(createWaku());
+
+// opt out of the automatic mount point
+app.use(createWaku({ autoMount: false }));
+```
+
 ## mountComponent
 Mount a component, pass over props, slots and teleport it.
 
