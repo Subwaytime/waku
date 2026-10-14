@@ -15,6 +15,16 @@ export const WakuEventsEnum = {
 
 export type WakuEvents = Record<ValueOf<typeof WakuEventsEnum>, string>;
 
+export interface WakuOptions {
+	/**
+	 * Automatically inject a `WakuMountPoint` into the app root on mount,
+	 * so components can be mounted without placing `<WakuMountPoint />` manually.
+	 *
+	 * @default true
+	 */
+	autoMount?: boolean;
+}
+
 export declare interface WakuPlugin {
 	install: (app: App) => void;
 }
