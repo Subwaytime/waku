@@ -9,6 +9,7 @@ export {
 	createSlot
 } from '~/actions/createSlot';
 
+export type { WakuOptions } from '~/core';
 export type { WakuData, WakuSlot } from '~/types';
 export { default as WakuMointPoint } from './mountPoint.vue';
 export { createWaku } from '~/createWaku';
