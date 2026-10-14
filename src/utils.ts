@@ -1,5 +1,5 @@
-import { type App, type DefineComponent, Fragment, h, type VNode } from 'vue';
-import WakuMount from './mountPoint.vue';
+import { type App, createVNode, render, type VNode } from 'vue';
+import WakuMountPoint from './mountPoint.vue';
 import { customAlphabet } from 'nanoid';
 /**
  * Convert Windows backslash paths to slash paths: foo\\bar ➔ foo/bar
@@ -158,34 +158,28 @@ export function generateID(length = 10): string {
 }
 
 /**
+ * Renders a `WakuMountPoint` into a dedicated container so components
+ * mounted via `mountComponent` are displayed without requiring the user
+ * to place `<WakuMountPoint />` manually.
  *
- * @disabled
- */
-export function injectMountPoint<R>(root: R): VNode {
-	return h(Fragment, null, [
-		h(root as VNode),
-		h(WakuMount)
-	]);
-}
-
-/**
+ * The container is appended to the provided `target`, falling back to the
+ * app container and finally the document body.
  *
- * @disabled
+ * @param app
+ * @param target
+ * @returns disposer that unmounts the mount point and removes the container
  */
+export function injectMountPoint(app: App, target?: HTMLElement): () => void {
+	const container = document.createElement('div');
+	container.className = 'waku-root';
+	(target ?? app._container ?? document.body).appendChild(container);
 
-export function patchAppComponent(app: App): void {
-	const rootComponent = app._component as DefineComponent;
-	if ('render' in rootComponent && typeof rootComponent.render === 'function') {
-		const original = rootComponent.render;
-		rootComponent.render = function (...args: any[]) {
-			const root = original.apply(this, args);
-			return injectMountPoint(root);
-		};
-	}
+	const vnode = createVNode(WakuMountPoint);
+	vnode.appContext = app._context;
+	render(vnode, container);
 
-	const original = rootComponent.setup!;
-	rootComponent.setup = function (...args: any[]) {
-		const root = original.apply(this, args as any);
-		return () => injectMountPoint(root);
+	return () => {
+		render(null, container);
+		container.remove();
 	};
 }
