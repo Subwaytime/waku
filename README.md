@@ -42,11 +42,16 @@ pnpm i @subwaytime/waku
 Add it to `main.js`
 
 ```ts
+import { createApp } from 'vue';
 import { createWaku } from '@subwaytime/waku';
+import App from './App.vue';
 
-// created vue instance
+const app = createApp(App);
 app.use(createWaku());
+app.mount('#app');
 ```
+
+`WakuMountPoint` is injected automatically on mount. To place it yourself instead, use `createWaku({ autoMount: false })` and add `<WakuMountPoint />` to your mount component.
 
 ## Getting Started
 
